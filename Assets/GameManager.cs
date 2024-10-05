@@ -4,18 +4,31 @@ using JetBrains.Annotations;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
-public static class GameManager
+public class GameManager : MonoBehaviour
 {
-    public static void enterGameScene()
+    private DayManager dayManager;
+    private HashSet<string> tags;
+
+    void Awake() {
+        dayManager = FindFirstObjectByType<DayManager>(); 
+        
+        if (dayManager != null) { 
+            dayManager.SetTagsReference(tags);
+        }
+        
+        DontDestroyOnLoad(this);
+    }
+
+    public void enterGameScene()
     {
         SceneManager.LoadScene((int) Constants.SceneIndexTable.Game);
     }
 
-    public static void enterEndOfDayScene()
+    public void enterEndOfDayScene()
     {
         SceneManager.LoadScene((int) Constants.SceneIndexTable.EndOfDay);
     }
-    public static void returnMainMenu()
+    public void returnMainMenu()
     {
         SceneManager.LoadScene((int) Constants.SceneIndexTable.Menu);
     }
