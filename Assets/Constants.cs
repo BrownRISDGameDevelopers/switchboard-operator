@@ -7,8 +7,10 @@ public static class Constants
 {
     public enum SceneIndexTable 
     {
-        Init = 0,
-        Menu = 1
+        Init,
+        Menu,
+        Game,
+        EndOfDay
     }
     public enum GameStates
     {
