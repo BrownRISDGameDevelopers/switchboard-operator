@@ -6,10 +6,10 @@ using UnityEngine;
 public class DayManager : MonoBehaviour
 {
 
-    private HashSet<string> tagsReference;
+    private HashSet<Tag> tagsReference;
     private LocationManager locationManager;
 
-    public void SetTagsReference(HashSet<string> newTags)
+    public void SetTagsReference(HashSet<Tag> newTags)
     {
         tagsReference = newTags;
     }
