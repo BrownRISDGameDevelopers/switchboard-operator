@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+[System.Serializable]
 public struct Location
 {
     public bool Valid;
@@ -12,9 +13,29 @@ public struct Location
     public int Number;
 }
 
+
+[System.Serializable]
+public struct CharacterInfoLocStruct
+{
+    public CharacterInfo info;
+    public Location loc;
+}
+
 public class LocationManager : MonoBehaviour
 {
+    [SerializeField]
+    CharacterInfoLocStruct[] initInfo;
+
     Dictionary<CharacterInfo, Location> positionToCharacter;
+
+
+    void Awake()
+    {
+        foreach (CharacterInfoLocStruct infoStruct in initInfo)
+        {
+            positionToCharacter.Add(infoStruct.info, infoStruct.loc);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()

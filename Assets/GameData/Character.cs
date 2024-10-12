@@ -1,11 +1,9 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Character", menuName = "GameData/Character", order = 1)]
-public class Character : ScriptableObject
+public class CharacterInfo : ScriptableObject
 {
-    [SerializeField]
-    private string charName;
+    public string CharName;
 
-    [SerializeField]
-    private Texture2D portrait;
+    public Texture2D Portrait;
 }
