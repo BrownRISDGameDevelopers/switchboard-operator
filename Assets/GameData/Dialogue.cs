@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 
 
-enum PortraitEmotion
+public enum PortraitEmotion
 {
     DEFAULT = 0,
 }
@@ -16,20 +16,18 @@ struct CharacterToTag
     string tag;
 }
 
-[CreateAssetMenu(fileName = "Character", menuName = "GameData/Character", order = 1)]
+[CreateAssetMenu(fileName = "Character", menuName = "GameData/Dialogue", order = 1)]
 public class Dialogue : ScriptableObject
 {
     [SerializeField]
-    private Character character;
-    [SerializeField]
-    private PortraitEmotion portraitEmotion;
-    [SerializeField]
-    private string text;
+    public Character Character { get; private set; }
 
-    public string GetText()
-    {
-        return text;
-    }
+    [SerializeField]
+    public PortraitEmotion PortraitEmotion { get; private set; }
+
+    [SerializeField]
+    public string Text { get; private set; }
+
 
 
     [SerializeField]
