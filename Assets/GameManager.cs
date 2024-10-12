@@ -4,6 +4,9 @@ using JetBrains.Annotations;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
+// Overarching game manager
+// not globally accessible, but only one should exist at a time 
+// handles day changes, moving between scenes, stores tags, etc. 
 public class GameManager : MonoBehaviour
 {
     private DayManager dayManager;
@@ -20,8 +23,18 @@ public class GameManager : MonoBehaviour
     private int callsMessedUp = 0;
     private int money = 0;
 
+
+    private static GameManager _checkManager = null;
+
     void Awake()
     {
+        if (_checkManager != null)
+        {
+            Debug.LogError("Critical Error in GameManager, multiple game managers");
+            Destroy(this);
+            return;
+        }
+        _checkManager = this;
 
         if (!TryGetComponent<LocationManager>(out locationManager))
         {
@@ -29,6 +42,14 @@ public class GameManager : MonoBehaviour
             return;
         }
         DontDestroyOnLoad(this);
+    }
+
+
+    void Destroy()
+    {
+        if (_checkManager != this)
+            return;
+        _checkManager = null;
     }
 
     public void LoadNewDay(Day day)
@@ -40,6 +61,7 @@ public class GameManager : MonoBehaviour
         if (dayManager != null)
         {
             dayManager.SetTagsReference(tags);
+            dayManager.SetLocationReference(locationManager);
         }
     }
 
