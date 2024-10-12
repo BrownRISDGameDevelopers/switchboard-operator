@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene((int)Constants.SceneIndexTable.EndOfDay);
     }
+
     public void returnMainMenu()
     {
         SceneManager.LoadScene((int)Constants.SceneIndexTable.Menu);

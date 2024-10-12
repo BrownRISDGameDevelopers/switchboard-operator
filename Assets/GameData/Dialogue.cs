@@ -12,7 +12,7 @@ public enum PortraitEmotion
 [System.Serializable]
 struct CharacterToTag
 {
-    Character character;
+    CharacterInfo character;
     string tag;
 }
 
@@ -20,7 +20,7 @@ struct CharacterToTag
 public class Dialogue : ScriptableObject
 {
     [SerializeField]
-    public Character Character { get; private set; }
+    public CharacterInfo Character { get; private set; }
 
     [SerializeField]
     public PortraitEmotion PortraitEmotion { get; private set; }
