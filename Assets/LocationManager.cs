@@ -26,7 +26,7 @@ public class LocationManager : MonoBehaviour
     [SerializeField]
     CharacterInfoLocStruct[] initInfo;
 
-    Dictionary<CharacterInfo, Location> positionToCharacter;
+    Dictionary<CharacterInfo, Location> positionToCharacter = new Dictionary<CharacterInfo, Location>();
 
 
     void Awake()
