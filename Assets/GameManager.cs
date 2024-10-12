@@ -13,6 +13,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private Day[] days;
+    private static uint callsMissed = 0;
+    private static uint callsRouted = 0;
+    private static uint callsMessedUp = 0;
+    private static uint daysElapsed = 0;
+    private static int money = 0;
 
     void Awake()
     {
@@ -45,5 +50,10 @@ public class GameManager : MonoBehaviour
     public void returnMainMenu()
     {
         SceneManager.LoadScene((int)Constants.SceneIndexTable.Menu);
+    }
+
+    public void payPlayer(int amount)
+    {
+        money += amount;
     }
 }
