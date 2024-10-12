@@ -13,17 +13,20 @@ public class DayManager : MonoBehaviour
     {
         tagsReference = newTags;
     }
+
+
+    public void SetLocationReference(LocationManager locManager)
+    {
+        locationManager = locManager;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         // Call upon switch board
         // connect events
         //
-        if (!TryGetComponent<LocationManager>(out locationManager))
-        {
-            Debug.LogError("Critical Error in DayManager, no location manager found in gameobject");
 
-        }
 
 
     }

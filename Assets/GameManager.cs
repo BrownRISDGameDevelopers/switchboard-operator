@@ -9,11 +9,21 @@ public class GameManager : MonoBehaviour
     private DayManager dayManager;
     private HashSet<string> tags;
 
+    private LocationManager locationManager;
+
     [SerializeField]
     private Day[] days;
 
     void Awake()
     {
+
+        if (!TryGetComponent<LocationManager>(out locationManager))
+        {
+            Debug.LogError("Critical Error in GameManager, no location manager found in gameobject");
+            return;
+        }
+
+
         dayManager = FindFirstObjectByType<DayManager>();
         if (dayManager != null)
         {
