@@ -9,7 +9,7 @@ public struct Location
     public int Index;
 
     public char Letter;
-    public char Number;
+    public int Number;
 }
 
 public class LocationManager : MonoBehaviour

@@ -510,6 +510,7 @@ MonoBehaviour:
   jack1: {fileID: 1162750057610782246, guid: bbcb6b4f0451f4b35b5700b5f4c27a28, type: 3}
   jack2: {fileID: 1162750057610782246, guid: bbcb6b4f0451f4b35b5700b5f4c27a28, type: 3}
   jack3: {fileID: 1162750057610782246, guid: bbcb6b4f0451f4b35b5700b5f4c27a28, type: 3}
+  switchPrefab: {fileID: 2493365226615389151, guid: 3eda7227b9811475cbf177929a82e106, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
