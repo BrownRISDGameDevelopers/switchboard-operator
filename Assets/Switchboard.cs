@@ -38,7 +38,7 @@ public class Switchboard : MonoBehaviour
                 // cube.transform.position = outlets[i,j];
                 // cube.transform.localScale = new UnityEngine.Vector3(0.1f, 0.1f, 0.1f);
                 Switch st = Instantiate(switchPrefab, switchPositions[i,j], UnityEngine.Quaternion.identity);
-                st.locationData = new Location(){Valid = true, Index = 0, Letter = (char)(65 + j), Number = i + 1};
+                st.locationData = new Location(){Valid = true, Index = 0, Letter = (char)(65 + (columns-j-1)), Number = i + 1};
                 switches[i,j] = st;
             }
         }

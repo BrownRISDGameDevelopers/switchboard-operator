@@ -25,15 +25,16 @@ public class DayManager : MonoBehaviour
     {
         // Call upon switch board
         // connect events
+        Jack.onJackPlaced += OnJackPlaced;
         //
 
 
 
     }
 
-    void OnSwitchBoardEvent()
+    void OnJackPlaced(JackData jackData)
     {
-
+        print("Event received:" + jackData.ToString());
     }
 
     // Update is called once per frame
