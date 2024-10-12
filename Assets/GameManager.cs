@@ -9,10 +9,12 @@ public class GameManager : MonoBehaviour
     private DayManager dayManager;
     private HashSet<string> tags;
 
+    [SerializeField]
+    private Day[] days;
+
     void Awake()
     {
         dayManager = FindFirstObjectByType<DayManager>();
-
         if (dayManager != null)
         {
             dayManager.SetTagsReference(tags);
