@@ -4,8 +4,8 @@ using UnityEngine;
 public class CharacterInfo : ScriptableObject
 {
     [SerializeField]
-    private string charName;
+    public string CharName { get; private set; }
 
     [SerializeField]
-    private Texture2D portrait;
+    public Texture2D portrait { get; private set; }
 }
