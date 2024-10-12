@@ -1,0 +1,13 @@
+https://www.reddit.com/r/Unity3D/comments/zkwy4m/singletons_in_unity_how_to_implement_them_the/
+
+https://docs.unity3d.com/ScriptReference/SceneManagement.SceneManager.LoadSceneAsync.html
+
+https://unity.com/blog/games/persistent-data-how-to-save-your-game-states-and-settings
+
+https://docs.unity3d.com/2020.1/Documentation/Manual/JSONSerialization.html
+
+https://docs.google.com/document/d/1UUUrksJHuVoR78q4wcy_XZMUEEie347Qlxpu-m41CsU/edit
+
+https://github.com/BrownRISDGameDevelopers/recurring-nightmare/blob/main/Assets/Scripts/GameManager.cs
+
+https://github.com/BrownRISDGameDevelopers/switchboard-operator/tree/dev
