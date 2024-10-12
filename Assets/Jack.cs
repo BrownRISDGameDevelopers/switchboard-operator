@@ -8,10 +8,9 @@ using UnityEngine;
 
 public struct JackData{
     public int PlacedJackID;
-    public UnityEngine.Vector3 SnappedPosition;
     public Switch SnappedSwitch;
     public bool IsOriginalPosition;
-    public override string ToString() => $"Jack: {PlacedJackID} at ({SnappedPosition.x}, {SnappedPosition.y}, {SnappedPosition.z}) which " + (IsOriginalPosition ? "is not" : "is") + " a switch on the board";
+    public override string ToString() => $"Jack: {PlacedJackID} at ({SnappedSwitch.transform.position.x}, {SnappedSwitch.transform.position.y}, {SnappedSwitch.transform.position.z}) or {SnappedSwitch.locationData.Letter}{SnappedSwitch.locationData.Number} which " + (IsOriginalPosition ? "is not" : "is") + " a switch on the board";
 }
 
 public class Jack : MonoBehaviour
@@ -39,7 +38,7 @@ public class Jack : MonoBehaviour
         this.transform.position = closestSwitch.transform.position;
         //Event saying that the jack has been placed somewhere & checks if there are listeners
         if (onJackPlaced != null){
-            JackData data = new JackData(){PlacedJackID = jackID, SnappedPosition = closestSwitch.transform.position, IsOriginalPosition = closestSwitch.transform.position == jackSwitch.transform.position};
+            JackData data = new JackData(){PlacedJackID = jackID, SnappedSwitch = closestSwitch, IsOriginalPosition = closestSwitch.transform.position == jackSwitch.transform.position};
             print("Sent event: " + data.ToString());
             onJackPlaced(data);
         }
