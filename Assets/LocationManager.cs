@@ -12,9 +12,29 @@ public struct Location
     public char Number;
 }
 
+
+[System.Serializable]
+public struct CharacterInfoLocStruct
+{
+    public CharacterInfo info;
+    public Location loc;
+}
+
 public class LocationManager : MonoBehaviour
 {
+    [SerializeField]
+    CharacterInfoLocStruct[] initInfo;
+
     Dictionary<CharacterInfo, Location> positionToCharacter;
+
+
+    void Awake()
+    {
+        foreach (CharacterInfoLocStruct infoStruct in initInfo)
+        {
+            positionToCharacter.Add(infoStruct.info, infoStruct.loc);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
