@@ -4,12 +4,14 @@ using System;
 using UnityEngine;
 
 
-enum PortraitEmotion {
+enum PortraitEmotion
+{
     DEFAULT = 0,
 }
 
 [System.Serializable]
-struct CharacterToTag {
+struct CharacterToTag
+{
     Character character;
     string tag;
 }
@@ -24,6 +26,11 @@ public class Dialogue : ScriptableObject
     [SerializeField]
     private string text;
 
+    public string GetText()
+    {
+        return text;
+    }
+
 
     [SerializeField]
     private string successTag;
@@ -33,5 +40,5 @@ public class Dialogue : ScriptableObject
     private string ignoreTag;
 
     [SerializeField]
-    private CharacterToTag[] characterMap;  
+    private CharacterToTag[] characterMap;
 }
