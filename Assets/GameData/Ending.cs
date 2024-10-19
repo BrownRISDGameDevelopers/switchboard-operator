@@ -7,4 +7,5 @@ public class Ending : ScriptableObject
 {
     public Tag[] requiredTags;
     public string Text;
+    public Texture2D[] portrait;
 }
