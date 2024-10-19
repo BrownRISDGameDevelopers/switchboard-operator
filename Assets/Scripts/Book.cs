@@ -54,6 +54,7 @@ public class Book : MonoBehaviour
         }
     }
 
+    // Adds nametag children to nametagList by parent page
     void addNametagsToList(GameObject page)
     {
         foreach (Transform child in page.transform)
