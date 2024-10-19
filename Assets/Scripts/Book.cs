@@ -17,16 +17,18 @@ public class Book : MonoBehaviour
 
     List<Nametag> nametagList = new List<Nametag>();
     List<CharacterInfo> characterList = new List<CharacterInfo>();
-	
+    List<Location> locationList = new List<Location>();
+
     void Start()
     {
         m_RectTransform = GetComponent<RectTransform>();
 
         m_RectTransform.anchoredPosition = new Vector2(deselectedXPosition, 0.0F);
-        
+
         locationManager = FindObjectOfType<LocationManager>();
 
         characterList = locationManager.GetCharacterList();
+        locationList = locationManager.GetLocationList();
 
         // Initialize nametags in each page
         addNametagsToList(leftPage);
@@ -43,7 +45,7 @@ public class Book : MonoBehaviour
 
     void updateNamesInBook()
     {
-        for (int i = 0; i < characterList.Count(); i++) 
+        for (int i = 0; i < characterList.Count(); i++)
         {
             Nametag currentTag = nametagList[i];
             CharacterInfo currentChar = characterList[i];
@@ -61,7 +63,7 @@ public class Book : MonoBehaviour
         {
             Nametag nametag = child.GetComponent<Nametag>();
             if (nametag == null)
-                continue; 
+                continue;
 
             nametagList.Add(nametag);
         }
@@ -72,7 +74,7 @@ public class Book : MonoBehaviour
     void updateFocusState()
     {
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        
+
         if (focused)
         {
             if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())

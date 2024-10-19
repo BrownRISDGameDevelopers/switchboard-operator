@@ -17,8 +17,8 @@ public struct Location
 [System.Serializable]
 public struct CharacterInfoLocStruct
 {
-    public CharacterInfo info;
     public Location loc;
+    public CharacterInfo info;
 }
 
 public class LocationManager : MonoBehaviour
@@ -26,14 +26,14 @@ public class LocationManager : MonoBehaviour
     [SerializeField]
     CharacterInfoLocStruct[] initInfo;
 
-    Dictionary<CharacterInfo, Location> positionToCharacter = new Dictionary<CharacterInfo, Location>();
+    Dictionary<Location, CharacterInfo> positionToCharacter = new Dictionary<Location, CharacterInfo>();
 
 
     void Awake()
     {
         foreach (CharacterInfoLocStruct infoStruct in initInfo)
         {
-            positionToCharacter.Add(infoStruct.info, infoStruct.loc);
+            positionToCharacter.Add(infoStruct.loc, infoStruct.info);
         }
     }
 
@@ -48,21 +48,33 @@ public class LocationManager : MonoBehaviour
 
     public List<CharacterInfo> GetCharacterList()
     {
-        return new List<CharacterInfo>(positionToCharacter.Keys);
+        return new List<CharacterInfo>(positionToCharacter.Values);
     }
 
     public List<Location> GetLocationList()
     {
-        return new List<Location>(positionToCharacter.Values);
+        return new List<Location>(positionToCharacter.Keys);
     }
 
-    public Location GetLocationFromCharacter(CharacterInfo character)
+    public Location GetLocationFromCharacter(CharacterInfo location)
     {
-        if (positionToCharacter.TryGetValue(character, out Location loc))
+        foreach (KeyValuePair<Location, CharacterInfo> pair in positionToCharacter)
         {
-            return loc;
+            if (pair.Value == location)
+            {
+                return pair.Key;
+            }
         }
         return new Location { Valid = false, Index = 0, Letter = '0', Number = '0' };
+    }
+    // Nullable
+    public CharacterInfo GetCharacterFromLocation(Location location)
+    {
+        if (positionToCharacter.TryGetValue(location, out CharacterInfo character))
+        {
+            return character;
+        }
+        return null;//new Location { Valid = false, Index = 0, Letter = '0', Number = '0' };
     }
 
     // Update is called once per frame
