@@ -7,6 +7,7 @@ public class DayManager : MonoBehaviour
 {
 
     private HashSet<Tag> tagsReference;
+    private Day currentDay;
     private LocationManager locationManager;
 
     public void SetTagsReference(HashSet<Tag> newTags)
@@ -26,14 +27,11 @@ public class DayManager : MonoBehaviour
         // Call upon switch board
         // connect events
         Jack.onJackPlaced += OnJackPlaced;
-        //
-
-
-
     }
 
     void OnJackPlaced(JackData jackData)
     {
+        //jackData.PlacedJackID
         print("Event received:" + jackData.ToString());
     }
 

@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f9321922918b4e96858f4dccd404147, type: 3}
-  m_Name: Character
+  m_Script: {fileID: 11500000, guid: e7f519d2450ea4dda8e63456d4d6e2e0, type: 3}
+  m_Name: Day1
   m_EditorClassIdentifier: 
-  Character: {fileID: 0}
-  PortraitEmotion: 0
-  Text: Hello I am a person
-  successTag: 
-  failureTag: 
-  ignoreTag: 
+  RandomizedCallPool:
+  - dialogue:
+    - requiredTags: []
+      dialogue: {fileID: 11400000, guid: 45f3e348d90954559affb10a2c4203fb, type: 2}
+  OrderedCallPool: []
