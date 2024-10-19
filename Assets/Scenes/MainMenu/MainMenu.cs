@@ -9,7 +9,8 @@ using UnityEngine.UIElements;
 public class MainMenu : MonoBehaviour
 {
     public UnityEngine.UI.Button buttonStart, buttonQuit;
-    public GameObject gameManger;
+
+    public GameObject gameManager;
 
     void Start()
     {
@@ -22,7 +23,7 @@ public class MainMenu : MonoBehaviour
     void onStart()
     {
         SceneManager.LoadScene("Game");
-        Instantiate(gameManger);
+        Instantiate(gameManager);
     }
 
     // Quit button pressed

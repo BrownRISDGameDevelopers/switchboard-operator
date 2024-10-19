@@ -3,7 +3,10 @@ guid: 0b4c118fdf503b641bd9e9f6851be897
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - buttonStart: {instanceID: 0}
+  - buttonQuit: {instanceID: 0}
+  - gameManager: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

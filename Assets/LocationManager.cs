@@ -2,14 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 [System.Serializable]
 public struct Location
 {
     public bool Valid;
     public int Index;
 
+    // A - Z
     public char Letter;
+
+    // 0 - 9
     public int Number;
 }
 
@@ -37,14 +39,29 @@ public class LocationManager : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void generateLocations(int length)
     {
-
     }
 
-    private void RandomizeLocations() { }
+    private void RandomizeLocations() 
+    {
+        System.Random rand = new System.Random();
 
+        Dictionary<CharacterInfo, Location> newPositionsToCharacter = new Dictionary<CharacterInfo, Location>(); 
+        List<CharacterInfo> charList = GetCharacterList();
+        List<Location> locList = GetLocationList();
+
+        foreach (CharacterInfo c in charList)
+        {
+            int index = rand.Next(0, locList.Count);
+            Location newLoc = locList[index];
+            locList.Remove(newLoc);
+
+            newPositionsToCharacter.Add(c, newLoc);
+        }
+
+       positionToCharacter = newPositionsToCharacter; 
+    }
 
     public List<CharacterInfo> GetCharacterList()
     {
@@ -79,6 +96,12 @@ public class LocationManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+
+    }
+
+    // Start is called before the first frame update
+    void Start()
     {
 
     }
