@@ -47,7 +47,7 @@ public class LocationManager : MonoBehaviour
     {
         System.Random rand = new System.Random();
 
-        Dictionary<CharacterInfo, Location> newPositionsToCharacter = new Dictionary<CharacterInfo, Location>(); 
+        Dictionary<Location, CharacterInfo> newPositionsToCharacter = new Dictionary<Location, CharacterInfo>(); 
         List<CharacterInfo> charList = GetCharacterList();
         List<Location> locList = GetLocationList();
 
@@ -57,7 +57,7 @@ public class LocationManager : MonoBehaviour
             Location newLoc = locList[index];
             locList.Remove(newLoc);
 
-            newPositionsToCharacter.Add(c, newLoc);
+            newPositionsToCharacter.Add(newLoc, c);
         }
 
        positionToCharacter = newPositionsToCharacter; 
