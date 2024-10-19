@@ -9,7 +9,8 @@ public class Book : MonoBehaviour
 {
     [SerializeField] float deselectedXPosition;
     [SerializeField] float selectedXPosition;
-    [SerializeField] GameObject inlay;
+    [SerializeField] GameObject leftPage;
+    [SerializeField] GameObject rightPage;
     bool focused = false;
     RectTransform m_RectTransform;
     LocationManager locationManager;
@@ -27,16 +28,9 @@ public class Book : MonoBehaviour
 
         characterList = locationManager.GetCharacterList();
 
-        // Initialize child nametags
-        foreach (Transform child in inlay.transform)
-        {
-
-            Nametag nametag = child.GetComponent<Nametag>();
-            if (nametag == null)
-                continue; 
-
-            nametagList.Add(nametag);
-        }
+        // Initialize nametags in each page
+        addNametagsToList(leftPage);
+        addNametagsToList(rightPage);
 
         updateNamesInBook();
     }
@@ -57,6 +51,18 @@ public class Book : MonoBehaviour
 
             currentTag.nameText.text = currentChar.CharName;
             currentTag.locationText.text = currentLoc.Number + "" + currentLoc.Letter;
+        }
+    }
+
+    void addNametagsToList(GameObject page)
+    {
+        foreach (Transform child in page.transform)
+        {
+            Nametag nametag = child.GetComponent<Nametag>();
+            if (nametag == null)
+                continue; 
+
+            nametagList.Add(nametag);
         }
     }
 
@@ -98,7 +104,7 @@ public class Book : MonoBehaviour
             finalPosition = new Vector2(deselectedXPosition, 0.0F);
         }
 
-        m_RectTransform.anchoredPosition = Vector2.Lerp(currentPosition, finalPosition, 0.05F);
+        m_RectTransform.anchoredPosition = Vector2.Lerp(currentPosition, finalPosition, 5F * Time.deltaTime);
 
         // print(currentPosition);
         // print(finalPosition);
