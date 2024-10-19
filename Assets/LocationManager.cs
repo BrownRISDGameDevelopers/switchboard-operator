@@ -2,14 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 [System.Serializable]
 public struct Location
 {
     public bool Valid;
     public int Index;
 
+    // A - Z
     public char Letter;
+
+    // 0 - 9
     public int Number;
 }
 
@@ -37,25 +39,55 @@ public class LocationManager : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private List<Location> generateLocations(Switchboard switchboard)
     {
-
+        return new List<Location>();
     }
+    private void RandomizeLocations() 
+    {
+        System.Random rand = new System.Random();
 
-    private void RandomizeLocations() { }
+        Dictionary<Location, CharacterInfo> newPositionsToCharacter = new Dictionary<Location, CharacterInfo>(); 
+        List<CharacterInfo> charList = GetCharacterList();
+        List<Location> locList = GetLocationList();
 
+        foreach (CharacterInfo c in charList)
+        {
+            int index = rand.Next(0, locList.Count);
+            Location newLoc = locList[index];
+            locList.Remove(newLoc);
 
+            newPositionsToCharacter.Add(newLoc, c);
+        }
+
+       positionToCharacter = newPositionsToCharacter; 
+    }
+    private void RandomizeLocations(List<Location> locList) 
+    {
+        System.Random rand = new System.Random();
+
+        Dictionary<Location, CharacterInfo> newPositionsToCharacter = new Dictionary<Location, CharacterInfo>(); 
+        List<CharacterInfo> charList = GetCharacterList();
+
+        foreach (CharacterInfo c in charList)
+        {
+            int index = rand.Next(0, locList.Count);
+            Location newLoc = locList[index];
+            locList.Remove(newLoc);
+
+            newPositionsToCharacter.Add(newLoc, c);
+        }
+
+       positionToCharacter = newPositionsToCharacter; 
+    }
     public List<CharacterInfo> GetCharacterList()
     {
         return new List<CharacterInfo>(positionToCharacter.Values);
     }
-
     public List<Location> GetLocationList()
     {
         return new List<Location>(positionToCharacter.Keys);
     }
-
     public Location GetLocationFromCharacter(CharacterInfo location)
     {
         foreach (KeyValuePair<Location, CharacterInfo> pair in positionToCharacter)
@@ -74,11 +106,15 @@ public class LocationManager : MonoBehaviour
         {
             return character;
         }
-        return null;//new Location { Valid = false, Index = 0, Letter = '0', Number = '0' };
+        return null;
     }
-
     // Update is called once per frame
     void Update()
+    {
+
+    }
+    // Start is called before the first frame update
+    void Start()
     {
 
     }

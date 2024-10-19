@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Shriram
   m_EditorClassIdentifier: 
   charName: Shriram
+  portrait: {fileID: 2800000, guid: 854797b0b9a054241a7c13fa050cfbb8, type: 3}
