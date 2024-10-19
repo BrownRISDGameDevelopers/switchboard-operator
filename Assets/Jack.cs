@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Numerics;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -16,12 +12,16 @@ public struct JackData
 
 public class Jack : MonoBehaviour
 {
-    private UnityEngine.Vector3 initialOffest;
+    private Vector3 initialOffest;
+    private Vector3 initialPosition;
+
     public Switchboard switchboard;
     public int jackID;
     public delegate void OnJackPlaced(JackData jackData);
     public static event OnJackPlaced onJackPlaced;
     public Switch jackSwitch;
+
+    public float jackPlacedRange = 2.0f;
     //private CharacterInfo _associatedCharacter;
 
     //When the mouse is clicked on the collider, set isGettingDragged to true, and defines the initial clicking offset
@@ -40,6 +40,12 @@ public class Jack : MonoBehaviour
     {
         Switch closestSwitch = switchboard.GetClosestSwitchPosition(this);
         print("Released");
+
+        if (Vector3.Distance(this.transform.position, closestSwitch.transform.position) > jackPlacedRange)
+        {
+            this.transform.position = initialPosition;
+            return;
+        }
         this.transform.position = closestSwitch.transform.position;
         //Event saying that the jack has been placed somewhere & checks if there are listeners
         if (onJackPlaced != null)
@@ -68,6 +74,7 @@ public class Jack : MonoBehaviour
     {
         this.jackSwitch = js;
         transform.position = jackSwitch.transform.position;
+        initialPosition = transform.position;
         this.jackID = jackid;
         this.switchboard = board;
         //this._associatedCharacter = character;
