@@ -9,12 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f9321922918b4e96858f4dccd404147, type: 3}
-  m_Name: Character
+  m_Script: {fileID: 11500000, guid: 80f0ccfbcbbc4471fb9b1bb31c14d90c, type: 3}
+  m_Name: TestEndingTag
   m_EditorClassIdentifier: 
-  Character: {fileID: 0}
-  PortraitEmotion: 0
-  Text: Hello I am a person
-  successTag: 
-  failureTag: 
-  ignoreTag: 
+  TagName: TestEndingTag

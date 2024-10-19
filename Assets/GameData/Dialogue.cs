@@ -23,11 +23,9 @@ public class Dialogue : ScriptableObject
     public PortraitEmotion PortraitEmotion;
     public string Text;
 
-
-
-    public string successTag;
-    public string failureTag;
-    public string ignoreTag;
+    public Tag successTag;
+    public Tag failureTag;
+    public Tag ignoreTag;
 
     private CharacterToTag[] characterMap;
 }
