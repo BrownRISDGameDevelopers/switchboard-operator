@@ -12,7 +12,7 @@ public struct JackData
 
 public class Jack : MonoBehaviour
 {
-    private Vector3 initialOffest;
+    private Vector3 initialOffset;
     private Vector3 initialPosition;
 
     public Switchboard switchboard;
@@ -27,12 +27,12 @@ public class Jack : MonoBehaviour
     //When the mouse is clicked on the collider, set isGettingDragged to true, and defines the initial clicking offset
     void OnMouseDown()
     {
-        initialOffest = transform.position - GetMousePosition();
+        initialOffset = transform.position - GetMousePosition();
     }
 
     void OnMouseDrag()
     {
-        transform.position = GetMousePosition() + initialOffest;
+        transform.position = GetMousePosition() + initialOffset;
     }
 
     //When mouse is released, stop dragging and lock to the nearest switch

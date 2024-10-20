@@ -188,6 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f7d4e1eb84954e2397562c7058131b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalPosition: {x: 0, y: 0, z: 2.5}
   switchboard: {fileID: 0}
   jackID: 2
+  jackSwitch: {fileID: 0}
+  jackPlacedRange: 1

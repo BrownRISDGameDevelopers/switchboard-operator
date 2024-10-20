@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        SceneManager.LoadScene((int) Constants.SceneIndexTable.Game);
         LoadNewDay(days[currentDay]);
     }
 
