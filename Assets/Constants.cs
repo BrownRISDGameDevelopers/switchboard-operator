@@ -19,12 +19,10 @@ public static class Constants
         InGame,
         EndOfDay
     }
-
     public enum Difficulty
     {
         Easy,
         Medium,
         Hard
     }
-    
 }
