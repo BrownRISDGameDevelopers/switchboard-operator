@@ -19,6 +19,8 @@ public class Jack : MonoBehaviour
     public int jackID;
     public delegate void OnJackPlaced(JackData jackData);
     public static event OnJackPlaced onJackPlaced;
+    public delegate void OnJackTaken(JackData jackData);
+    public static event OnJackTaken onJackTaken;
     public Switch jackSwitch;
 
     public float jackPlacedRange = 2.0f;
@@ -28,6 +30,21 @@ public class Jack : MonoBehaviour
     void OnMouseDown()
     {
         initialOffset = transform.position - GetMousePosition();
+        Switch closestSwitch = switchboard.GetClosestSwitchPosition(this);
+
+        if (Vector3.Distance(this.transform.position, closestSwitch.transform.position) > jackPlacedRange)
+        {
+            this.transform.position = initialPosition;
+            return;
+        }
+        this.transform.position = closestSwitch.transform.position;
+        //Event saying that the jack has been placed somewhere & checks if there are listeners
+        if (onJackTaken != null)
+        {
+            JackData data = new JackData() { PlacedJackID = jackID, SnappedSwitch = closestSwitch, IsOriginalPosition = closestSwitch.transform.position == jackSwitch.transform.position };
+            onJackTaken(data);
+        }
+        
     }
 
     void OnMouseDrag()
@@ -39,7 +56,6 @@ public class Jack : MonoBehaviour
     void OnMouseUp()
     {
         Switch closestSwitch = switchboard.GetClosestSwitchPosition(this);
-        print("Released");
 
         if (Vector3.Distance(this.transform.position, closestSwitch.transform.position) > jackPlacedRange)
         {
@@ -51,7 +67,6 @@ public class Jack : MonoBehaviour
         if (onJackPlaced != null)
         {
             JackData data = new JackData() { PlacedJackID = jackID, SnappedSwitch = closestSwitch, IsOriginalPosition = closestSwitch.transform.position == jackSwitch.transform.position };
-            print("Sent event: " + data.ToString());
             onJackPlaced(data);
         }
     }

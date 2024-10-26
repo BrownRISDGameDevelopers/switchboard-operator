@@ -9,11 +9,17 @@ public class TestEventListener : MonoBehaviour
     void Start()
     {
         Jack.onJackPlaced += JackPlaced;
+        Jack.onJackTaken += JackTaken;
     }
 
     private void JackPlaced(JackData jackData)
     {
-        print("Event received:" + jackData.ToString());
+        print("Jack Placed: " + jackData.ToString());
+    }
+
+    private void JackTaken(JackData jackData)
+    {
+        print("Jack Taken: " + jackData.ToString());
     }
 
 }
