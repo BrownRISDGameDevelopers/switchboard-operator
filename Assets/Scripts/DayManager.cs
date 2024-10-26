@@ -18,11 +18,11 @@ using UnityEngine;
  *
  */
 
-struct CallData
+class CallData
 {
-    float curTimer;
-    CharacterInfo fromCharacter;
-    CharacterInfo toCharacter;
+    public float curTimer;
+    public CharacterInfo fromCharacter;
+    public CharacterInfo toCharacter;
 }
 
 
@@ -36,6 +36,7 @@ public class DayManager : MonoBehaviour
     private Switchboard _switchboard;
 
 
+    public int strikesLeft = 3;
 
     // For incoming call logic
     private List<CallData> _callList = new List<CallData>();
@@ -56,6 +57,11 @@ public class DayManager : MonoBehaviour
     private void CheckCalls()
     {
 
+        foreach (CallData dat in _callList)
+        {
+            dat.curTimer -= Time.deltaTime;
+
+        }
 
     }
 

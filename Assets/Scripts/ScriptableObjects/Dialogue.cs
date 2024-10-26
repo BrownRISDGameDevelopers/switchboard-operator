@@ -29,7 +29,8 @@ public class DialogueLine
 [CreateAssetMenu(fileName = "Character", menuName = "GameData/Dialogue", order = 1)]
 public class Dialogue : ScriptableObject
 {
-    public CharacterInfo Character;
+    public CharacterInfo FromCharacter;
+    public CharacterInfo ToCharacter;
     public DialogueLine[] Lines;
 
     public Tag successTag;
