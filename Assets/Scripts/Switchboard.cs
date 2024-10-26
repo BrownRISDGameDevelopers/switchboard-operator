@@ -57,15 +57,18 @@ public class Switchboard : MonoBehaviour
         //Define positions of outlets
         // switchPositions = new UnityEngine.Vector3[columns, rows];
         switches = new Switch[columns, rows];
-        for(int j=0; j<rows; j++){
+        for (int j = 0; j < rows; j++)
+        {
             float a = 0f; //Additional increment for stepping
-            for(int i=0; i<columns; i++){
-                if(i == 2 || i == 4){
+            for (int i = 0; i < columns; i++)
+            {
+                if (i == 2 || i == 4)
+                {
                     a += switchGap;
                 }
                 Switch t_switch = Instantiate(
                     switchPrefab,
-                    new UnityEngine.Vector3(   
+                    new UnityEngine.Vector3(
                         initialSwitchX + i * xSpacing + a,
                         initialSwitchY - j * ySpacing,
                         0
@@ -78,7 +81,7 @@ public class Switchboard : MonoBehaviour
                     Letter = (char)(65 + i),
                     Number = 1 + j
                 };
-                switches[i,j] = t_switch.GetComponent<Switch>();
+                switches[i, j] = t_switch.GetComponent<Switch>();
             }
         }
 
@@ -132,5 +135,10 @@ public class Switchboard : MonoBehaviour
     public Switch[,] GetSwitches()
     {
         return this.switches;
+    }
+
+    public Jack[] GetJacks()
+    {
+        return (Jack[])(this.jacks.Clone());
     }
 }

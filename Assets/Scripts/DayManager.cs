@@ -32,6 +32,17 @@ class CallData
     }
 }
 
+// Next steps
+// Once caller is connected, need to store that data in dictionary
+// then need function for when everthing is set
+// then need that to handle different cases, and add and remove tags as necessary
+
+class JackCallersHeldData
+{
+    public CharacterInfo from;
+    public CharacterInfo to;
+}
+
 
 // TODO: we need way for calls to be ignored, and calls need to be on UI
 public class DayManager : MonoBehaviour
@@ -53,9 +64,13 @@ public class DayManager : MonoBehaviour
 
     private HashSet<CharacterInfo> _callingCharacters = new HashSet<CharacterInfo>();
     private HashSet<Dialogue> _previousCalls = new HashSet<Dialogue>();
-
-
     private List<DialogueHolder> _randomizedCalls;
+
+
+    // Jackin it 
+    private Dictionary<int, Jack> _idToJack = new Dictionary<int, Jack>();
+    private HashSet<int> _placedJacks = new HashSet<int>();
+    private Dictionary<int, JackCallersHeldData> _jackSetToHeldCallers = new Dictionary<int, JackCallersHeldData>();
 
     void Start()
     {
@@ -63,7 +78,10 @@ public class DayManager : MonoBehaviour
         // Call upon switch board
         // connect events
         Jack.onJackPlaced += OnJackPlaced;
+        Jack.onJackTaken += OnJackRemoved;
         SetSwitchboard();
+
+
 
 
     }
@@ -73,6 +91,12 @@ public class DayManager : MonoBehaviour
         CheckForIncomingCalls();
         CheckCalls();
 
+    }
+
+    // nullable
+    private Jack GetAssociatedJack(Jack jack)
+    {
+        return _idToJack.GetValueOrDefault(jack.jackID % 2 == 0 ? jack.jackID + 1 : jack.jackID - 1);
     }
 
     public void SetupDayManager(HashSet<Tag> newTags, LocationManager locManager, Day day)
@@ -95,6 +119,15 @@ public class DayManager : MonoBehaviour
     private void SetSwitchboard()
     {
         _switchboard = FindAnyObjectByType<Switchboard>();
+        if (!_switchboard)
+        {
+            return;
+        }
+        Jack[] jacks = _switchboard.GetJacks();
+        foreach (Jack jack in jacks)
+        {
+            _idToJack.Add(jack.jackID, jack);
+        }
     }
 
 
@@ -179,27 +212,42 @@ public class DayManager : MonoBehaviour
         }
     }
 
-    void OnJackPlaced(JackData jackData)
+    void OnJackRemoved(JackData jackData)
     {
         Switch curSwitch = jackData.SnappedSwitch;
-
         if (curSwitch == null)
         {
             Debug.LogError("Switch is null, should not be possible in DayManagers OnJackPlaced");
             return;
         }
-
         Location jackLoc = jackData.SnappedSwitch.locationData;
-        JackPlacedInLoc(jackLoc);
+        _placedJacks.Add(jackData.PlacedJackID);
+        JackRemovedInLoc(jackLoc);
+        print("Removed event received:" + jackData.ToString());
+    }
 
+    void OnJackPlaced(JackData jackData)
+    {
+        Switch curSwitch = jackData.SnappedSwitch;
+        if (curSwitch == null)
+        {
+            Debug.LogError("Switch is null, should not be possible in DayManagers OnJackPlaced");
+            return;
+        }
+        Location jackLoc = jackData.SnappedSwitch.locationData;
+        _placedJacks.Remove(jackData.PlacedJackID);
+        JackPlacedInLoc(jackLoc);
         print("Event received:" + jackData.ToString());
     }
 
+
+    // Jack placed
+    // If outgoing caller
+    //      play dialogue
+    // If incoming caller
     void JackPlacedInLoc(Location loc)
     {
-
         CharacterInfo characterPlaced = locationManager.GetCharacterFromLocation(loc);
-
 
         CallData outgoingDat = CharacterHasOutgoingCall(characterPlaced);
         if (outgoingDat != null)
@@ -208,9 +256,18 @@ public class DayManager : MonoBehaviour
         }
 
         CallData incomingDat = CharacterHasOutgoingCall(characterPlaced);
+        if (incomingDat != null)
+        {
 
+            //incomingDat.fromCharacter
+
+        }
     }
 
+    void JackRemovedInLoc(Location loc)
+    {
+        CharacterInfo characterRemoved = locationManager.GetCharacterFromLocation(loc);
+    }
 
     CallData CharacterHasIncomingCall(CharacterInfo character)
     {
@@ -235,6 +292,7 @@ public class DayManager : MonoBehaviour
         }
         return null;
     }
+
 
 
     // Jack placed -> is the player in a call -> find that call info
