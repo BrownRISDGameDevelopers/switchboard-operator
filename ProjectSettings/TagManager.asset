@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Book
+  - Strikes
+  - ActiveCalls
   layers:
   - Default
   - TransparentFX
