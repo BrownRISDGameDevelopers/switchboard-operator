@@ -16,5 +16,4 @@ public class Switch : MonoBehaviour
     {
         
     }
-
 }

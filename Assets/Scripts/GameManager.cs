@@ -9,54 +9,46 @@ using UnityEngine;
 // handles day changes, moving between scenes, stores tags, etc. 
 public class GameManager : MonoBehaviour
 {
-    private DayManager dayManager;
-    private HashSet<Tag> tags;
-
-    private LocationManager locationManager;
-
     [SerializeField]
     private Day[] days;
-    private int currentDay = 0;
 
+    private DayManager dayManager;
+    private LocationManager locationManager;
+    private HashSet<Tag> tags;
     private int callsMissed = 0;
     private int callsRouted = 0;
     private int callsMessedUp = 0;
     private int money = 0;
 
-
-    private static GameManager _checkManager = null;
+    private static GameManager _existingGameManager = null;
+    private static int currentDay = 0;
 
     void Awake()
     {
-        if (_checkManager != null)
+        if (_existingGameManager != null)
         {
             Debug.LogError("Critical Error in GameManager, multiple game managers");
             Destroy(this);
             return;
         }
-        _checkManager = this;
+        _existingGameManager = this;
 
         if (!TryGetComponent<LocationManager>(out locationManager))
         {
-            Debug.LogError("Critical Error in GameManager, no location manager found in gameobject");
+            Debug.LogError("Critical Error in GameManager, no location manager found in GameObject");
             return;
         }
         DontDestroyOnLoad(this);
     }
 
-
-    void Destroy()
+    void Start()
     {
-        if (_checkManager != this)
-            return;
-        _checkManager = null;
+        SceneManager.LoadScene((int) Constants.SceneIndexTable.Game);
+        LoadNewDay(days[currentDay]);
     }
 
     public void LoadNewDay(Day day)
     {
-
-        enterGameScene();
-
         dayManager = FindFirstObjectByType<DayManager>();
         if (dayManager != null)
         {
@@ -65,7 +57,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void OnGameManagerEndGame()
+    public void EndCurrentDay()
     {
         // TODO: Potential for cutscenes and/or checks for early endings 
         //
@@ -74,35 +66,25 @@ public class GameManager : MonoBehaviour
         if (currentDay >= days.Length)
         {
             // End the game
-            returnMainMenu();
+            ReturnToMenu();
             return;
         }
 
         // Logic for cutscenes + early endings
 
-
-
-        LoadNewDay(days[currentDay]);
+        SceneManager.LoadScene((int) Constants.SceneIndexTable.EndOfDay);
     }
 
-
-
-    public void enterGameScene()
+    public void EnterEndOfDay()
     {
-        SceneManager.LoadScene((int)Constants.SceneIndexTable.Game);
     }
 
-    public void enterEndOfDayScene()
+    public void ReturnToMenu()
     {
-        SceneManager.LoadScene((int)Constants.SceneIndexTable.EndOfDay);
+        SceneManager.LoadScene((int) Constants.SceneIndexTable.Menu);
     }
 
-    public void returnMainMenu()
-    {
-        SceneManager.LoadScene((int)Constants.SceneIndexTable.Menu);
-    }
-
-    public void payPlayer(int amount)
+    public void PayPlayer(int amount)
     {
         money += amount;
     }

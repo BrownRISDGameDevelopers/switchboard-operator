@@ -10,7 +10,7 @@ public class MainMenu : MonoBehaviour
 {
     public UnityEngine.UI.Button buttonStart, buttonQuit;
 
-    public GameObject gameManager;
+    public GameObject gameManagerObject;
 
     void Start()
     {
@@ -22,8 +22,7 @@ public class MainMenu : MonoBehaviour
     // Start button pressed
     void onStart()
     {
-        SceneManager.LoadScene("Game");
-        Instantiate(gameManager);
+        Instantiate(gameManagerObject);
     }
 
     // Quit button pressed
