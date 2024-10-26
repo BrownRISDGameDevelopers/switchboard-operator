@@ -118,6 +118,13 @@ GameObject:
   - component: {fileID: 6853243283202390650}
   - component: {fileID: 8744618045966366067}
   - component: {fileID: 1162750057610782246}
+  - component: {fileID: -1000881413036758005}
+  - component: {fileID: 156852828106488200}
+  - component: {fileID: -7978129466494931100}
+  - component: {fileID: -6663201765338651811}
+  - component: {fileID: 6423412466997432568}
+  - component: {fileID: 7212471763025760509}
+  - component: {fileID: 9131268182094450593}
   m_Layer: 0
   m_Name: Jack
   m_TagString: Untagged
@@ -188,6 +195,108 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f7d4e1eb84954e2397562c7058131b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalPosition: {x: 0, y: 0, z: 2.5}
   switchboard: {fileID: 0}
   jackID: 2
+  jackSwitch: {fileID: 0}
+  jackPlacedRange: 2
+--- !u!114 &-1000881413036758005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3657222483376247176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b81f8db309f0422ea7406d09a8a7613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rows: 3
+  columns: 3
+  xSpacing: 0.75
+  ySpacing: 1
+  centerOfGrid: {x: 0, y: 3, z: 0}
+  jack1: {fileID: 0}
+  jack2: {fileID: 0}
+  jack3: {fileID: 0}
+  switchPrefab: {fileID: 0}
+  jackSwitches: []
+  originalJackPositions: []
+--- !u!114 &156852828106488200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3657222483376247176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e2b57b01ae7b4065a0fa49cd0f58e11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-7978129466494931100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3657222483376247176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b399a343b0f6468a96ca88f66945d5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-6663201765338651811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3657222483376247176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67ff22250f0db4625875c97dc32cedc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  days: []
+--- !u!114 &6423412466997432568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3657222483376247176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f7d4e1eb84954e2397562c7058131b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  switchboard: {fileID: 0}
+  jackID: 0
+  jackSwitch: {fileID: 0}
+  jackPlacedRange: 2
+--- !u!114 &7212471763025760509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3657222483376247176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d87d072431854028ba7a8bf8a45ed55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initInfo: []
+--- !u!114 &9131268182094450593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3657222483376247176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68effdbaed88c4530b53662c6b7e5f82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+// TODO: we need way for calls to be ignored, and calls need to be on UI
 public class DayManager : MonoBehaviour
 {
 
@@ -40,6 +41,14 @@ public class DayManager : MonoBehaviour
 
     void OnJackPlaced(JackData jackData)
     {
+        Switch curSwitch = jackData.SnappedSwitch;
+        if (curSwitch == null)
+        {
+            Debug.LogError("Switch is null, should not be possible in DayManagers OnJackPlaced");
+            return;
+        }
+
+
         Location jackLoc = jackData.SnappedSwitch.locationData;
         print("Event received:" + jackData.ToString());
     }
