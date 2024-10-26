@@ -1,16 +1,20 @@
+using UnityEditor;
 using UnityEngine;
 
 public class Switchboard : MonoBehaviour
 {
     public Switch switchPrefab;
     public Jack jackPrefab;
-    public int rows = 3;
-    public int columns = 3;
-    public int jackCount = 5;
-    public float xSpacing = 0.75f;
-    public float ySpacing = 1f;
-    public UnityEngine.Vector3 centerOfGrid = new UnityEngine.Vector3(0, 3, 0);
-    public UnityEngine.Vector3 centerOfJackRow = new UnityEngine.Vector3(0, 0, 0);
+    public int rows = 5;
+    public int columns = 6;
+    public int jackCount = 6;
+    public float xSpacing = 0.91f;
+    public float ySpacing = 0.91f;
+    public float switchGap = 1.009f;
+    public float initialSwitchX = -2.284f;
+    public float initialSwitchY = 2.012f;
+
+    public UnityEngine.Vector3 centerOfJackRow = new UnityEngine.Vector3(0, -4, 0);
     private UnityEngine.Vector3[,] switchPositions;
     private Switch[,] switches;
     private Jack[] jacks;
@@ -30,9 +34,7 @@ public class Switchboard : MonoBehaviour
         for (int i = 0; i < jackCount; i++)
         {
             UnityEngine.Vector3 position = centerOfJackRow + new UnityEngine.Vector3(
-                i * xSpacing - xSpacing * (jackCount - 1) / 2,
-                0,
-                0);
+                i * xSpacing - xSpacing * (jackCount - 1) / 2, 0, 0);
             Switch go_switch = Instantiate(switchPrefab, position, UnityEngine.Quaternion.identity);
             Jack go_jack = Instantiate(jackPrefab, position, UnityEngine.Quaternion.identity);
 
@@ -53,32 +55,56 @@ public class Switchboard : MonoBehaviour
     public void ProduceSwitches()
     {
         //Define positions of outlets
-        switchPositions = new UnityEngine.Vector3[columns, rows];
+        // switchPositions = new UnityEngine.Vector3[columns, rows];
         switches = new Switch[columns, rows];
-
-        for (int i = 0; i < columns; i++)
-        {
-            for (int j = 0; j < rows; j++)
-            {
-                switchPositions[i, j] =
-                    centerOfGrid +
-                    new UnityEngine.Vector3(
-                        i * xSpacing - xSpacing * (columns - 1) / 2,
-                        j * ySpacing - ySpacing * (rows - 1) / 2,
-                        0);
-
-                Switch go_switch = Instantiate(switchPrefab, switchPositions[i, j], UnityEngine.Quaternion.identity);
-                go_switch.GetComponent<Switch>().locationData = new Location()
+        for(int j=0; j<rows; j++){
+            float a = 0f; //Additional increment for stepping
+            for(int i=0; i<columns; i++){
+                if(i == 2 || i == 4){
+                    a += switchGap;
+                }
+                Switch t_switch = Instantiate(
+                    switchPrefab,
+                    new UnityEngine.Vector3(   
+                        initialSwitchX + i * xSpacing + a,
+                        initialSwitchY - j * ySpacing,
+                        0
+                    ),
+                    UnityEngine.Quaternion.identity);
+                t_switch.GetComponent<Switch>().locationData = new Location()
                 {
                     Valid = true,
-                    Index = 0,
-                    Letter = (char)(j + 65),
-                    Number = i + 1
+                    Index = 0, //Index not used at all (until further notice)
+                    Letter = (char)(65 + i),
+                    Number = 1 + j
                 };
-
-                switches[i, j] = go_switch.GetComponent<Switch>();
+                switches[i,j] = t_switch.GetComponent<Switch>();
             }
         }
+
+        // for (int i = 0; i < columns; i++)
+        // {
+        //     for (int j = 0; j < rows; j++)
+        //     {
+        //         switchPositions[i, j] =
+        //             centerOfGrid +
+        //             new UnityEngine.Vector3(
+        //                 i * xSpacing - xSpacing * (columns - 1) / 2,
+        //                 j * ySpacing - ySpacing * (rows - 1) / 2,
+        //                 0);
+
+        //         Switch go_switch = Instantiate(switchPrefab, switchPositions[i, j], UnityEngine.Quaternion.identity);
+        //         go_switch.GetComponent<Switch>().locationData = new Location()
+        //         {
+        //             Valid = true,
+        //             Index = 0,
+        //             Letter = (char)(j + 65),
+        //             Number = i + 1
+        //         };
+
+        //         switches[i, j] = go_switch.GetComponent<Switch>();
+        //     }
+        // }
     }
 
     //Checks the position of all switches relative to the passed position of the mouse/jack, returns the nearest position of switch
