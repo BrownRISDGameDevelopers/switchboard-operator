@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f9321922918b4e96858f4dccd404147, type: 3}
+  m_Name: TestDialogue
+  m_EditorClassIdentifier: 
+  FromCharacter: {fileID: 0}
+  ToCharacter: {fileID: 0}
+  Lines:
+  - text: This some test dialogue
+    portraitType: 0
+    speedScale: 1
+  - text: Nothing really matters about what im saying
+    portraitType: 0
+    speedScale: 1
+  - text: WAIT!!!!
+    portraitType: 0
+    speedScale: 2
+  - text: what are you lookin at
+    portraitType: 0
+    speedScale: 0.5
+  - text: connect me to the police!
+    portraitType: 0
+    speedScale: 1
+  successTag: {fileID: 0}
+  failureTag: {fileID: 0}
+  ignoreTag: {fileID: 0}
