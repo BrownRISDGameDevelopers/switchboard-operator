@@ -1,11 +1,13 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using Microsoft.Unity.VisualStudio.Editor;
 
 public class DialogueUI : MonoBehaviour
 {
     public TextMeshProUGUI textComponent;
     public Dialogue scriptObj;
+    public GameObject portrait;
     float textSpeed = 0.06f;
 
     void Start()

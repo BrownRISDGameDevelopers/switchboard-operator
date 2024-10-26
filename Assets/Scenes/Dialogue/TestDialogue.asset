@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f9321922918b4e96858f4dccd404147, type: 3}
   m_Name: TestDialogue
   m_EditorClassIdentifier: 
-  FromCharacter: {fileID: 0}
+  FromCharacter: {fileID: 11400000, guid: 76518503da67ac04983aad815ece236b, type: 2}
   ToCharacter: {fileID: 0}
   Lines:
   - text: This some test dialogue
