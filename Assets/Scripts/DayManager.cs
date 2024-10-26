@@ -3,6 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+/*
+ * logic
+ *  From day
+ *  pick from random pool on timer
+ *  thing is now selectable
+ *  
+ *  On jack pickup
+ *      if location is currently in pool, add one set of tags
+ *      if not, add to another
+ *      if wait too long, add third
+ *
+ *  
+ *
+ */
+
+struct CallData
+{
+    float curTimer;
+    CharacterInfo fromCharacter;
+    CharacterInfo toCharacter;
+}
+
+
 // TODO: we need way for calls to be ignored, and calls need to be on UI
 public class DayManager : MonoBehaviour
 {
@@ -12,6 +35,29 @@ public class DayManager : MonoBehaviour
     private LocationManager locationManager;
     private Switchboard _switchboard;
 
+
+
+    // For incoming call logic
+    private List<CallData> _callList = new List<CallData>();
+    private float _callTimeoutTime;
+    private float _callAddTimeMin;
+    private float _callAddTimeMax;
+    private float _callNextTimer;
+
+    private HashSet<CharacterInfo> _callingCharacters = new HashSet<CharacterInfo>();
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+
+    private void CheckCalls()
+    {
+
+
+    }
 
     public void SetupDayManager(HashSet<Tag> newTags, LocationManager locManager, Day day)
     {
@@ -42,6 +88,7 @@ public class DayManager : MonoBehaviour
         // connect events
         Jack.onJackPlaced += OnJackPlaced;
         SetSwitchboard();
+
     }
 
     void OnJackPlaced(JackData jackData)
@@ -57,9 +104,4 @@ public class DayManager : MonoBehaviour
         print("Event received:" + jackData.ToString());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -19,7 +18,7 @@ public class DialogueUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void StartDialogue()
@@ -29,7 +28,7 @@ public class DialogueUI : MonoBehaviour
 
     IEnumerator TypeLine()
     {
-        foreach (char c in scriptObj.Text.ToCharArray())
+        foreach (char c in scriptObj.Lines[0].text.ToCharArray())
         {
             textComponent.text += c;
             yield return new WaitForSeconds(textSpeed);

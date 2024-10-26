@@ -7,6 +7,8 @@ using UnityEngine;
 public enum PortraitEmotion
 {
     DEFAULT = 0,
+    EXTRA_1 = 1,
+    EXTRA_2 = 2,
 }
 
 [System.Serializable]
@@ -16,12 +18,19 @@ struct CharacterToTag
     string tag;
 }
 
+[System.Serializable]
+public class DialogueLine
+{
+    public string text = "";
+    public PortraitEmotion portraitType = PortraitEmotion.DEFAULT;
+    public float speedScale = 1.0f;
+}
+
 [CreateAssetMenu(fileName = "Character", menuName = "GameData/Dialogue", order = 1)]
 public class Dialogue : ScriptableObject
 {
     public CharacterInfo Character;
-    public PortraitEmotion PortraitEmotion;
-    public string Text;
+    public DialogueLine[] Lines;
 
     public Tag successTag;
     public Tag failureTag;
