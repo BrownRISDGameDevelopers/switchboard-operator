@@ -310,7 +310,7 @@ HingeJoint2D:
   m_UseLimits: 1
   m_AngleLimits:
     m_LowerAngle: 0
-    m_UpperAngle: 10
+    m_UpperAngle: 359
 --- !u!50 &147794295
 Rigidbody2D:
   serializedVersion: 4
@@ -326,7 +326,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: dc3be5fc36f706a4a841f202878ecc68, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -431,7 +431,7 @@ HingeJoint2D:
   m_UseLimits: 1
   m_AngleLimits:
     m_LowerAngle: 0
-    m_UpperAngle: 10
+    m_UpperAngle: 359
 --- !u!50 &233122536
 Rigidbody2D:
   serializedVersion: 4
@@ -447,7 +447,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: dc3be5fc36f706a4a841f202878ecc68, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -552,7 +552,7 @@ HingeJoint2D:
   m_UseLimits: 1
   m_AngleLimits:
     m_LowerAngle: 0
-    m_UpperAngle: 10
+    m_UpperAngle: 359
 --- !u!50 &238798060
 Rigidbody2D:
   serializedVersion: 4
@@ -568,7 +568,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: dc3be5fc36f706a4a841f202878ecc68, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -673,7 +673,7 @@ HingeJoint2D:
   m_UseLimits: 1
   m_AngleLimits:
     m_LowerAngle: 0
-    m_UpperAngle: 10
+    m_UpperAngle: 359
 --- !u!50 &264674887
 Rigidbody2D:
   serializedVersion: 4
@@ -689,7 +689,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: dc3be5fc36f706a4a841f202878ecc68, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -951,7 +951,7 @@ HingeJoint2D:
   m_UseLimits: 1
   m_AngleLimits:
     m_LowerAngle: 0
-    m_UpperAngle: 10
+    m_UpperAngle: 359
 --- !u!50 &616241301
 Rigidbody2D:
   serializedVersion: 4
@@ -967,7 +967,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: dc3be5fc36f706a4a841f202878ecc68, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1037,7 +1037,7 @@ HingeJoint2D:
   m_UseLimits: 1
   m_AngleLimits:
     m_LowerAngle: 0
-    m_UpperAngle: 10
+    m_UpperAngle: 359
 --- !u!50 &735067998
 Rigidbody2D:
   serializedVersion: 4
@@ -1053,7 +1053,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: dc3be5fc36f706a4a841f202878ecc68, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1158,7 +1158,7 @@ HingeJoint2D:
   m_UseLimits: 1
   m_AngleLimits:
     m_LowerAngle: 0
-    m_UpperAngle: 10
+    m_UpperAngle: 359
 --- !u!50 &901007528
 Rigidbody2D:
   serializedVersion: 4
@@ -1174,7 +1174,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: dc3be5fc36f706a4a841f202878ecc68, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1279,7 +1279,7 @@ HingeJoint2D:
   m_UseLimits: 1
   m_AngleLimits:
     m_LowerAngle: 0
-    m_UpperAngle: 10
+    m_UpperAngle: 359
 --- !u!50 &921379514
 Rigidbody2D:
   serializedVersion: 4
@@ -1295,7 +1295,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: dc3be5fc36f706a4a841f202878ecc68, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1400,7 +1400,7 @@ HingeJoint2D:
   m_UseLimits: 1
   m_AngleLimits:
     m_LowerAngle: 0
-    m_UpperAngle: 10
+    m_UpperAngle: 359
 --- !u!50 &952614163
 Rigidbody2D:
   serializedVersion: 4
@@ -1416,7 +1416,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 5
   m_Material: {fileID: 6200000, guid: dc3be5fc36f706a4a841f202878ecc68, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1521,7 +1521,7 @@ HingeJoint2D:
   m_UseLimits: 1
   m_AngleLimits:
     m_LowerAngle: 0
-    m_UpperAngle: 10
+    m_UpperAngle: 359
 --- !u!50 &954220179
 Rigidbody2D:
   serializedVersion: 4
@@ -1537,7 +1537,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: dc3be5fc36f706a4a841f202878ecc68, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -2113,7 +2113,7 @@ HingeJoint2D:
   m_UseLimits: 1
   m_AngleLimits:
     m_LowerAngle: 0
-    m_UpperAngle: 10
+    m_UpperAngle: 359
 --- !u!50 &1486672093
 Rigidbody2D:
   serializedVersion: 4
@@ -2129,7 +2129,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: dc3be5fc36f706a4a841f202878ecc68, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -2234,7 +2234,7 @@ HingeJoint2D:
   m_UseLimits: 1
   m_AngleLimits:
     m_LowerAngle: 0
-    m_UpperAngle: 10
+    m_UpperAngle: 359
 --- !u!50 &1520777183
 Rigidbody2D:
   serializedVersion: 4
@@ -2250,7 +2250,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: dc3be5fc36f706a4a841f202878ecc68, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
