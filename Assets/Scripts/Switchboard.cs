@@ -50,7 +50,6 @@ public class Switchboard : MonoBehaviour
         }
     }
 
-    
     public void ProduceSwitches()
     {
         //Define positions of outlets
@@ -69,7 +68,6 @@ public class Switchboard : MonoBehaviour
                         0);
 
                 Switch go_switch = Instantiate(switchPrefab, switchPositions[i, j], UnityEngine.Quaternion.identity);
-                Switch c_switch = go_switch.GetComponent<Switch>();
                 go_switch.GetComponent<Switch>().locationData = new Location()
                 {
                     Valid = true,
@@ -103,5 +101,10 @@ public class Switchboard : MonoBehaviour
             closestSwitch = jackSwitches[jack.jackID];
         }
         return closestSwitch;
+    }
+
+    public Switch[,] GetSwitches()
+    {
+        return this.switches;
     }
 }

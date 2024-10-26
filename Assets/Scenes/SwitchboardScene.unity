@@ -480,8 +480,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b81f8db309f0422ea7406d09a8a7613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  switchPrefab: {fileID: 4065622417038221819, guid: 3eda7227b9811475cbf177929a82e106, type: 3}
-  jackPrefab: {fileID: 3657222483376247176, guid: bbcb6b4f0451f4b35b5700b5f4c27a28, type: 3}
+  switchPrefab: {fileID: 2493365226615389151, guid: 3eda7227b9811475cbf177929a82e106, type: 3}
+  jackPrefab: {fileID: 1162750057610782246, guid: bbcb6b4f0451f4b35b5700b5f4c27a28, type: 3}
   rows: 4
   columns: 8
   jackCount: 5

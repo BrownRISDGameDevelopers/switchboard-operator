@@ -25,10 +25,14 @@ public class DayManager : MonoBehaviour
         tagsReference = newTags;
     }
 
-
     public void SetLocationReference(LocationManager locManager)
     {
         locationManager = locManager;
+    }
+
+    private void SetSwitchboard()
+    {
+        _switchboard = FindAnyObjectByType<Switchboard>();
     }
 
     // Start is called before the first frame update
@@ -37,6 +41,7 @@ public class DayManager : MonoBehaviour
         // Call upon switch board
         // connect events
         Jack.onJackPlaced += OnJackPlaced;
+        SetSwitchboard();
     }
 
     void OnJackPlaced(JackData jackData)
@@ -48,7 +53,6 @@ public class DayManager : MonoBehaviour
             return;
         }
 
-
         Location jackLoc = jackData.SnappedSwitch.locationData;
         print("Event received:" + jackData.ToString());
     }
@@ -58,7 +62,4 @@ public class DayManager : MonoBehaviour
     {
 
     }
-
-
-
 }

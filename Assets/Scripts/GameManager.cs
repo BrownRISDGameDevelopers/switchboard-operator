@@ -27,29 +27,29 @@ public class GameManager : MonoBehaviour
     {
         if (_existingGameManager != null)
         {
-            Debug.LogError("Critical Error in GameManager, multiple game managers");
+            Debug.LogError("Critical error in GameManager, multiple game managers");
             Destroy(this);
+            return;
+        }
+        if (!TryGetComponent<LocationManager>(out locationManager))
+        {
+            Debug.LogError("Critical error in GameManager, no location manager found in GameObject");
             return;
         }
         _existingGameManager = this;
 
-        if (!TryGetComponent<LocationManager>(out locationManager))
-        {
-            Debug.LogError("Critical Error in GameManager, no location manager found in GameObject");
-            return;
-        }
         DontDestroyOnLoad(this);
     }
 
     void Start()
     {
-        SceneManager.LoadScene((int) Constants.SceneIndexTable.Game);
-        LoadNewDay(days[currentDay]);
+        AsyncOperation load_op = SceneManager.LoadSceneAsync((int) Constants.SceneIndexTable.Game);
+        load_op.completed += (_) => LoadNewDay(days[currentDay]);
     }
 
     public void LoadNewDay(Day day)
     {
-        dayManager = FindFirstObjectByType<DayManager>();
+        dayManager = FindAnyObjectByType<DayManager>();
         if (dayManager != null)
         {
             dayManager.SetTagsReference(tags);

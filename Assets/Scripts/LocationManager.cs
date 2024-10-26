@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,14 +8,13 @@ public struct Location
 {
     public bool Valid;
     public int Index;
-
     // A - Z
     public char Letter;
-
     // 0 - 9
     public int Number;
-}
 
+    public override string ToString() => $"Location: [{Letter}, {Number}]";
+}
 
 [System.Serializable]
 public struct CharacterInfoLocStruct
@@ -28,8 +28,7 @@ public class LocationManager : MonoBehaviour
     [SerializeField]
     CharacterInfoLocStruct[] initInfo;
 
-    Dictionary<Location, CharacterInfo> positionToCharacter = new Dictionary<Location, CharacterInfo>();
-
+    private Dictionary<Location, CharacterInfo> positionToCharacter = new Dictionary<Location, CharacterInfo>();
 
     void Awake()
     {
@@ -39,9 +38,18 @@ public class LocationManager : MonoBehaviour
         }
     }
 
-    private List<Location> generateLocations(Switchboard switchboard)
+    public List<Location> GenerateLocations(Switchboard switchboard)
     {
-        return new List<Location>();
+        Switch[,] switches = switchboard.GetSwitches();
+        List<Location> locList = new List<Location>();
+
+        foreach (Switch s in switches)
+        {
+            Location locData = s.locationData; 
+            locList.Add(locData);
+        };
+
+        return locList;
     }
     private void RandomizeLocations() 
     {
