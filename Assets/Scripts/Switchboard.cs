@@ -18,51 +18,8 @@ public class Switchboard : MonoBehaviour
 
     void Start()
     {
-        //Define positions of outlets
-        switchPositions = new UnityEngine.Vector3[rows, columns];
-        switches = new Switch[rows, columns];
-        jackSwitches = new Switch[3];
-        for (int i = 0; i < rows; i++)
-        {
-            for (int j = 0; j < columns; j++)
-            {
-                switchPositions[i, j] = centerOfGrid + new UnityEngine.Vector3(i * xSpacing - xSpacing * (rows - 1) / 2, j * ySpacing - ySpacing * (columns - 1) / 2, 0);
-                // GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                // cube.transform.position = outlets[i,j];
-                // cube.transform.localScale = new UnityEngine.Vector3(0.1f, 0.1f, 0.1f);
-                Switch st = Instantiate(switchPrefab, switchPositions[i, j], UnityEngine.Quaternion.identity);
-                st.locationData = new Location() { Valid = true, Index = 0, Letter = (char)(65 + (columns - j - 1)), Number = i + 1 };
-                switches[i, j] = st;
-            }
-        }
-
         ProduceSwitches();
         ProduceJacks();
-        /*
-        //Spawn in jacks and instantiate them with necessary values
-        originalJackPositions = new UnityEngine.Vector3[3];
-        originalJackPositions[0] = new UnityEngine.Vector3(0, 0, 0);
-        originalJackPositions[1] = new UnityEngine.Vector3(-1, 0, 0);
-        originalJackPositions[2] = new UnityEngine.Vector3(1, 0, 0);
-
-        //Instantiate switches for jacks
-        Switch s = Instantiate(switchPrefab, originalJackPositions[0], UnityEngine.Quaternion.identity);
-        s.locationData = new Location() { Valid = true, Index = 0, Letter = 'j', Number = 0 };
-        jackSwitches[0] = s;
-        s = Instantiate(switchPrefab, originalJackPositions[1], UnityEngine.Quaternion.identity);
-        s.locationData = new Location() { Valid = true, Index = 0, Letter = 'j', Number = 1 };
-        jackSwitches[1] = s;
-        s = Instantiate(switchPrefab, originalJackPositions[2], UnityEngine.Quaternion.identity);
-        s.locationData = new Location() { Valid = true, Index = 0, Letter = 'j', Number = 2 };
-        jackSwitches[2] = s;
-
-        jack1 = Instantiate(jack1, originalJackPositions[0], UnityEngine.Quaternion.identity);
-        jack1.configure(jackSwitches[0], 0, this);
-        jack2 = Instantiate(jack2, originalJackPositions[1], UnityEngine.Quaternion.identity);
-        jack2.configure(jackSwitches[1], 1, this);
-        jack3 = Instantiate(jack3, originalJackPositions[2], UnityEngine.Quaternion.identity);
-        jack3.configure(jackSwitches[2], 2, this);
-        */
     }
 
     public void ProduceJacks()
