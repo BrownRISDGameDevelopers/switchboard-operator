@@ -28,6 +28,6 @@ public struct SingleDayDialogueList
 [CreateAssetMenu(fileName = "Day", menuName = "GameData/Day", order = 1)]
 public class Day : ScriptableObject
 {
-    public SingleDayDialogueList[] RandomizedCallPool;
-    public SingleDayDialogueList[] OrderedCallPool;
+    public SingleDayDialogueList RandomizedCallPool;
+    public SingleDayDialogueList OrderedCallPool;
 }

@@ -23,6 +23,13 @@ class CallData
     public float curTimer;
     public CharacterInfo fromCharacter;
     public CharacterInfo toCharacter;
+
+    public CallData(CharacterInfo fromChar, CharacterInfo toChar, float timer)
+    {
+        curTimer = timer;
+        fromCharacter = fromChar;
+        toCharacter = toChar;
+    }
 }
 
 
@@ -35,33 +42,36 @@ public class DayManager : MonoBehaviour
     private LocationManager locationManager;
     private Switchboard _switchboard;
 
-
     public int strikesLeft = 3;
 
     // For incoming call logic
     private List<CallData> _callList = new List<CallData>();
-    private float _callTimeoutTime;
-    private float _callAddTimeMin;
-    private float _callAddTimeMax;
-    private float _callNextTimer;
+    private float _callTimeoutTime = 1.0f;
+    private float _callAddTimeMin = 1.0f;
+    private float _callAddTimeMax = 10.0f;
+    private float _callNextTimer = 5.0f;
 
     private HashSet<CharacterInfo> _callingCharacters = new HashSet<CharacterInfo>();
+    private HashSet<Dialogue> _previousCalls = new HashSet<Dialogue>();
 
+
+    private List<DialogueHolder> _randomizedCalls;
+
+    void Start()
+    {
+        _randomizedCalls = GetOrderedAvailableDialogue(currentDay.RandomizedCallPool);
+        // Call upon switch board
+        // connect events
+        Jack.onJackPlaced += OnJackPlaced;
+        SetSwitchboard();
+
+
+    }
     // Update is called once per frame
     void Update()
     {
-
-    }
-
-
-    private void CheckCalls()
-    {
-
-        foreach (CallData dat in _callList)
-        {
-            dat.curTimer -= Time.deltaTime;
-
-        }
+        CheckForIncomingCalls();
+        CheckCalls();
 
     }
 
@@ -87,19 +97,92 @@ public class DayManager : MonoBehaviour
         _switchboard = FindAnyObjectByType<Switchboard>();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        // Call upon switch board
-        // connect events
-        Jack.onJackPlaced += OnJackPlaced;
-        SetSwitchboard();
 
+    private void CheckForIncomingCalls()
+    {
+        _callNextTimer -= Time.deltaTime;
+        if (_callNextTimer > 0)
+        {
+            return;
+        }
+        Dialogue newCall = PopRandomizedCall();
+
+        // TODO DISPlAY DIALOGUE
+
+        // ADD RELEVANT INFO
+        _callList.Add(new CallData(newCall.FromCharacter, newCall.ToCharacter, 10.0f));
+        AddDialoguetoData(newCall);
+
+        _callNextTimer = Random.Range(_callAddTimeMin, _callAddTimeMax);
+    }
+
+    private void AddDialoguetoData(Dialogue toAdd)
+    {
+        _callingCharacters.Add(toAdd.FromCharacter);
+        _callingCharacters.Add(toAdd.ToCharacter);
+    }
+
+    private void RemoveDialogueFromData(Dialogue toRemove)
+    {
+        _callingCharacters.Remove(toRemove.FromCharacter);
+        _callingCharacters.Remove(toRemove.ToCharacter);
+    }
+
+    // STATEFUL, removes from randomized calls
+    private Dialogue PopRandomizedCall()
+    {
+        int index = Random.Range(0, _randomizedCalls.Count);
+        DialogueHolder holder = _randomizedCalls[index];
+        _randomizedCalls.RemoveAt(index);
+        return holder.dialogue;
+    }
+
+    private List<DialogueHolder> GetOrderedAvailableDialogue(SingleDayDialogueList dayDiag)
+    {
+        List<DialogueHolder> returnList = new List<DialogueHolder>();
+        foreach (DialogueHolder holder in dayDiag.dialogue)
+        {
+            bool hasAllTags = true;
+            foreach (Tag tag in holder.requiredTags)
+            {
+                if (!tagsReference.Contains(tag))
+                {
+                    hasAllTags = false;
+                    break;
+                }
+            }
+
+            if (!hasAllTags)
+                continue;
+
+            returnList.Add(holder);
+        }
+
+        return returnList;
+    }
+
+    private void CheckCalls()
+    {
+        // Increment backwards
+        // So elements can safely be deleted in for loop
+        int len = _callList.Count;
+        for (int i = len - 1; i > -1; i--)
+        {
+            CallData dat = _callList[i];
+            dat.curTimer -= Time.deltaTime;
+            if (dat.curTimer <= 0)
+            {
+                // Call failed
+                strikesLeft--;
+                _callList.RemoveAt(i);
+            }
+        }
     }
 
     void OnJackPlaced(JackData jackData)
     {
         Switch curSwitch = jackData.SnappedSwitch;
+
         if (curSwitch == null)
         {
             Debug.LogError("Switch is null, should not be possible in DayManagers OnJackPlaced");
@@ -107,7 +190,54 @@ public class DayManager : MonoBehaviour
         }
 
         Location jackLoc = jackData.SnappedSwitch.locationData;
+        JackPlacedInLoc(jackLoc);
+
         print("Event received:" + jackData.ToString());
     }
+
+    void JackPlacedInLoc(Location loc)
+    {
+
+        CharacterInfo characterPlaced = locationManager.GetCharacterFromLocation(loc);
+
+
+        CallData outgoingDat = CharacterHasOutgoingCall(characterPlaced);
+        if (outgoingDat != null)
+        {
+            // handle dialogue for outgoing call
+        }
+
+        CallData incomingDat = CharacterHasOutgoingCall(characterPlaced);
+
+    }
+
+
+    CallData CharacterHasIncomingCall(CharacterInfo character)
+    {
+        foreach (CallData dat in _callList)
+        {
+            if (character == dat.toCharacter)
+            {
+                return dat;
+            }
+        }
+        return null;
+    }
+
+    CallData CharacterHasOutgoingCall(CharacterInfo character)
+    {
+        foreach (CallData dat in _callList)
+        {
+            if (character == dat.fromCharacter)
+            {
+                return dat;
+            }
+        }
+        return null;
+    }
+
+
+    // Jack placed -> is the player in a call -> find that call info
+    // otherwise don't do anything
 
 }
