@@ -1,3 +1,4 @@
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -133,5 +134,10 @@ public class Switchboard : MonoBehaviour
     public Switch[,] GetSwitches()
     {
         return this.switches;
+    }
+
+    internal Jack[] GetJacks()
+    {
+        return this.jacks;
     }
 }
