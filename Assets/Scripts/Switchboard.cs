@@ -9,10 +9,10 @@ public class Switchboard : MonoBehaviour
     public int rows = 5;
     public int columns = 6;
     public int jackCount = 6;
-    public float xSpacing = 0.89f;
-    public float ySpacing = 0.89f;
-    public float initialSwitchX = -1.957f;
-    public float initialSwitchY = 1.949f;
+    private float xSpacing = 0.89f;
+    private float ySpacing = 0.89f;
+    private float initialSwitchX = -1.957f;
+    private float initialSwitchY = 1.949f;
 
     public UnityEngine.Vector3 centerOfJackRow = new UnityEngine.Vector3(0, -4, 0);
     private UnityEngine.Vector3[,] switchPositions;
