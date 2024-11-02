@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Switchboard : MonoBehaviour
 {
-    public Switch switchPrefab;
-    public Jack jackPrefab;
+    public GameObject switchPrefab;
+    public GameObject jackPrefab;
     public int rows = 5;
     public int columns = 6;
     public int jackCount = 6;
@@ -20,26 +20,34 @@ public class Switchboard : MonoBehaviour
     private Jack[] jacks;
     private Switch[] jackSwitches;
 
+    void Awake()
+    {
+
+        switches = new Switch[columns, rows];
+        jackSwitches = new Switch[jackCount];
+        jacks = new Jack[jackCount];
+
+    }
+
     void Start()
     {
+        initialSwitchX += transform.position.x;
+        initialSwitchY += transform.position.y;
         ProduceSwitches();
         ProduceJacks();
     }
 
     public void ProduceJacks()
     {
-        jackSwitches = new Switch[jackCount];
-        jacks = new Jack[jackCount];
-
         for (int i = 0; i < jackCount; i++)
         {
             UnityEngine.Vector3 position = centerOfJackRow + new UnityEngine.Vector3(
                 i * xSpacing - xSpacing * (jackCount - 1) / 2, 0, 0);
-            Switch go_switch = Instantiate(switchPrefab, position, UnityEngine.Quaternion.identity);
-            Jack go_jack = Instantiate(jackPrefab, position, UnityEngine.Quaternion.identity);
+            GameObject go_switch = Instantiate(switchPrefab, position, UnityEngine.Quaternion.identity);
+            GameObject go_jack = Instantiate(jackPrefab, position, UnityEngine.Quaternion.identity);
 
-            jackSwitches[i] = go_switch;
-            jacks[i] = go_jack;
+            jackSwitches[i] = go_switch.GetComponent<Switch>();
+            jacks[i] = go_jack.GetComponent<Jack>();
 
             jackSwitches[i].locationData = new Location()
             {
@@ -56,18 +64,22 @@ public class Switchboard : MonoBehaviour
     {
         //Define positions of outlets
         // switchPositions = new UnityEngine.Vector3[columns, rows];
-        switches = new Switch[columns, rows];
-        for(int j=0; j<rows; j++){
+        for (int j = 0; j < rows; j++)
+        {
             float a = 0f; //Additional increment for stepping
-            for(int i=0; i<columns; i++){
-                if(i == 2){
+            for (int i = 0; i < columns; i++)
+            {
+                if (i == 2)
+                {
                     a += 0.769f;
-                }else if(i == 4){
+                }
+                else if (i == 4)
+                {
                     a += 0.83f;
                 }
-                Switch t_switch = Instantiate(
+                GameObject t_switch = Instantiate(
                     switchPrefab,
-                    new UnityEngine.Vector3(   
+                    new UnityEngine.Vector3(
                         initialSwitchX + i * xSpacing + a,
                         initialSwitchY - j * ySpacing,
                         0
@@ -80,7 +92,7 @@ public class Switchboard : MonoBehaviour
                     Letter = (char)(65 + j),
                     Number = 1 + i
                 };
-                switches[i,j] = t_switch.GetComponent<Switch>();
+                switches[i, j] = t_switch.GetComponent<Switch>();
             }
         }
 

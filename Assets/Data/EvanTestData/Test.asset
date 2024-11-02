@@ -12,9 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f9321922918b4e96858f4dccd404147, type: 3}
   m_Name: Test
   m_EditorClassIdentifier: 
-  Character: {fileID: 0}
-  PortraitEmotion: 0
-  Text: 
-  successTag: {fileID: 0}
-  failureTag: {fileID: 0}
-  ignoreTag: {fileID: 0}
+  FromCharacter: {fileID: 11400000, guid: 5b5933cffda1347849aecdd64a559381, type: 2}
+  ToCharacter: {fileID: 11400000, guid: 6dfdac0c0cc1c459baf78e5ac7153f32, type: 2}
+  Lines:
+  - text: Hey I just met you
+    portraitType: 0
+    speedScale: 0
+  - text: And this is crazy
+    portraitType: 0
+    speedScale: 0
+  - text: but here's my number
+    portraitType: 0
+    speedScale: 0
+  successTags:
+  - {fileID: 11400000, guid: b94df25a43e5f492cb008bc0a9bc00af, type: 2}
+  failureTags:
+  - {fileID: 11400000, guid: 61735d61cc6b746409c45f83d7b29ff9, type: 2}
+  ignoreTags: []
+  characterMap: []

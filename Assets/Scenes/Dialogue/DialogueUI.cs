@@ -12,6 +12,13 @@ public class DialogueUI : MonoBehaviour
 
     void Start()
     {
+        // won't work in vaccum
+        //        StartDialogue();
+    }
+
+    public void StartDialogueWithData(Dialogue newDialogue)
+    {
+        scriptObj = newDialogue;
         StartDialogue();
     }
 

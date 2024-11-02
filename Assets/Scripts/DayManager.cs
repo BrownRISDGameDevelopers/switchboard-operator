@@ -64,10 +64,14 @@ class JackCallersHeldData
 public class DayManager : MonoBehaviour
 {
 
-    private HashSet<Tag> tagsReference;
+    [SerializeField]
     private Day currentDay;
+
+    private HashSet<Tag> tagsReference;
     private LocationManager locationManager;
     private Switchboard _switchboard;
+
+    private DialogueUI dialogueUI;
 
     public int strikesLeft = 3;
 
@@ -112,6 +116,8 @@ public class DayManager : MonoBehaviour
 
     void Start()
     {
+        locationManager = FindFirstObjectByType<LocationManager>();
+        dialogueUI = FindFirstObjectByType<DialogueUI>();
         _randomizedCalls = GetOrderedAvailableDialogue(currentDay.RandomizedCallPool);
         // Call upon switch board
         // connect events
@@ -140,8 +146,10 @@ public class DayManager : MonoBehaviour
         CharacterInfo characterPlaced = locationManager.GetCharacterFromLocation(loc);
         int jackSet = GetAssociatedJackSet(jackId);
 
+        Debug.Log("CHARACTER PLACED: " + ((characterPlaced != null) ? characterPlaced.CharName : "NULL"));
         // Logic for if the placed jack hit something with a character that has an outgoing call (from character)
         CallData outgoingDat = CharacterHasOutgoingCall(characterPlaced);
+        Debug.Log("OUTGOING DAT: " + ((outgoingDat != null) ? "NOT NULL" : "NULL"));
         if (outgoingDat != null)
         {
             outgoingDat.fromCharacter = characterPlaced;
@@ -153,6 +161,11 @@ public class DayManager : MonoBehaviour
             {
                 outgoingDat.curTimer = _postCallReceivedWaitTime;
                 // TODO: Actually play dialogue
+
+                if (dialogueUI)
+                {
+                    dialogueUI.StartDialogueWithData(outgoingDat.associatedDialogue);
+                }
                 outgoingDat.dialogueRevealed = true;
             }
         }
@@ -248,11 +261,19 @@ public class DayManager : MonoBehaviour
         }
         Dialogue newCall = PopRandomizedCall();
 
+        if (newCall == null)
+            return;
+
         // TODO DISPlAY DIALOGUE
 
         // ADD RELEVANT INFO
         CallData newCallDat = new CallData(newCall.FromCharacter, newCall.ToCharacter, _incomingCallReceivedWaitTime, newCall);
         AddCalltoData(newCallDat);
+
+        Debug.Log(" NEW DIALOGUE " + newCallDat.fromCharacter.CharName + " TO: " + newCallDat.toCharacter.CharName);
+        Location loc1 = locationManager.GetLocationFromCharacter(newCallDat.fromCharacter);
+        Location loc2 = locationManager.GetLocationFromCharacter(newCallDat.toCharacter);
+        Debug.Log(" NEW LOC " + loc1.ToString() + " TO: " + loc2.ToString());
 
         _callNextTimer = Random.Range(_callAddTimeMin, _callAddTimeMax);
     }
@@ -325,6 +346,9 @@ public class DayManager : MonoBehaviour
     // STATEFUL, removes from randomized calls
     private Dialogue PopRandomizedCall()
     {
+        if (_randomizedCalls.Count <= 0)
+            return null;
+
         int index = Random.Range(0, _randomizedCalls.Count);
         DialogueHolder holder = _randomizedCalls[index];
         _randomizedCalls.RemoveAt(index);
@@ -446,26 +470,10 @@ public class DayManager : MonoBehaviour
         return null;
     }
 
-
     bool CharacterInCall(CharacterInfo character)
     {
         return _callingCharacters.Contains(character);
     }
-
-    Dialogue getRandomDialogue()
-    {
-        foreach (var pool in currentDay.RandomizedCallPool)
-        {
-            bool allTagsPresent = pool.requiredTags.All(tag => tagsReference.Contains(tag));
-        
-            if (allTagsPresent)
-            {
-                return pool;
-            }
-        }
-        return null;
-    }
-
     // Jack placed -> is the player in a call -> find that call info
     // otherwise don't do anything
 
