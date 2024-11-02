@@ -123,6 +123,7 @@ public class DayManager : MonoBehaviour
         // connect events
         Jack.onJackPlaced += OnJackPlaced;
         Jack.onJackTaken += OnJackRemoved;
+        LockInButton.onJackLock += LockIn;
         SetSwitchboard();
 
 
@@ -174,7 +175,7 @@ public class DayManager : MonoBehaviour
         CallData incomingDat = CharacterHasIncomingCall(characterPlaced);
         if (incomingDat != null)
         {
-            outgoingDat.toCharacter = characterPlaced;
+            incomingDat.toCharacter = characterPlaced;
             SetIncomingForJackSet(jackSet, characterPlaced);
         }
     }
@@ -195,7 +196,7 @@ public class DayManager : MonoBehaviour
         CallData incomingDat = CharacterHasIncomingCall(characterRemoved);
         if (incomingDat != null)
         {
-            outgoingDat.toCharacter = null;
+            incomingDat.toCharacter = null;
             SetIncomingForJackSet(jackSet, null);
         }
     }
@@ -203,6 +204,8 @@ public class DayManager : MonoBehaviour
     public void LockIn(int JackSetNumber)
     {
         JackCallersHeldData jackHeldData = _jackSetToHeldCallers.GetValueOrDefault(JackSetNumber);
+
+        Debug.Log("LOCK IN: " + JackSetNumber + " " + jackHeldData.ToString());
         // Is a valid Jackset
 
         if (jackHeldData == null)
@@ -233,12 +236,14 @@ public class DayManager : MonoBehaviour
         {
             AddTags(outGoingCall.associatedDialogue.failureTags);
             strikesLeft--;
+            Debug.Log("Null Fail!");
             // failure
             return;
         }
 
         if (outGoingCall.toCharacter != jackHeldData.to)
         {
+            Debug.Log("Wrong Character Fail!");
             // Also failgure, but also potential specific character to character tags
             AddTags(outGoingCall.associatedDialogue.failureTags);
             AddTags(outGoingCall.associatedDialogue.GetTagsFromCharacter(jackHeldData.to));
@@ -248,6 +253,7 @@ public class DayManager : MonoBehaviour
 
         // We've reached the success case
         AddTags(outGoingCall.associatedDialogue.successTags);
+        Debug.Log("Success!");
     }
 
 
@@ -286,7 +292,7 @@ public class DayManager : MonoBehaviour
 
     private int GetAssociatedJackSet(int jackID)
     {
-        return jackID % 2 == 0 ? jackID + 1 : jackID - 1;
+        return jackID / 2;//jackID % 2 == 0 ? jackID/2 : jackID - 1;
     }
 
     public void SetupDayManager(HashSet<Tag> newTags, LocationManager locManager, Day day)
@@ -309,7 +315,7 @@ public class DayManager : MonoBehaviour
     private void SetSwitchboard()
     {
         _switchboard = FindAnyObjectByType<Switchboard>();
-        if (!_switchboard)
+        if (_switchboard)
             return;
 
         Jack[] jacks = _switchboard.GetJacks();
@@ -321,8 +327,16 @@ public class DayManager : MonoBehaviour
 
     private void AddTags(Tag[] tags)
     {
+
+        if (tagsReference == null)
+        {
+            Debug.Log("NULL TAGS");
+            return;
+        }
+
         if (tags == null)
             return;
+
         foreach (Tag tag in tags)
             tagsReference.Add(tag);
     }
@@ -428,6 +442,7 @@ public class DayManager : MonoBehaviour
 
     void SetOutgoingForJackSet(int jackSet, CharacterInfo character)
     {
+        Debug.Log("OUT GOING JACK SET " + jackSet + " " + character.CharName);
         if (!_jackSetToHeldCallers.ContainsKey(jackSet))
         {
             _jackSetToHeldCallers.Add(jackSet, new JackCallersHeldData());

@@ -21,26 +21,23 @@ public class Switchboard : MonoBehaviour
     private Switch[,] switches;
     private Jack[] jacks;
     private Switch[] jackSwitches;
-    private Button[] lockInButtons;
-
-    public delegate void OnJackLock(int jackSetId);
-    public static event OnJackLock onJackLock;
-
+    private LockInButton[] lockInButtons;
 
     void Awake()
     {
         switches = new Switch[columns, rows];
         jackSwitches = new Switch[jackCount];
         jacks = new Jack[jackCount];
-        lockInButtons = new Button[jackCount / 2];
-    }
-
-    void Start()
-    {
+        lockInButtons = new LockInButton[jackCount / 2];
         initialSwitchX += transform.position.x;
         initialSwitchY += transform.position.y;
         ProduceSwitches();
         ProduceJacks();
+    }
+
+    void Start()
+    {
+
     }
 
     public void ProduceJacks()
@@ -48,7 +45,7 @@ public class Switchboard : MonoBehaviour
         for (int i = 0; i < jackCount; i++)
         {
             UnityEngine.Vector3 position = centerOfJackRow + new UnityEngine.Vector3(
-                i * xSpacing - xSpacing * (jackCount - 1) / 2, 0, 0);
+            transform.localScale.x * (i * xSpacing - xSpacing * (jackCount - 1) / 2), 3.0f, 0);
             GameObject go_switch = Instantiate(switchPrefab, position, UnityEngine.Quaternion.identity);
             GameObject go_jack = Instantiate(jackPrefab, position, UnityEngine.Quaternion.identity);
 
@@ -69,10 +66,10 @@ public class Switchboard : MonoBehaviour
         for (int i = 0; i < lockInNumber; i++)
         {
             UnityEngine.Vector3 position = centerOfJackRow + new UnityEngine.Vector3(
-                i * xSpacing - xSpacing * (jackCount - 1) / 2, 0, 0);
+                i * xSpacing * 2 - xSpacing * 2 * (lockInNumber - 1) / 2, 2.0f, 0);
             GameObject button = Instantiate(lockInPrefab, position, UnityEngine.Quaternion.identity);
-            lockInButtons[i] = button.GetComponent<Button>();
-            //lockInButtons[i].onClick += (i) => { onJackLock(i); }
+            lockInButtons[i] = button.GetComponent<LockInButton>();
+            lockInButtons[i].jackSet = i;
         }
     }
 
@@ -96,8 +93,8 @@ public class Switchboard : MonoBehaviour
                 GameObject t_switch = Instantiate(
                     switchPrefab,
                     new UnityEngine.Vector3(
-                        initialSwitchX + i * xSpacing + a,
-                        initialSwitchY - j * ySpacing,
+                        transform.localScale.x * (initialSwitchX + i * xSpacing + a),
+                        transform.localScale.y * (initialSwitchY - j * ySpacing),
                         0
                     ),
                     UnityEngine.Quaternion.identity);
