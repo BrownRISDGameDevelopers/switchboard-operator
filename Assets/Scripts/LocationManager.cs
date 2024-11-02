@@ -13,6 +13,19 @@ public struct Location
     // 0 - 9
     public int Number;
 
+    public override bool Equals(object obj)
+    {
+        if (!(obj is Location))
+            return false;
+        Location cmp = (Location)obj;
+        return (cmp.Letter == Letter && cmp.Number == Number);
+    }
+    public override int GetHashCode()
+    {
+        return ((int)Letter << (int)Number);
+    }
+
+
     public override string ToString() => $"Location: [{Letter}, {Number}]";
 }
 
@@ -45,17 +58,17 @@ public class LocationManager : MonoBehaviour
 
         foreach (Switch s in switches)
         {
-            Location locData = s.locationData; 
+            Location locData = s.locationData;
             locList.Add(locData);
         };
 
         return locList;
     }
-    private void RandomizeLocations() 
+    private void RandomizeLocations()
     {
         System.Random rand = new System.Random();
 
-        Dictionary<Location, CharacterInfo> newPositionsToCharacter = new Dictionary<Location, CharacterInfo>(); 
+        Dictionary<Location, CharacterInfo> newPositionsToCharacter = new Dictionary<Location, CharacterInfo>();
         List<CharacterInfo> charList = GetCharacterList();
         List<Location> locList = GetLocationList();
 
@@ -68,13 +81,13 @@ public class LocationManager : MonoBehaviour
             newPositionsToCharacter.Add(newLoc, c);
         }
 
-       positionToCharacter = newPositionsToCharacter; 
+        positionToCharacter = newPositionsToCharacter;
     }
-    private void RandomizeLocations(List<Location> locList) 
+    private void RandomizeLocations(List<Location> locList)
     {
         System.Random rand = new System.Random();
 
-        Dictionary<Location, CharacterInfo> newPositionsToCharacter = new Dictionary<Location, CharacterInfo>(); 
+        Dictionary<Location, CharacterInfo> newPositionsToCharacter = new Dictionary<Location, CharacterInfo>();
         List<CharacterInfo> charList = GetCharacterList();
 
         foreach (CharacterInfo c in charList)
@@ -86,7 +99,7 @@ public class LocationManager : MonoBehaviour
             newPositionsToCharacter.Add(newLoc, c);
         }
 
-       positionToCharacter = newPositionsToCharacter; 
+        positionToCharacter = newPositionsToCharacter;
     }
     public List<CharacterInfo> GetCharacterList()
     {
@@ -116,14 +129,5 @@ public class LocationManager : MonoBehaviour
         }
         return null;
     }
-    // Update is called once per frame
-    void Update()
-    {
 
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 }
