@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f9321922918b4e96858f4dccd404147, type: 3}
   m_Name: TEst 1
   m_EditorClassIdentifier: 
-  Character: {fileID: 0}
-  Lines: []
+  FromCharacter: {fileID: 0}
+  ToCharacter: {fileID: 0}
+  Lines:
+  - text: 
+    portraitType: 0
+    speedScale: 0
   successTag: {fileID: 0}
   failureTag: {fileID: 0}
   ignoreTag: {fileID: 0}

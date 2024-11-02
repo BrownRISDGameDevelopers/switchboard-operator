@@ -12,10 +12,10 @@ public enum PortraitEmotion
 }
 
 [System.Serializable]
-struct CharacterToTag
+public struct CharacterToTags
 {
-    CharacterInfo character;
-    string tag;
+    public CharacterInfo character;
+    public Tag[] tags;
 }
 
 [System.Serializable]
@@ -33,9 +33,24 @@ public class Dialogue : ScriptableObject
     public CharacterInfo ToCharacter;
     public DialogueLine[] Lines;
 
-    public Tag successTag;
-    public Tag failureTag;
-    public Tag ignoreTag;
+    [Header("Tags")]
+    public Tag[] successTags;
+    public Tag[] failureTags;
+    public Tag[] ignoreTags;
 
-    private CharacterToTag[] characterMap;
+    public CharacterToTags[] characterMap;
+
+
+    // nullable
+    public Tag[] GetTagsFromCharacter(CharacterInfo info)
+    {
+        foreach (CharacterToTags characterTags in characterMap)
+        {
+            if (characterTags.character == info)
+            {
+                return characterTags.tags;
+            }
+        }
+        return null;
+    }
 }

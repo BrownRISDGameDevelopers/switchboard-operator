@@ -18,17 +18,32 @@ using UnityEngine;
  *
  */
 
+
+enum CallState
+{
+    INCOMING = 0,
+    ENDED = 1,
+
+    LOCKED_IN = 2,
+
+}
+
 class CallData
 {
     public float curTimer;
+    public bool dialogueRevealed = false;
+
+    public Dialogue associatedDialogue;
+
     public CharacterInfo fromCharacter;
     public CharacterInfo toCharacter;
 
-    public CallData(CharacterInfo fromChar, CharacterInfo toChar, float timer)
+    public CallData(CharacterInfo fromChar, CharacterInfo toChar, float timer, Dialogue dialogue)
     {
         curTimer = timer;
         fromCharacter = fromChar;
         toCharacter = toChar;
+        associatedDialogue = dialogue;
     }
 }
 
@@ -45,6 +60,7 @@ class JackCallersHeldData
 
 
 // TODO: we need way for calls to be ignored, and calls need to be on UI
+// TODO: Potential edge case, what if a jack is locked into a character/location that doesn't have a call, then a dialogue comes in with a call for that character?
 public class DayManager : MonoBehaviour
 {
 
@@ -56,20 +72,42 @@ public class DayManager : MonoBehaviour
     public int strikesLeft = 3;
 
     // For incoming call logic
+    // THIS LIST IS IMPORTANT
+    // All incoming or current calls on it
     private List<CallData> _callList = new List<CallData>();
-    private float _callTimeoutTime = 1.0f;
+
+    // All characters current in an incoming or current call
+    private HashSet<CharacterInfo> _callingCharacters = new HashSet<CharacterInfo>();
+
+    // List of potential calls
+    // Initialized in Start, then popped off when randomized dialogue needed
+    private List<DialogueHolder> _randomizedCalls;
+    // All previously done dialogues (not used yet) 
+    private HashSet<Dialogue> _previousCalls = new HashSet<Dialogue>();
+
+
+    // Randomized call timing 
+    // Time between 
+    //private float _callTimeoutTime = 1.0f;
+    // Minimum and maximum time a new randomized call will come in
     private float _callAddTimeMin = 1.0f;
     private float _callAddTimeMax = 10.0f;
+    // State, data for timing when next call will be  
     private float _callNextTimer = 5.0f;
 
-    private HashSet<CharacterInfo> _callingCharacters = new HashSet<CharacterInfo>();
-    private HashSet<Dialogue> _previousCalls = new HashSet<Dialogue>();
-    private List<DialogueHolder> _randomizedCalls;
+    // A new call is incoming, here's how long you have to answer it
+    private float _incomingCallReceivedWaitTime = 10.0f;
+    // Once answered, heres how long you have to lock it in with the right thang
+    private float _postCallReceivedWaitTime = 10.0f;
 
 
     // Jackin it 
     private Dictionary<int, Jack> _idToJack = new Dictionary<int, Jack>();
     private HashSet<int> _placedJacks = new HashSet<int>();
+
+    // a "Jackset" is the group of two jacks
+    // input jackset id (if 3 pairs, a number 0 to 2) and get the currently held callers
+    // held callers data is nullable 
     private Dictionary<int, JackCallersHeldData> _jackSetToHeldCallers = new Dictionary<int, JackCallersHeldData>();
 
     void Start()
@@ -93,10 +131,141 @@ public class DayManager : MonoBehaviour
 
     }
 
-    // nullable
-    private Jack GetAssociatedJack(Jack jack)
+    // Jack placed
+    // If outgoing caller
+    //      play dialogue
+    // If incoming caller
+    void JackPlacedInLoc(Location loc, int jackId)
     {
-        return _idToJack.GetValueOrDefault(jack.jackID % 2 == 0 ? jack.jackID + 1 : jack.jackID - 1);
+        CharacterInfo characterPlaced = locationManager.GetCharacterFromLocation(loc);
+        int jackSet = GetAssociatedJackSet(jackId);
+
+        // Logic for if the placed jack hit something with a character that has an outgoing call (from character)
+        CallData outgoingDat = CharacterHasOutgoingCall(characterPlaced);
+        if (outgoingDat != null)
+        {
+            outgoingDat.fromCharacter = characterPlaced;
+            SetOutgoingForJackSet(jackSet, characterPlaced);
+
+            // If dialogue hasn't been revealed yet (this call wasn't received yet)
+            // Play the dialogue and give the player some more time to lock it in
+            if (!outgoingDat.dialogueRevealed)
+            {
+                outgoingDat.curTimer = _postCallReceivedWaitTime;
+                // TODO: Actually play dialogue
+                outgoingDat.dialogueRevealed = true;
+            }
+        }
+
+        // Logic for if the placed jack hit something with a character that has an incoming call (to character)
+        CallData incomingDat = CharacterHasIncomingCall(characterPlaced);
+        if (incomingDat != null)
+        {
+            outgoingDat.toCharacter = characterPlaced;
+            SetIncomingForJackSet(jackSet, characterPlaced);
+        }
+    }
+
+    void JackRemovedInLoc(Location loc, int jackId)
+    {
+        CharacterInfo characterRemoved = locationManager.GetCharacterFromLocation(loc);
+
+        int jackSet = GetAssociatedJackSet(jackId);
+
+        CallData outgoingDat = CharacterHasOutgoingCall(characterRemoved);
+        if (outgoingDat != null)
+        {
+            outgoingDat.fromCharacter = null;
+            SetOutgoingForJackSet(jackSet, null);
+        }
+
+        CallData incomingDat = CharacterHasIncomingCall(characterRemoved);
+        if (incomingDat != null)
+        {
+            outgoingDat.toCharacter = null;
+            SetIncomingForJackSet(jackSet, null);
+        }
+    }
+
+    public void LockIn(int JackSetNumber)
+    {
+        JackCallersHeldData jackHeldData = _jackSetToHeldCallers.GetValueOrDefault(JackSetNumber);
+        // Is a valid Jackset
+
+        if (jackHeldData == null)
+            return;
+
+        if (jackHeldData.from == null)
+            return;
+
+        // Cases
+        // Standard, jack is connected to correct incoming and outgoing caller
+        //      Start jack timer, when it ends, successful call, add tags
+        // Nothing, jack is not connected to any callers, do nothing
+        // Connected to just an outgoing caller
+        //      Fail, add failure tags
+        // Connected to an outgoing caller with incorrect receiver
+        //      Fail, strike, but add other tags
+        // We don't care about the case where its just connected to an incoming caller
+
+        // This will not be null because its only set if the jack has an outgoing case, but gonna check anyways
+        CallData outGoingCall = CharacterHasOutgoingCall(jackHeldData.from);
+        if (outGoingCall == null)
+        {
+            Debug.LogError("Null that should be impossible in day manager");
+            return;
+        }
+
+        if (jackHeldData.to == null)
+        {
+            AddTags(outGoingCall.associatedDialogue.failureTags);
+            strikesLeft--;
+            // failure
+            return;
+        }
+
+        if (outGoingCall.toCharacter != jackHeldData.to)
+        {
+            // Also failgure, but also potential specific character to character tags
+            AddTags(outGoingCall.associatedDialogue.failureTags);
+            AddTags(outGoingCall.associatedDialogue.GetTagsFromCharacter(jackHeldData.to));
+            strikesLeft--;
+            return;
+        }
+
+        // We've reached the success case
+        AddTags(outGoingCall.associatedDialogue.successTags);
+    }
+
+
+
+    private void CheckForIncomingCalls()
+    {
+        _callNextTimer -= Time.deltaTime;
+        if (_callNextTimer > 0)
+        {
+            return;
+        }
+        Dialogue newCall = PopRandomizedCall();
+
+        // TODO DISPlAY DIALOGUE
+
+        // ADD RELEVANT INFO
+        CallData newCallDat = new CallData(newCall.FromCharacter, newCall.ToCharacter, _incomingCallReceivedWaitTime, newCall);
+        AddCalltoData(newCallDat);
+
+        _callNextTimer = Random.Range(_callAddTimeMin, _callAddTimeMax);
+    }
+
+    // nullable
+    private int GetAssociatedJackSet(Jack jack)
+    {
+        return GetAssociatedJackSet(jack.jackID);
+    }
+
+    private int GetAssociatedJackSet(int jackID)
+    {
+        return jackID % 2 == 0 ? jackID + 1 : jackID - 1;
     }
 
     public void SetupDayManager(HashSet<Tag> newTags, LocationManager locManager, Day day)
@@ -120,9 +289,8 @@ public class DayManager : MonoBehaviour
     {
         _switchboard = FindAnyObjectByType<Switchboard>();
         if (!_switchboard)
-        {
             return;
-        }
+
         Jack[] jacks = _switchboard.GetJacks();
         foreach (Jack jack in jacks)
         {
@@ -130,35 +298,28 @@ public class DayManager : MonoBehaviour
         }
     }
 
-
-    private void CheckForIncomingCalls()
+    private void AddTags(Tag[] tags)
     {
-        _callNextTimer -= Time.deltaTime;
-        if (_callNextTimer > 0)
-        {
+        if (tags == null)
             return;
-        }
-        Dialogue newCall = PopRandomizedCall();
-
-        // TODO DISPlAY DIALOGUE
-
-        // ADD RELEVANT INFO
-        _callList.Add(new CallData(newCall.FromCharacter, newCall.ToCharacter, 10.0f));
-        AddDialoguetoData(newCall);
-
-        _callNextTimer = Random.Range(_callAddTimeMin, _callAddTimeMax);
+        foreach (Tag tag in tags)
+            tagsReference.Add(tag);
     }
 
-    private void AddDialoguetoData(Dialogue toAdd)
+
+
+    private void AddCalltoData(CallData toAdd)
     {
-        _callingCharacters.Add(toAdd.FromCharacter);
-        _callingCharacters.Add(toAdd.ToCharacter);
+        _callList.Add(toAdd);
+        _callingCharacters.Add(toAdd.fromCharacter);
+        _callingCharacters.Add(toAdd.toCharacter);
     }
 
-    private void RemoveDialogueFromData(Dialogue toRemove)
+    private void RemoveCallFromData(CallData toRemove)
     {
-        _callingCharacters.Remove(toRemove.FromCharacter);
-        _callingCharacters.Remove(toRemove.ToCharacter);
+        _callList.Remove(toRemove);
+        _callingCharacters.Remove(toRemove.fromCharacter);
+        _callingCharacters.Remove(toRemove.toCharacter);
     }
 
     // STATEFUL, removes from randomized calls
@@ -205,9 +366,10 @@ public class DayManager : MonoBehaviour
             dat.curTimer -= Time.deltaTime;
             if (dat.curTimer <= 0)
             {
-                // Call failed
+                // Call ignored
+                AddTags(dat.associatedDialogue.ignoreTags);
                 strikesLeft--;
-                _callList.RemoveAt(i);
+                RemoveCallFromData(dat);
             }
         }
     }
@@ -221,8 +383,8 @@ public class DayManager : MonoBehaviour
             return;
         }
         Location jackLoc = jackData.SnappedSwitch.locationData;
-        _placedJacks.Add(jackData.PlacedJackID);
-        JackRemovedInLoc(jackLoc);
+        _placedJacks.Remove(jackData.PlacedJackID);
+        JackRemovedInLoc(jackLoc, jackData.PlacedJackID);
         print("Removed event received:" + jackData.ToString());
     }
 
@@ -235,38 +397,29 @@ public class DayManager : MonoBehaviour
             return;
         }
         Location jackLoc = jackData.SnappedSwitch.locationData;
-        _placedJacks.Remove(jackData.PlacedJackID);
-        JackPlacedInLoc(jackLoc);
+        _placedJacks.Add(jackData.PlacedJackID);
+        JackPlacedInLoc(jackLoc, jackData.PlacedJackID);
         print("Event received:" + jackData.ToString());
     }
 
-
-    // Jack placed
-    // If outgoing caller
-    //      play dialogue
-    // If incoming caller
-    void JackPlacedInLoc(Location loc)
+    void SetOutgoingForJackSet(int jackSet, CharacterInfo character)
     {
-        CharacterInfo characterPlaced = locationManager.GetCharacterFromLocation(loc);
-
-        CallData outgoingDat = CharacterHasOutgoingCall(characterPlaced);
-        if (outgoingDat != null)
+        if (!_jackSetToHeldCallers.ContainsKey(jackSet))
         {
-            // handle dialogue for outgoing call
+            _jackSetToHeldCallers.Add(jackSet, new JackCallersHeldData());
         }
-
-        CallData incomingDat = CharacterHasOutgoingCall(characterPlaced);
-        if (incomingDat != null)
-        {
-
-            //incomingDat.fromCharacter
-
-        }
+        _jackSetToHeldCallers.TryGetValue(jackSet, out JackCallersHeldData dat);
+        dat.from = character;
     }
 
-    void JackRemovedInLoc(Location loc)
+    void SetIncomingForJackSet(int jackSet, CharacterInfo character)
     {
-        CharacterInfo characterRemoved = locationManager.GetCharacterFromLocation(loc);
+        if (!_jackSetToHeldCallers.ContainsKey(jackSet))
+        {
+            _jackSetToHeldCallers.Add(jackSet, new JackCallersHeldData());
+        }
+        _jackSetToHeldCallers.TryGetValue(jackSet, out JackCallersHeldData dat);
+        dat.to = character;
     }
 
     CallData CharacterHasIncomingCall(CharacterInfo character)
@@ -293,6 +446,11 @@ public class DayManager : MonoBehaviour
         return null;
     }
 
+
+    bool CharacterInCall(CharacterInfo character)
+    {
+        return _callingCharacters.Contains(character);
+    }
 
 
     // Jack placed -> is the player in a call -> find that call info
