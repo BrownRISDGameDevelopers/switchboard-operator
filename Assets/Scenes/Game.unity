@@ -430,13 +430,13 @@ MonoBehaviour:
   - loc:
       Valid: 0
       Index: 0
-      Letter: 97
+      Letter: 65
       Number: 5
     info: {fileID: 11400000, guid: 5b5933cffda1347849aecdd64a559381, type: 2}
   - loc:
       Valid: 0
       Index: 0
-      Letter: 99
+      Letter: 67
       Number: 3
     info: {fileID: 11400000, guid: 6dfdac0c0cc1c459baf78e5ac7153f32, type: 2}
 --- !u!4 &1066874683

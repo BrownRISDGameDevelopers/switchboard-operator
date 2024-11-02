@@ -1,11 +1,13 @@
 using System;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Switchboard : MonoBehaviour
 {
     public GameObject switchPrefab;
     public GameObject jackPrefab;
+    public GameObject lockInPrefab;
     public int rows = 5;
     public int columns = 6;
     public int jackCount = 6;
@@ -19,14 +21,18 @@ public class Switchboard : MonoBehaviour
     private Switch[,] switches;
     private Jack[] jacks;
     private Switch[] jackSwitches;
+    private Button[] lockInButtons;
+
+    public delegate void OnJackLock(int jackSetId);
+    public static event OnJackLock onJackLock;
+
 
     void Awake()
     {
-
         switches = new Switch[columns, rows];
         jackSwitches = new Switch[jackCount];
         jacks = new Jack[jackCount];
-
+        lockInButtons = new Button[jackCount / 2];
     }
 
     void Start()
@@ -57,6 +63,16 @@ public class Switchboard : MonoBehaviour
                 Number = i
             };
             jacks[i].configure(jackSwitches[i], i, this);
+        }
+
+        int lockInNumber = jackCount / 2;
+        for (int i = 0; i < lockInNumber; i++)
+        {
+            UnityEngine.Vector3 position = centerOfJackRow + new UnityEngine.Vector3(
+                i * xSpacing - xSpacing * (jackCount - 1) / 2, 0, 0);
+            GameObject button = Instantiate(lockInPrefab, position, UnityEngine.Quaternion.identity);
+            lockInButtons[i] = button.GetComponent<Button>();
+            //lockInButtons[i].onClick += (i) => { onJackLock(i); }
         }
     }
 
