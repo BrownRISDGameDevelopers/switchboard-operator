@@ -452,6 +452,19 @@ public class DayManager : MonoBehaviour
         return _callingCharacters.Contains(character);
     }
 
+    Dialogue getRandomDialogue()
+    {
+        foreach (var pool in currentDay.RandomizedCallPool)
+        {
+            bool allTagsPresent = pool.requiredTags.All(tag => tagsReference.Contains(tag));
+        
+            if (allTagsPresent)
+            {
+                return pool;
+            }
+        }
+        return null;
+    }
 
     // Jack placed -> is the player in a call -> find that call info
     // otherwise don't do anything
