@@ -47,6 +47,6 @@ TagManager:
   - name: Switchboard
     uniqueID: 3306838967
     locked: 0
-  - name: Switches
+  - name: Switchboard_elements
     uniqueID: 813739081
     locked: 0
