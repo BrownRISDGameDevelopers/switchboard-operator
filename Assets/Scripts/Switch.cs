@@ -20,9 +20,8 @@ public class Switch : MonoBehaviour
         
     }
 
-    public void blinkSwitch(int time){
-        int multiplier = 10/(time+1);
-        if(math.cos(time*multiplier) > 0){
+    public void blinkSwitch(float secondsLeft){
+        if(math.cos((secondsLeft >= 0) ? 2000/(secondsLeft+10) : 25*secondsLeft) > 0){
             this.GetComponentInChildren<SpriteRenderer>().sprite = blinkOnSprite;
         }else{
             this.GetComponentInChildren<SpriteRenderer>().sprite = blinkOffSprite;
