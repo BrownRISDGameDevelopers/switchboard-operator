@@ -13,44 +13,54 @@ public class Switchboard : MonoBehaviour
     public int jackCount = 6;
     private float xSpacing = 0.89f;
     private float ySpacing = 0.89f;
-    private float initialSwitchX = -1.957f;
-    private float initialSwitchY = 1.949f;
+    private float initialSwitchX = 0.75f;//-1.957f;
+    private float initialSwitchY = 2.25f;//1.949f;
+
+
+    public Transform[] columnLocations;
 
     public UnityEngine.Vector3 centerOfJackRow = new UnityEngine.Vector3(0, -4, 0);
     private UnityEngine.Vector3[,] switchPositions;
     private Switch[,] switches;
     private Jack[] jacks;
     private Switch[] jackSwitches;
-    private Button[] lockInButtons;
-
-    public delegate void OnJackLock(int jackSetId);
-    public static event OnJackLock onJackLock;
-
+    private LockInButton[] lockInButtons;
 
     void Awake()
     {
         switches = new Switch[columns, rows];
         jackSwitches = new Switch[jackCount];
         jacks = new Jack[jackCount];
-        lockInButtons = new Button[jackCount / 2];
-    }
-
-    void Start()
-    {
-        initialSwitchX += transform.position.x;
-        initialSwitchY += transform.position.y;
+        lockInButtons = new LockInButton[jackCount / 2];
+        //initialSwitchX += transform.position.x;
+        //initialSwitchY += transform.position.y;
         ProduceSwitches();
         ProduceJacks();
+    }
+
+
+    private Transform GetColLocationFromIndex(int i)
+    {
+        Transform ret = transform;
+        int col = i / 2;
+        if (columnLocations.Length > col)
+        {
+            ret = columnLocations[col];
+        }
+        return ret;
     }
 
     public void ProduceJacks()
     {
         for (int i = 0; i < jackCount; i++)
         {
-            UnityEngine.Vector3 position = centerOfJackRow + new UnityEngine.Vector3(
-                i * xSpacing - xSpacing * (jackCount - 1) / 2, 0, 0);
-            GameObject go_switch = Instantiate(switchPrefab, position, UnityEngine.Quaternion.identity);
-            GameObject go_jack = Instantiate(jackPrefab, position, UnityEngine.Quaternion.identity);
+            Transform initTrans = GetColLocationFromIndex(i);
+            Vector3 pos = new Vector3(initTrans.position.x + (i % 2 * xSpacing * transform.localScale.x), initTrans.position.y - ((rows) * ySpacing * transform.localScale.y), 0);
+
+            //UnityEngine.Vector3 position = centerOfJackRow + new UnityEngine.Vector3(
+            //transform.localScale.x * (i * xSpacing - xSpacing * (jackCount - 1) / 2), 3.0f, 0);
+            GameObject go_switch = Instantiate(switchPrefab, pos, UnityEngine.Quaternion.identity);
+            GameObject go_jack = Instantiate(jackPrefab, pos, UnityEngine.Quaternion.identity);
 
             jackSwitches[i] = go_switch.GetComponent<Switch>();
             jacks[i] = go_jack.GetComponent<Jack>();
@@ -58,7 +68,6 @@ public class Switchboard : MonoBehaviour
             jackSwitches[i].locationData = new Location()
             {
                 Valid = true,
-                Index = 0,
                 Letter = 'j',
                 Number = i
             };
@@ -68,11 +77,12 @@ public class Switchboard : MonoBehaviour
         int lockInNumber = jackCount / 2;
         for (int i = 0; i < lockInNumber; i++)
         {
-            UnityEngine.Vector3 position = centerOfJackRow + new UnityEngine.Vector3(
-                i * xSpacing - xSpacing * (jackCount - 1) / 2, 0, 0);
-            GameObject button = Instantiate(lockInPrefab, position, UnityEngine.Quaternion.identity);
-            lockInButtons[i] = button.GetComponent<Button>();
-            //lockInButtons[i].onClick += (i) => { onJackLock(i); }
+            Transform initTrans = GetColLocationFromIndex(i * 2);
+            Vector3 pos = new Vector3(initTrans.position.x + ((xSpacing / 2) * transform.localScale.x), initTrans.position.y - ((rows + 1) * ySpacing * transform.localScale.y), 0);
+
+            GameObject button = Instantiate(lockInPrefab, pos, UnityEngine.Quaternion.identity);
+            lockInButtons[i] = button.GetComponent<LockInButton>();
+            lockInButtons[i].jackSet = i;
         }
     }
 
@@ -85,26 +95,23 @@ public class Switchboard : MonoBehaviour
             float a = 0f; //Additional increment for stepping
             for (int i = 0; i < columns; i++)
             {
-                if (i == 2)
-                {
-                    a += 0.769f;
-                }
-                else if (i == 4)
-                {
-                    a += 0.83f;
-                }
+                Transform initTrans = GetColLocationFromIndex(i);
+                Vector3 pos = new Vector3(initTrans.position.x + (i % 2 * xSpacing * transform.localScale.x), initTrans.position.y - (j * ySpacing * transform.localScale.y), 0);
+
                 GameObject t_switch = Instantiate(
                     switchPrefab,
-                    new UnityEngine.Vector3(
-                        initialSwitchX + i * xSpacing + a,
-                        initialSwitchY - j * ySpacing,
+                    pos,
+                    /*new UnityEngine.Vector3(
+                         transform.localScale.x * (initialSwitchX + (i * xSpacing + a) - (xSpacing * (columns / 2))),
+                         transform.localScale.y * (initialSwitchY + (-j * ySpacing) + (ySpacing * (rows / 2))),
                         0
-                    ),
-                    UnityEngine.Quaternion.identity);
+                    ),*/
+                    UnityEngine.Quaternion.identity
+                    );
                 t_switch.GetComponent<Switch>().locationData = new Location()
                 {
                     Valid = true,
-                    Index = 0, //Index not used at all (until further notice)
+                    //Index = (j * columns) + i,
                     Letter = (char)(65 + j),
                     Number = 1 + i
                 };
@@ -135,6 +142,15 @@ public class Switchboard : MonoBehaviour
         //         switches[i, j] = go_switch.GetComponent<Switch>();
         //     }
         // }
+    }
+
+
+
+    public void SetSwitchTiming(Location loc, float time)
+    {
+        Debug.Log("pos: " + loc.Letter.ToString() + loc.Number.ToString() + " ind: " + loc.GetIndex(columns).ToString());
+        Switch _switch = switches[loc.GetIndex(columns) % columns, loc.GetIndex(columns) / columns];
+        _switch?.blinkSwitch(time);
     }
 
     //Checks the position of all switches relative to the passed position of the mouse/jack, returns the nearest position of switch

@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        if (_existingGameManager != null)
+        /*if (_existingGameManager != null && _existingGameManager != this)
         {
             Debug.LogError("Critical error in GameManager, multiple game managers");
             Destroy(this);
@@ -35,16 +35,19 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogError("Critical error in GameManager, no location manager found in GameObject");
             return;
-        }
+        }*/
+        TryGetComponent<LocationManager>(out locationManager);
         _existingGameManager = this;
+
 
         DontDestroyOnLoad(this);
     }
 
     void Start()
     {
-        AsyncOperation load_op = SceneManager.LoadSceneAsync((int) Constants.SceneIndexTable.Game);
-        load_op.completed += (_) => LoadNewDay(days[currentDay]);
+        //AsyncOperation load_op = SceneManager.LoadSceneAsync((int)Constants.SceneIndexTable.Game);
+        //load_op.completed += (_) => LoadNewDay(days[currentDay]);
+        LoadNewDay(days[currentDay]);
     }
 
     public void LoadNewDay(Day day)
@@ -72,7 +75,7 @@ public class GameManager : MonoBehaviour
 
         // Logic for cutscenes + early endings
 
-        SceneManager.LoadScene((int) Constants.SceneIndexTable.EndOfDay);
+        SceneManager.LoadScene((int)Constants.SceneIndexTable.EndOfDay);
     }
 
     public void EnterEndOfDay()
@@ -81,7 +84,7 @@ public class GameManager : MonoBehaviour
 
     public void ReturnToMenu()
     {
-        SceneManager.LoadScene((int) Constants.SceneIndexTable.Menu);
+        SceneManager.LoadScene((int)Constants.SceneIndexTable.Menu);
     }
 
     public void PayPlayer(int amount)

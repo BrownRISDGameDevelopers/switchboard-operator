@@ -11,7 +11,7 @@ using UnityEngine;
 public struct DialogueHolder
 {
     [SerializeField]
-    public Tag[] requiredTags;
+    //public Tag[] requiredTags;
     public Dialogue dialogue;
 }
 

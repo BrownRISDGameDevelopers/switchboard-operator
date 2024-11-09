@@ -3,6 +3,30 @@ Make sure switch positioning in "switchboard space" and not world space
 Lock in button 
 
 Event based display location stuff (when a new call is added, something needs to display that its there)
+- lights 
 visual for timer
+- how to visualize when jacked in?
+improve lock in visual 
+positioning
+visual for strikes
+working clock?
 
-Locations should only be inputted characters and not manually set
+implement map
+
+Locations should only be inputted characters and not manually set, randomize locations
+
+what happens if a call comes in and you already have jack there? 
+
+entirely randomize locations
+
+gamefeel
+- squash and stretch for buttons
+- screenshake for strike, maybe on click
+- generally more movement
+
+
+get writers in on things
+
+
+If a call comes in while the same jack is in
+- boot the jack (play a little sound effect)

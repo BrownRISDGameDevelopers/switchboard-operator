@@ -104,6 +104,8 @@ public class DayManager : MonoBehaviour
     // Once answered, heres how long you have to lock it in with the right thang
     private float _postCallReceivedWaitTime = 10.0f;
 
+    public delegate void OnStrike(int strikesLeft, bool recharge);
+    public static event OnStrike onStrike;
 
     // Jackin it 
     private Dictionary<int, Jack> _idToJack = new Dictionary<int, Jack>();
@@ -123,6 +125,7 @@ public class DayManager : MonoBehaviour
         // connect events
         Jack.onJackPlaced += OnJackPlaced;
         Jack.onJackTaken += OnJackRemoved;
+        LockInButton.onJackLock += LockIn;
         SetSwitchboard();
 
 
@@ -149,7 +152,6 @@ public class DayManager : MonoBehaviour
         Debug.Log("CHARACTER PLACED: " + ((characterPlaced != null) ? characterPlaced.CharName : "NULL"));
         // Logic for if the placed jack hit something with a character that has an outgoing call (from character)
         CallData outgoingDat = CharacterHasOutgoingCall(characterPlaced);
-        Debug.Log("OUTGOING DAT: " + ((outgoingDat != null) ? "NOT NULL" : "NULL"));
         if (outgoingDat != null)
         {
             outgoingDat.fromCharacter = characterPlaced;
@@ -174,7 +176,7 @@ public class DayManager : MonoBehaviour
         CallData incomingDat = CharacterHasIncomingCall(characterPlaced);
         if (incomingDat != null)
         {
-            outgoingDat.toCharacter = characterPlaced;
+            incomingDat.toCharacter = characterPlaced;
             SetIncomingForJackSet(jackSet, characterPlaced);
         }
     }
@@ -195,7 +197,7 @@ public class DayManager : MonoBehaviour
         CallData incomingDat = CharacterHasIncomingCall(characterRemoved);
         if (incomingDat != null)
         {
-            outgoingDat.toCharacter = null;
+            incomingDat.toCharacter = null;
             SetIncomingForJackSet(jackSet, null);
         }
     }
@@ -203,6 +205,8 @@ public class DayManager : MonoBehaviour
     public void LockIn(int JackSetNumber)
     {
         JackCallersHeldData jackHeldData = _jackSetToHeldCallers.GetValueOrDefault(JackSetNumber);
+
+        Debug.Log("LOCK IN: " + JackSetNumber.ToString() + " " + jackHeldData.ToString());
         // Is a valid Jackset
 
         if (jackHeldData == null)
@@ -232,22 +236,32 @@ public class DayManager : MonoBehaviour
         if (jackHeldData.to == null)
         {
             AddTags(outGoingCall.associatedDialogue.failureTags);
-            strikesLeft--;
+            Strike();
+            Debug.Log("Null Fail!");
             // failure
             return;
         }
 
         if (outGoingCall.toCharacter != jackHeldData.to)
         {
+            Debug.Log("Wrong Character Fail!");
             // Also failgure, but also potential specific character to character tags
             AddTags(outGoingCall.associatedDialogue.failureTags);
             AddTags(outGoingCall.associatedDialogue.GetTagsFromCharacter(jackHeldData.to));
-            strikesLeft--;
+            Strike();
             return;
         }
 
         // We've reached the success case
         AddTags(outGoingCall.associatedDialogue.successTags);
+        Debug.Log("Success!");
+    }
+
+
+    private void Strike()
+    {
+        strikesLeft--;
+        onStrike.Invoke(strikesLeft, false);
     }
 
 
@@ -286,7 +300,7 @@ public class DayManager : MonoBehaviour
 
     private int GetAssociatedJackSet(int jackID)
     {
-        return jackID % 2 == 0 ? jackID + 1 : jackID - 1;
+        return jackID / 2;//jackID % 2 == 0 ? jackID/2 : jackID - 1;
     }
 
     public void SetupDayManager(HashSet<Tag> newTags, LocationManager locManager, Day day)
@@ -309,7 +323,7 @@ public class DayManager : MonoBehaviour
     private void SetSwitchboard()
     {
         _switchboard = FindAnyObjectByType<Switchboard>();
-        if (!_switchboard)
+        if (_switchboard)
             return;
 
         Jack[] jacks = _switchboard.GetJacks();
@@ -321,8 +335,16 @@ public class DayManager : MonoBehaviour
 
     private void AddTags(Tag[] tags)
     {
+
+        if (tagsReference == null)
+        {
+            Debug.Log("NULL TAGS");
+            return;
+        }
+
         if (tags == null)
             return;
+
         foreach (Tag tag in tags)
             tagsReference.Add(tag);
     }
@@ -361,7 +383,7 @@ public class DayManager : MonoBehaviour
         foreach (DialogueHolder holder in dayDiag.dialogue)
         {
             bool hasAllTags = true;
-            foreach (Tag tag in holder.requiredTags)
+            foreach (Tag tag in holder.dialogue.requiredTags)
             {
                 if (!tagsReference.Contains(tag))
                 {
@@ -388,11 +410,16 @@ public class DayManager : MonoBehaviour
         {
             CallData dat = _callList[i];
             dat.curTimer -= Time.deltaTime;
+
+            Location loc = locationManager.GetLocationFromCharacter(dat.fromCharacter);
+            _switchboard.SetSwitchTiming(loc, dat.curTimer);
             if (dat.curTimer <= 0)
             {
+                Debug.Log("Call ignored!");
+                _switchboard.SetSwitchTiming(loc, 0); // TODO, may want another sprite or other indicator of ignoring
                 // Call ignored
                 AddTags(dat.associatedDialogue.ignoreTags);
-                strikesLeft--;
+                Strike();
                 RemoveCallFromData(dat);
             }
         }
@@ -428,6 +455,7 @@ public class DayManager : MonoBehaviour
 
     void SetOutgoingForJackSet(int jackSet, CharacterInfo character)
     {
+        Debug.Log("OUT GOING JACK SET " + jackSet + " " + character.CharName);
         if (!_jackSetToHeldCallers.ContainsKey(jackSet))
         {
             _jackSetToHeldCallers.Add(jackSet, new JackCallersHeldData());
