@@ -104,6 +104,8 @@ public class DayManager : MonoBehaviour
     // Once answered, heres how long you have to lock it in with the right thang
     private float _postCallReceivedWaitTime = 10.0f;
 
+    public delegate void OnStrike(int strikesLeft, bool recharge);
+    public static event OnStrike onStrike;
 
     // Jackin it 
     private Dictionary<int, Jack> _idToJack = new Dictionary<int, Jack>();
@@ -234,7 +236,7 @@ public class DayManager : MonoBehaviour
         if (jackHeldData.to == null)
         {
             AddTags(outGoingCall.associatedDialogue.failureTags);
-            strikesLeft--;
+            Strike();
             Debug.Log("Null Fail!");
             // failure
             return;
@@ -246,13 +248,20 @@ public class DayManager : MonoBehaviour
             // Also failgure, but also potential specific character to character tags
             AddTags(outGoingCall.associatedDialogue.failureTags);
             AddTags(outGoingCall.associatedDialogue.GetTagsFromCharacter(jackHeldData.to));
-            strikesLeft--;
+            Strike();
             return;
         }
 
         // We've reached the success case
         AddTags(outGoingCall.associatedDialogue.successTags);
         Debug.Log("Success!");
+    }
+
+
+    private void Strike()
+    {
+        strikesLeft--;
+        onStrike.Invoke(strikesLeft, false);
     }
 
 
@@ -410,7 +419,7 @@ public class DayManager : MonoBehaviour
                 _switchboard.SetSwitchTiming(loc, 0); // TODO, may want another sprite or other indicator of ignoring
                 // Call ignored
                 AddTags(dat.associatedDialogue.ignoreTags);
-                strikesLeft--;
+                Strike();
                 RemoveCallFromData(dat);
             }
         }

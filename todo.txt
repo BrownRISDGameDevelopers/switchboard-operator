@@ -26,3 +26,7 @@ gamefeel
 
 
 get writers in on things
+
+
+If a call comes in while the same jack is in
+- boot the jack (play a little sound effect)
