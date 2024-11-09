@@ -15,7 +15,6 @@ implement map
 
 Locations should only be inputted characters and not manually set, randomize locations
 
-
 what happens if a call comes in and you already have jack there? 
 
 entirely randomize locations
