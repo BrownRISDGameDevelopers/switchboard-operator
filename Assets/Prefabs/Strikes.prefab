@@ -97,6 +97,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6998981451910114423}
+  - component: {fileID: 610596028485141386}
   m_Layer: 0
   m_Name: Strikes
   m_TagString: Untagged
@@ -126,6 +127,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &610596028485141386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2662437307132215658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af3edd7bb9d0249d7baf29b33aa66186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  strikeLights:
+  - {fileID: 200756904659125813}
+  - {fileID: 3343433554317816492}
+  - {fileID: 2680089802458013793}
 --- !u!1 &2680089802458013793
 GameObject:
   m_ObjectHideFlags: 0
