@@ -15,7 +15,7 @@ public class ClockHand : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.rotateClock(Time.deltaTime);
+        
     }
 
     //Rotate clock hand by percentage, where 0-1 is a period
