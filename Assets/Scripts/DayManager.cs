@@ -86,6 +86,7 @@ public class DayManager : MonoBehaviour
     // List of potential calls
     // Initialized in Start, then popped off when randomized dialogue needed
     private List<DialogueHolder> _randomizedCalls;
+    private List<DialogueHolder> _orderedCalls;
     // All previously done dialogues (not used yet) 
     private HashSet<Dialogue> _previousCalls = new HashSet<Dialogue>();
 
@@ -120,24 +121,23 @@ public class DayManager : MonoBehaviour
     {
         locationManager = FindFirstObjectByType<LocationManager>();
         dialogueUI = FindFirstObjectByType<DialogueUI>();
-        _randomizedCalls = GetOrderedAvailableDialogue(currentDay.RandomizedCallPool);
+
+        // Of note, this is only called once, so if you get a necessary tag later and then the random thing comes in, may cause an issue
+        _randomizedCalls = GetRandomizedAvailableDialogue(currentDay.RandomizedCallPool);
+        _orderedCalls = GetOrderedAvailableDialogue(currentDay.RandomizedCallPool);
         // Call upon switch board
         // connect events
         Jack.onJackPlaced += OnJackPlaced;
         Jack.onJackTaken += OnJackRemoved;
         LockInButton.onJackLock += LockIn;
         SetSwitchboard();
-
-
-
-
     }
+
     // Update is called once per frame
     void Update()
     {
         CheckForIncomingCalls();
         CheckCalls();
-
     }
 
     // Jack placed
@@ -236,6 +236,7 @@ public class DayManager : MonoBehaviour
         if (jackHeldData.to == null)
         {
             AddTags(outGoingCall.associatedDialogue.failureTags);
+            RemoveCallFromData(outGoingCall);
             Strike();
             Debug.Log("Null Fail!");
             // failure
@@ -248,12 +249,14 @@ public class DayManager : MonoBehaviour
             // Also failgure, but also potential specific character to character tags
             AddTags(outGoingCall.associatedDialogue.failureTags);
             AddTags(outGoingCall.associatedDialogue.GetTagsFromCharacter(jackHeldData.to));
+            RemoveCallFromData(outGoingCall);
             Strike();
             return;
         }
 
         // We've reached the success case
         AddTags(outGoingCall.associatedDialogue.successTags);
+        RemoveCallFromData(outGoingCall);
         Debug.Log("Success!");
     }
 
@@ -377,7 +380,18 @@ public class DayManager : MonoBehaviour
         return holder.dialogue;
     }
 
+
     private List<DialogueHolder> GetOrderedAvailableDialogue(SingleDayDialogueList dayDiag)
+    {
+        List<DialogueHolder> returnList = new List<DialogueHolder>();
+        foreach (DialogueHolder holder in dayDiag.dialogue)
+        {
+            returnList.Add(holder);
+        }
+        return returnList;
+    }
+
+    private List<DialogueHolder> GetRandomizedAvailableDialogue(SingleDayDialogueList dayDiag)
     {
         List<DialogueHolder> returnList = new List<DialogueHolder>();
         foreach (DialogueHolder holder in dayDiag.dialogue)

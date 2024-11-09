@@ -63,7 +63,7 @@ public class Switchboard : MonoBehaviour
             GameObject go_jack = Instantiate(jackPrefab, pos, UnityEngine.Quaternion.identity);
 
             jackSwitches[i] = go_switch.GetComponent<Switch>();
-            jacks[i] = go_jack.GetComponent<Jack>();
+            jacks[i] = go_jack.GetComponentInChildren<Jack>();
 
             jackSwitches[i].locationData = new Location()
             {
@@ -108,14 +108,16 @@ public class Switchboard : MonoBehaviour
                     ),*/
                     UnityEngine.Quaternion.identity
                     );
-                t_switch.GetComponent<Switch>().locationData = new Location()
+
+                Switch comp = t_switch.GetComponent<Switch>();
+                comp.locationData = new Location()
                 {
                     Valid = true,
                     //Index = (j * columns) + i,
                     Letter = (char)(65 + j),
                     Number = 1 + i
                 };
-                switches[i, j] = t_switch.GetComponent<Switch>();
+                switches[i, j] = comp;
             }
         }
 
