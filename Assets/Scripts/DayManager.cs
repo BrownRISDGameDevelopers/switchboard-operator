@@ -374,7 +374,7 @@ public class DayManager : MonoBehaviour
         foreach (DialogueHolder holder in dayDiag.dialogue)
         {
             bool hasAllTags = true;
-            foreach (Tag tag in holder.requiredTags)
+            foreach (Tag tag in holder.dialogue.requiredTags)
             {
                 if (!tagsReference.Contains(tag))
                 {

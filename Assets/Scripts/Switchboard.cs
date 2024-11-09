@@ -93,7 +93,7 @@ public class Switchboard : MonoBehaviour
                     switchPrefab,
                     new UnityEngine.Vector3(
                         transform.localScale.x * (initialSwitchX + i * xSpacing + a),
-                        transform.localScale.y * (initialSwitchY - j * ySpacing),
+                         (transform.localScale.y * initialSwitchY - transform.localScale.y * j * ySpacing),
                         0
                     ),
                     UnityEngine.Quaternion.identity);

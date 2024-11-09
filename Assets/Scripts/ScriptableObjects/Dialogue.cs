@@ -31,6 +31,8 @@ public class Dialogue : ScriptableObject
 {
     public CharacterInfo FromCharacter;
     public CharacterInfo ToCharacter;
+
+    public Tag[] requiredTags;
     public DialogueLine[] Lines;
 
     [Header("Tags")]
