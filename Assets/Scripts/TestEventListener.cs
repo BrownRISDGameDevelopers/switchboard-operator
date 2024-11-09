@@ -26,7 +26,7 @@ public class TestEventListener : MonoBehaviour
     }
 
     void Update(){ 
-        switchie.blinkSwitch(initialTime);
+        // switchie.blinkSwitch(initialTime);
         initialTime -= Time.deltaTime;
     }
 }
