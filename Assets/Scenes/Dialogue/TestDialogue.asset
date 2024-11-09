@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f9321922918b4e96858f4dccd404147, type: 3}
   m_Name: TestDialogue
   m_EditorClassIdentifier: 
-  FromCharacter: {fileID: 11400000, guid: 76518503da67ac04983aad815ece236b, type: 2}
-  ToCharacter: {fileID: 0}
+  FromCharacter: {fileID: 11400000, guid: 5b5933cffda1347849aecdd64a559381, type: 2}
+  ToCharacter: {fileID: 11400000, guid: 6dfdac0c0cc1c459baf78e5ac7153f32, type: 2}
+  requiredTags: []
   Lines:
   - text: This some test dialogue
     portraitType: 0
@@ -22,7 +23,7 @@ MonoBehaviour:
     portraitType: 0
     speedScale: 1
   - text: WAIT!!!!
-    portraitType: 0
+    portraitType: 1
     speedScale: 2
   - text: what are you lookin at
     portraitType: 0
@@ -30,6 +31,7 @@ MonoBehaviour:
   - text: connect me to the police!
     portraitType: 0
     speedScale: 1
-  successTag: {fileID: 0}
-  failureTag: {fileID: 0}
-  ignoreTag: {fileID: 0}
+  successTags: []
+  failureTags: []
+  ignoreTags: []
+  characterMap: []

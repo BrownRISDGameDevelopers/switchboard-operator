@@ -158,6 +158,7 @@ MonoBehaviour:
   rows: 5
   columns: 6
   jackCount: 6
+  columnLocations: []
   centerOfJackRow: {x: 0, y: -4, z: 0}
 --- !u!223 &8692055332521572846
 Canvas:
@@ -289,8 +290,28 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1630394024617258794, guid: e44ed20b0b8fd4cd0abcd0e5e7a68c72, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7562932074850599545}
   m_SourcePrefab: {fileID: 100100000, guid: e44ed20b0b8fd4cd0abcd0e5e7a68c72, type: 3}
+--- !u!1 &569018298962338501 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1630394024617258794, guid: e44ed20b0b8fd4cd0abcd0e5e7a68c72, type: 3}
+  m_PrefabInstance: {fileID: 1244644529381035503}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7562932074850599545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 569018298962338501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efd4d11f08a7e4b7fb711e0fead75883, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6939705764330676754 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8145626362834251773, guid: e44ed20b0b8fd4cd0abcd0e5e7a68c72, type: 3}

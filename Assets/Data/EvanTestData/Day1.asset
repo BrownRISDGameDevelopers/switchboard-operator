@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RandomizedCallPool:
     dialogue:
-    - dialogue: {fileID: 11400000, guid: 3f88a3f45049d4d04a1f83392b0c6bdb, type: 2}
+    - dialogue: {fileID: 11400000, guid: d0aa515a56e0c3a43acc968ca3b53172, type: 2}
   OrderedCallPool:
     dialogue: []

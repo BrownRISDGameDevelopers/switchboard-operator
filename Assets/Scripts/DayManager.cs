@@ -264,11 +264,8 @@ public class DayManager : MonoBehaviour
     private void Strike()
     {
         strikesLeft--;
-        transform.parent.GetComponent<Knocker>().knock(50);
         onStrike.Invoke(strikesLeft, false);
     }
-
-
 
     private void CheckForIncomingCalls()
     {
