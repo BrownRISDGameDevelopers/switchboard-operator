@@ -41,11 +41,11 @@ public class Knocker : MonoBehaviour
     private IEnumerator knockForward(bool fOrB, int speed){
         float rotatedAngle = 0;
 
-        while (Mathf.Abs(rotatedAngle) < Mathf.Abs(7)){
+        while (Mathf.Abs(rotatedAngle) < Mathf.Abs(5)){
             float angleStep = speed * Time.deltaTime;
 
-            if (rotatedAngle + angleStep > 7){
-                angleStep = 7 - rotatedAngle;
+            if (rotatedAngle + angleStep > 5){
+                angleStep = 5 - rotatedAngle;
             }
 
             transform.RotateAround(this.rotationPivot, fOrB ? UnityEngine.Vector3.back : UnityEngine.Vector3.forward, angleStep);
