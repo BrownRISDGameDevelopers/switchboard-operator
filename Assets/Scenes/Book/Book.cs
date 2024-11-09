@@ -9,6 +9,7 @@ public class Book : MonoBehaviour
 {
     [SerializeField] float deselectedXPosition;
     [SerializeField] float selectedXPosition;
+    [SerializeField] float YPosition;
     [SerializeField] GameObject leftPage;
     [SerializeField] GameObject rightPage;
     bool focused = false;
@@ -23,7 +24,7 @@ public class Book : MonoBehaviour
     {
         m_RectTransform = GetComponent<RectTransform>();
 
-        m_RectTransform.anchoredPosition = new Vector2(deselectedXPosition, 0.0F);
+        m_RectTransform.anchoredPosition = new Vector2(deselectedXPosition, YPosition);
 
         locationManager = FindObjectOfType<LocationManager>();
 
@@ -100,11 +101,11 @@ public class Book : MonoBehaviour
 
         if (focused)
         {
-            finalPosition = new Vector2(selectedXPosition, 0.0F);
+            finalPosition = new Vector2(selectedXPosition, YPosition);
         }
         else
         {
-            finalPosition = new Vector2(deselectedXPosition, 0.0F);
+            finalPosition = new Vector2(deselectedXPosition, YPosition);
         }
 
         m_RectTransform.anchoredPosition = Vector2.Lerp(currentPosition, finalPosition, 5F * Time.deltaTime);
