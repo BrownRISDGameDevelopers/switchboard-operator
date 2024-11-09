@@ -55,7 +55,6 @@ public class Switchboard : MonoBehaviour
             jackSwitches[i].locationData = new Location()
             {
                 Valid = true,
-                Index = 0,
                 Letter = 'j',
                 Number = i
             };
@@ -101,7 +100,7 @@ public class Switchboard : MonoBehaviour
                 t_switch.GetComponent<Switch>().locationData = new Location()
                 {
                     Valid = true,
-                    Index = 0, //Index not used at all (until further notice)
+                    //Index = (j * columns) + i,
                     Letter = (char)(65 + j),
                     Number = 1 + i
                 };
@@ -132,6 +131,15 @@ public class Switchboard : MonoBehaviour
         //         switches[i, j] = go_switch.GetComponent<Switch>();
         //     }
         // }
+    }
+
+
+
+    public void SetSwitchTiming(Location loc, float time)
+    {
+        Debug.Log("pos: " + loc.Letter.ToString() + loc.Number.ToString() + " ind: " + loc.GetIndex(columns).ToString());
+        Switch _switch = switches[loc.GetIndex(columns) % columns, loc.GetIndex(columns) / columns];
+        _switch?.blinkSwitch(time);
     }
 
     //Checks the position of all switches relative to the passed position of the mouse/jack, returns the nearest position of switch

@@ -150,7 +150,6 @@ public class DayManager : MonoBehaviour
         Debug.Log("CHARACTER PLACED: " + ((characterPlaced != null) ? characterPlaced.CharName : "NULL"));
         // Logic for if the placed jack hit something with a character that has an outgoing call (from character)
         CallData outgoingDat = CharacterHasOutgoingCall(characterPlaced);
-        Debug.Log("OUTGOING DAT: " + ((outgoingDat != null) ? "NOT NULL" : "NULL"));
         if (outgoingDat != null)
         {
             outgoingDat.fromCharacter = characterPlaced;
@@ -205,7 +204,7 @@ public class DayManager : MonoBehaviour
     {
         JackCallersHeldData jackHeldData = _jackSetToHeldCallers.GetValueOrDefault(JackSetNumber);
 
-        Debug.Log("LOCK IN: " + JackSetNumber + " " + jackHeldData.ToString());
+        Debug.Log("LOCK IN: " + JackSetNumber.ToString() + " " + jackHeldData.ToString());
         // Is a valid Jackset
 
         if (jackHeldData == null)
@@ -402,8 +401,13 @@ public class DayManager : MonoBehaviour
         {
             CallData dat = _callList[i];
             dat.curTimer -= Time.deltaTime;
+
+            Location loc = locationManager.GetLocationFromCharacter(dat.fromCharacter);
+            _switchboard.SetSwitchTiming(loc, dat.curTimer);
             if (dat.curTimer <= 0)
             {
+                Debug.Log("Call ignored!");
+                _switchboard.SetSwitchTiming(loc, 0); // TODO, may want another sprite or other indicator of ignoring
                 // Call ignored
                 AddTags(dat.associatedDialogue.ignoreTags);
                 strikesLeft--;

@@ -7,11 +7,20 @@ using UnityEngine;
 public struct Location
 {
     public bool Valid;
-    public int Index;
+
+    [HideInInspector]
+    //public int Index;
     // A - Z
     public char Letter;
     // 0 - 9
     public int Number;
+
+    public int GetIndex(int columns)
+    {
+        int row = (int)(Letter - 65);
+        int col = Number - 1;
+        return row * columns + col;
+    }
 
     public override bool Equals(object obj)
     {
@@ -70,6 +79,8 @@ public class LocationManager : MonoBehaviour
 
         Dictionary<Location, CharacterInfo> newPositionsToCharacter = new Dictionary<Location, CharacterInfo>();
         List<CharacterInfo> charList = GetCharacterList();
+
+        // Locations should be completely randomized if random
         List<Location> locList = GetLocationList();
 
         foreach (CharacterInfo c in charList)
@@ -118,7 +129,7 @@ public class LocationManager : MonoBehaviour
                 return pair.Key;
             }
         }
-        return new Location { Valid = false, Index = 0, Letter = '0', Number = '0' };
+        return new Location { Valid = false, Letter = '0', Number = '0' };
     }
     // Nullable
     public CharacterInfo GetCharacterFromLocation(Location location)
