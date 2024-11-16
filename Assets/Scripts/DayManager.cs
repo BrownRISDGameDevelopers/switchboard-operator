@@ -87,6 +87,7 @@ public class DayManager : MonoBehaviour
     // Initialized in Start, then popped off when randomized dialogue needed
     private List<DialogueHolder> _randomizedCalls;
     private List<DialogueHolder> _orderedCalls;
+    private int _curOrderedCall = 0;
     // All previously done dialogues (not used yet) 
     private HashSet<Dialogue> _previousCalls = new HashSet<Dialogue>();
 
@@ -274,12 +275,26 @@ public class DayManager : MonoBehaviour
         {
             return;
         }
-        Dialogue newCall = PopRandomizedCall();
+        Dialogue newCall = null;
+
+        // TODO: How do we want to do this?
+        // rn randomly get random or ordered calls, if ordered call is null, get random call
+        if (Random.Range(0, 100) < 50.0f)
+        {
+            newCall = PopRandomizedCall();
+        }
+        else
+        {
+            newCall = TryGetNextOrderedDialogue();
+            if (newCall == null)
+            {
+                newCall = PopRandomizedCall();
+            }
+        }
+
 
         if (newCall == null)
             return;
-
-        // TODO DISPlAY DIALOGUE
 
         // ADD RELEVANT INFO
         CallData newCallDat = new CallData(newCall.FromCharacter, newCall.ToCharacter, _incomingCallReceivedWaitTime, newCall);
@@ -389,25 +404,53 @@ public class DayManager : MonoBehaviour
         return returnList;
     }
 
+    private Dialogue TryGetNextOrderedDialogue()
+    {
+        Dialogue currentOrderedCall = null;
+        while (_orderedCalls.Count <= _curOrderedCall && currentOrderedCall == null)
+        {
+            currentOrderedCall = _orderedCalls[_curOrderedCall].dialogue;
+
+            if (DialogueHasValidTags(currentOrderedCall))
+                return currentOrderedCall;
+
+            _curOrderedCall++;
+        }
+        return null;
+    }
+
+
+    private bool DialogueHasValidTags(Dialogue dialogue)
+    {
+        bool hasAllTags = true;
+        foreach (Tag tag in dialogue.requiredTags)
+        {
+            if (!tagsReference.Contains(tag))
+            {
+                hasAllTags = false;
+                break;
+            }
+        }
+
+        bool hasDisallowedTags = false;
+        foreach (Tag tag in dialogue.disallowedTags)
+        {
+            if (tagsReference.Contains(tag))
+            {
+                hasDisallowedTags = true;
+                break;
+            }
+        }
+        return hasAllTags && !hasDisallowedTags;
+    }
+
     private List<DialogueHolder> GetRandomizedAvailableDialogue(SingleDayDialogueList dayDiag)
     {
         List<DialogueHolder> returnList = new List<DialogueHolder>();
         foreach (DialogueHolder holder in dayDiag.dialogue)
         {
-            bool hasAllTags = true;
-            foreach (Tag tag in holder.dialogue.requiredTags)
-            {
-                if (!tagsReference.Contains(tag))
-                {
-                    hasAllTags = false;
-                    break;
-                }
-            }
-
-            if (!hasAllTags)
-                continue;
-
-            returnList.Add(holder);
+            if (DialogueHasValidTags(holder.dialogue))
+                returnList.Add(holder);
         }
 
         return returnList;
