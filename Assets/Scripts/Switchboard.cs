@@ -73,7 +73,7 @@ public class Switchboard : MonoBehaviour
                 Number = i
             };
             jackSwitches[i].isTaken = true;
-            jacks[i].configure(jackSwitches[i], i, this);
+            jacks[i].configure(jackSwitches[i], i, this, (int) math.floor(i/2));
         }
 
         int lockInNumber = jackCount / 2;
