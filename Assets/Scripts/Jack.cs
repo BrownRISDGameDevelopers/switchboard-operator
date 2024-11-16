@@ -101,6 +101,9 @@ public class Jack : MonoBehaviour
             || closestSwitch.isTaken)
         {
             transform.position = initialPosition;
+            _baseSpriteRenderer.gameObject.SetActive(true);
+            _dragSpriteRenderer.gameObject.SetActive(false);
+            _placedSpriteRenderer.gameObject.SetActive(false);
             return;
         }
         transform.position = closestSwitch.transform.position;
@@ -112,9 +115,10 @@ public class Jack : MonoBehaviour
             JackData data = new JackData() { PlacedJackID = jackID, SnappedSwitch = closestSwitch, IsOriginalPosition = closestSwitch.transform.position == jackSwitch.transform.position };
             onJackPlaced(data);
         }
-        _baseSpriteRenderer.gameObject.SetActive(closestSwitch.transform.position == jackSwitch.transform.position);
+        _baseSpriteRenderer.gameObject.SetActive(false);
         _dragSpriteRenderer.gameObject.SetActive(false);
-        _placedSpriteRenderer.gameObject.SetActive(closestSwitch.transform.position != jackSwitch.transform.position);
+        _placedSpriteRenderer.gameObject.SetActive(true);
+        
     }
 
     //Gets the current mouse position as a Vector3
