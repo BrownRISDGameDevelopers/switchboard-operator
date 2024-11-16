@@ -8,7 +8,8 @@ using UnityEngine.UIElements;
 
 public class MainMenu : MonoBehaviour
 {
-    public UnityEngine.UI.Button buttonStart, buttonQuit;
+    public UnityEngine.UI.Button buttonStart, buttonQuit, buttonHowToPlay, buttonSettings, buttonCredits;
+    public GameObject settingsMenuObject;
 
     public GameObject gameManagerObject;
 
@@ -17,6 +18,12 @@ public class MainMenu : MonoBehaviour
         // Connect buttons to relevant functions
         buttonStart.onClick.AddListener(onStart);
         buttonQuit.onClick.AddListener(onQuit);
+        buttonSettings.onClick.AddListener(onSettings);
+    }
+
+    void onSettings()
+    {
+        Instantiate(settingsMenuObject);
     }
 
     // Start button pressed
