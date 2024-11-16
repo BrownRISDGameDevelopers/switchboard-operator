@@ -86,20 +86,20 @@ MonoBehaviour:
     speedScale: 1
   - text: ...
     portraitType: 1
-    speedScale: 1
+    speedScale: 2
   - text: "\u2026\u2026\u2026\u2026"
     portraitType: 0
-    speedScale: 1
+    speedScale: 3
   - text: "\u2026\u2026\u2026\u2026\u2026\u2026."
     portraitType: 2
-    speedScale: 1
+    speedScale: 4
   - text: "Y'know, in order to have a conversation there\u2019s gotta be some back
       and forth, otherwise it\u2019s just a speech."
     portraitType: 2
     speedScale: 1
   - text: "\u2026"
     portraitType: 0
-    speedScale: 1
+    speedScale: 3
   - text: "I\u2019ll\u2026 just call this one a freebie then."
     portraitType: 0
     speedScale: 1
