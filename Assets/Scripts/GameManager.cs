@@ -4,6 +4,65 @@ using JetBrains.Annotations;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
+public class TagsManager
+{
+
+    private HashSet<Tag> tagsSet;
+
+    public delegate void OnTagAdded(Tag tag, TagsManager manager);
+    public event OnTagAdded onAddTag;
+
+    public TagsManager()
+    {
+        tagsSet = new HashSet<Tag>();
+    }
+
+    public void AddTags(Tag[] tags)
+    {
+        if (tagsSet == null)
+            return;
+
+        if (tags == null)
+            return;
+
+        foreach (Tag tag in tags)
+            tagsSet.Add(tag);
+    }
+
+    public bool HasAllTags(Tag[] tags)
+    {
+        bool hasAllTags = true;
+        foreach (Tag tag in tags)
+        {
+            if (!HasTag(tag))
+            {
+                hasAllTags = false;
+                break;
+            }
+        }
+        return hasAllTags;
+    }
+
+    public bool HasNoTags(Tag[] tags)
+    {
+        bool hasDisallowedTags = false;
+        foreach (Tag tag in tags)
+        {
+            if (HasTag(tag))
+            {
+                hasDisallowedTags = true;
+                break;
+            }
+        }
+        return hasDisallowedTags;
+    }
+
+    public bool HasTag(Tag tag)
+    {
+        return tagsSet.Contains(tag);
+    }
+}
+
 // Overarching game manager
 // not globally accessible, but only one should exist at a time 
 // handles day changes, moving between scenes, stores tags, etc. 
@@ -12,9 +71,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Day[] days;
 
+    [SerializeField]
+    private Ending[] endings;
+
     private DayManager dayManager;
     private LocationManager locationManager;
-    private HashSet<Tag> tags;
+    private TagsManager tags;
     private int callsMissed = 0;
     private int callsRouted = 0;
     private int callsMessedUp = 0;
@@ -40,14 +102,17 @@ public class GameManager : MonoBehaviour
         _existingGameManager = this;
 
 
+        tags = new TagsManager();
+
+
         DontDestroyOnLoad(this);
     }
 
     void Start()
     {
-        //AsyncOperation load_op = SceneManager.LoadSceneAsync((int)Constants.SceneIndexTable.Game);
-        //load_op.completed += (_) => LoadNewDay(days[currentDay]);
-        LoadNewDay(days[currentDay]);
+        AsyncOperation load_op = SceneManager.LoadSceneAsync((int)Constants.SceneIndexTable.Game);
+        load_op.completed += (_) => LoadNewDay(days[currentDay]);
+        // LoadNewDay(days[currentDay]);
     }
 
     public void LoadNewDay(Day day)
@@ -58,6 +123,26 @@ public class GameManager : MonoBehaviour
             dayManager.SetTagsReference(tags);
             dayManager.SetLocationReference(locationManager);
         }
+    }
+
+
+    private void OnTagAddedCheckEnding(Tag tag, TagsManager manager)
+    {
+        foreach (Ending end in endings)
+        {
+            if (end.endingType != EndingType.InstantTagsAcquired)
+                continue;
+
+            if (tags.HasAllTags(end.requiredTags))
+            {
+                // GO TO THIS ENDING
+                EnterEnding(end);
+
+
+            }
+
+        }
+
     }
 
     public void EndCurrentDay()
@@ -80,6 +165,12 @@ public class GameManager : MonoBehaviour
 
     public void EnterEndOfDay()
     {
+    }
+
+    private void EnterEnding(Ending end)
+    {
+
+        SceneManager.LoadScene((int)Constants.SceneIndexTable.Ending);
     }
 
     public void ReturnToMenu()
