@@ -1,4 +1,5 @@
 using System;
+using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -71,7 +72,8 @@ public class Switchboard : MonoBehaviour
                 Letter = 'j',
                 Number = i
             };
-            jacks[i].configure(jackSwitches[i], i, this);
+            jackSwitches[i].isTaken = true;
+            jacks[i].configure(jackSwitches[i], i, this, (int) math.floor(i/2));
         }
 
         int lockInNumber = jackCount / 2;
@@ -117,6 +119,7 @@ public class Switchboard : MonoBehaviour
                     Letter = (char)(65 + j),
                     Number = 1 + i
                 };
+                comp.isTaken = false;
                 switches[i, j] = comp;
             }
         }
@@ -146,11 +149,9 @@ public class Switchboard : MonoBehaviour
         // }
     }
 
-
-
     public void SetSwitchTiming(Location loc, float time)
     {
-        Debug.Log("pos: " + loc.Letter.ToString() + loc.Number.ToString() + " ind: " + loc.GetIndex(columns).ToString());
+        // Debug.Log("pos: " + loc.Letter.ToString() + loc.Number.ToString() + " ind: " + loc.GetIndex(columns).ToString());
         Switch _switch = switches[loc.GetIndex(columns) % columns, loc.GetIndex(columns) / columns];
         _switch?.blinkSwitch(time);
     }

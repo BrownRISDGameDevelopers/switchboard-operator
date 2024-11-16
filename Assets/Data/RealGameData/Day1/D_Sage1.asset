@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f9321922918b4e96858f4dccd404147, type: 3}
+  m_Name: D_Sage1
+  m_EditorClassIdentifier: 
+  FromCharacter: {fileID: 11400000, guid: 9bd1286d4fdf44a559bde3c1a4f6662e, type: 2}
+  ToCharacter: {fileID: 11400000, guid: 571bbc4d301a74a9585fe3073cb691b4, type: 2}
+  requiredTags: []
+  disallowedTags: []
+  Lines:
+  - text: "Hello operator, I am the Lamplighter. Before I go on,I must warn you that
+      by connecting my calls you may get caught up in some trouble\u2026if you stand
+      for freedom and the rights of the working class, I'd \u2026appreciate the help."
+    portraitType: 0
+    speedScale: 1
+  - text: If you want to do good by this city, hang up on Beauport. You might not
+      stop him, but anything to delay him means more time for me to counterattack.
+    portraitType: 0
+    speedScale: 1
+  - text: Now, could you be so kind as to connect me to a friend of mine at the hospital?
+      Not the front desk.
+    portraitType: 1
+    speedScale: 1
+  - text: "I\u2019ve had a bit of a\u2026 disagreement with Beauport\u2019s thugs."
+    portraitType: 0
+    speedScale: 1
+  successTags: []
+  failureTags: []
+  ignoreTags: []
+  characterMap: []

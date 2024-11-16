@@ -1,6 +1,6 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class Switch : MonoBehaviour
@@ -8,7 +8,7 @@ public class Switch : MonoBehaviour
     public Location locationData;
     public Sprite blinkOnSprite;
     public Sprite blinkOffSprite;
-
+    public bool isTaken;
 
     private SpriteRenderer _spriteRenderComponent;
 
