@@ -14,8 +14,9 @@ public enum EndingType
 public class Ending : ScriptableObject
 {
     public Tag[] requiredTags;
-    public string Text;
-    public Texture2D[] portrait;
+    public string text;
+    public Sprite[] anim;
+    public float secsPerFrame = 0.25f;
     //public bool instantEndOnRequirements = false;
     public EndingType endingType;
 }

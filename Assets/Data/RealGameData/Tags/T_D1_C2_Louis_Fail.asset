@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6157374418a394afd8a577b9445f6168, type: 3}
-  m_Name: TestCharacter
+  m_Script: {fileID: 11500000, guid: 80f0ccfbcbbc4471fb9b1bb31c14d90c, type: 3}
+  m_Name: T_D1_C2_Louis_Fail
   m_EditorClassIdentifier: 
-  CharName: TestCharacter
-  Portrait: {fileID: 21300000, guid: 6045b86abf973014c856507712f14c76, type: 3}
-  ExtraPortrait1: {fileID: 0}
-  ExtraPortrait2: {fileID: 0}
+  TagName: 

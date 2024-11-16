@@ -67,7 +67,7 @@ public class DayManager : MonoBehaviour
     [SerializeField]
     private Day currentDay;
 
-    private HashSet<Tag> tagsReference;
+    private TagsManager tagsReference;
     private LocationManager locationManager;
     private Switchboard _switchboard;
 
@@ -236,7 +236,7 @@ public class DayManager : MonoBehaviour
 
         if (jackHeldData.to == null)
         {
-            AddTags(outGoingCall.associatedDialogue.failureTags);
+            tagsReference.AddTags(outGoingCall.associatedDialogue.failureTags);
             RemoveCallFromData(outGoingCall);
             Strike();
             Debug.Log("Null Fail!");
@@ -248,15 +248,15 @@ public class DayManager : MonoBehaviour
         {
             Debug.Log("Wrong Character Fail!");
             // Also failgure, but also potential specific character to character tags
-            AddTags(outGoingCall.associatedDialogue.failureTags);
-            AddTags(outGoingCall.associatedDialogue.GetTagsFromCharacter(jackHeldData.to));
+            tagsReference.AddTags(outGoingCall.associatedDialogue.failureTags);
+            tagsReference.AddTags(outGoingCall.associatedDialogue.GetTagsFromCharacter(jackHeldData.to));
             RemoveCallFromData(outGoingCall);
             Strike();
             return;
         }
 
         // We've reached the success case
-        AddTags(outGoingCall.associatedDialogue.successTags);
+        tagsReference.AddTags(outGoingCall.associatedDialogue.successTags);
         RemoveCallFromData(outGoingCall);
         Debug.Log("Success!");
     }
@@ -319,14 +319,14 @@ public class DayManager : MonoBehaviour
         return jackID / 2;//jackID % 2 == 0 ? jackID/2 : jackID - 1;
     }
 
-    public void SetupDayManager(HashSet<Tag> newTags, LocationManager locManager, Day day)
+    public void SetupDayManager(TagsManager newTags, LocationManager locManager, Day day)
     {
         currentDay = day;
         tagsReference = newTags;
         locationManager = locManager;
     }
 
-    public void SetTagsReference(HashSet<Tag> newTags)
+    public void SetTagsReference(TagsManager newTags)
     {
         tagsReference = newTags;
     }
@@ -349,21 +349,7 @@ public class DayManager : MonoBehaviour
         }
     }
 
-    private void AddTags(Tag[] tags)
-    {
 
-        if (tagsReference == null)
-        {
-            Debug.Log("NULL TAGS");
-            return;
-        }
-
-        if (tags == null)
-            return;
-
-        foreach (Tag tag in tags)
-            tagsReference.Add(tag);
-    }
 
 
 
@@ -422,25 +408,8 @@ public class DayManager : MonoBehaviour
 
     private bool DialogueHasValidTags(Dialogue dialogue)
     {
-        bool hasAllTags = true;
-        foreach (Tag tag in dialogue.requiredTags)
-        {
-            if (!tagsReference.Contains(tag))
-            {
-                hasAllTags = false;
-                break;
-            }
-        }
-
-        bool hasDisallowedTags = false;
-        foreach (Tag tag in dialogue.disallowedTags)
-        {
-            if (tagsReference.Contains(tag))
-            {
-                hasDisallowedTags = true;
-                break;
-            }
-        }
+        bool hasAllTags = tagsReference.HasAllTags(dialogue.requiredTags);
+        bool hasDisallowedTags = tagsReference.HasNoTags(dialogue.disallowedTags);
         return hasAllTags && !hasDisallowedTags;
     }
 
@@ -473,7 +442,7 @@ public class DayManager : MonoBehaviour
                 Debug.Log("Call ignored!");
                 _switchboard.SetSwitchTiming(loc, 0); // TODO, may want another sprite or other indicator of ignoring
                 // Call ignored
-                AddTags(dat.associatedDialogue.ignoreTags);
+                tagsReference.AddTags(dat.associatedDialogue.ignoreTags);
                 Strike();
                 RemoveCallFromData(dat);
             }
