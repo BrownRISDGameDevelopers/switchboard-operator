@@ -9,10 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6157374418a394afd8a577b9445f6168, type: 3}
-  m_Name: C_Pierre
+  m_Script: {fileID: 11500000, guid: 0f9321922918b4e96858f4dccd404147, type: 3}
+  m_Name: Worried_mom_day1
   m_EditorClassIdentifier: 
-  CharName: Pierre de Beauport
-  Portrait: {fileID: 21300000, guid: 6045b86abf973014c856507712f14c76, type: 3}
-  ExtraPortrait1: {fileID: 0}
-  ExtraPortrait2: {fileID: 0}
+  FromCharacter: {fileID: 0}
+  ToCharacter: {fileID: 0}
+  requiredTags: []
+  Lines: []
+  successTags: []
+  failureTags: []
+  ignoreTags: []
+  characterMap: []
