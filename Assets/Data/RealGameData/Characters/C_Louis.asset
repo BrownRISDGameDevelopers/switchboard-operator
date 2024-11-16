@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: C_Louis
   m_EditorClassIdentifier: 
   CharName: Louis
-  Portrait: {fileID: 0}
-  ExtraPortrait1: {fileID: 0}
-  ExtraPortrait2: {fileID: 0}
+  Portrait: {fileID: 21300000, guid: b01a0d63df64c4a47b6fa9114b7ca521, type: 3}
+  ExtraPortrait1: {fileID: 21300000, guid: 4a58c700c31549a44942c0ba908095b9, type: 3}
+  ExtraPortrait2: {fileID: 21300000, guid: fabb952b64433ad46a1eb871bdb25c73, type: 3}
