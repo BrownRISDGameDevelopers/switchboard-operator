@@ -43,6 +43,8 @@ public class DialogueUI : MonoBehaviour
                 break;
 
         }
+        if (texture == null)
+            return;
         portrait.sprite = texture;
     }
 
