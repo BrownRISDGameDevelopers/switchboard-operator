@@ -773,6 +773,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonStart: {fileID: 1439621906}
   buttonQuit: {fileID: 500022073}
+  buttonHowToPlay: {fileID: 292002275}
+  buttonSettings: {fileID: 855558696}
+  buttonCredits: {fileID: 1437801387}
   gameManagerObject: {fileID: 726574991186162907, guid: 617abe01470ad904caacb44e4246158d, type: 3}
 --- !u!1 &1208300502
 GameObject:
