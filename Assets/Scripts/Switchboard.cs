@@ -159,12 +159,12 @@ public class Switchboard : MonoBehaviour
     //Checks the position of all switches relative to the passed position of the mouse/jack, returns the nearest position of switch
     public Switch GetClosestSwitchPosition(Jack jack)
     {
-        float shortestDistance = UnityEngine.Vector3.Distance(jack.transform.position, jack.jackSwitch.transform.position);
+        float shortestDistance = math.INFINITY;
         Switch closestSwitch = null;
 
         foreach (Switch c_switch in switches)
         {
-            float distance = UnityEngine.Vector3.Distance(jack.transform.position, c_switch.transform.position);
+            float distance = UnityEngine.Vector3.Distance(jack.transform.position + Vector3.up*0.6f, c_switch.transform.position);
             if (distance < shortestDistance)
             {
                 shortestDistance = distance;
