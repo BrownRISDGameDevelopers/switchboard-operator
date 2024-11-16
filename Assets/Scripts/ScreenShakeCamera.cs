@@ -21,7 +21,6 @@ public class ScreenShakeCamera : MonoBehaviour
     //private static ScreenShakeCamera Inst { get { return _instance; } private set { _instance = value; } }
     private static ScreenShakeCamera _instance;
 
-
     private void Awake()
     {
         if (_instance != null)
