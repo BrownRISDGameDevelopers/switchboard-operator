@@ -32,6 +32,7 @@ public class Knocker : MonoBehaviour
     private IEnumerator knockLogic(int speed)
     {
         yield return knockForward(true, speed);
+        ScreenShakeCamera.TryAddShake(0.5f);
         yield return transform.parent.GetComponentInChildren<Bell>().wiggle();
         yield return knockForward(false, speed);
     }

@@ -463,6 +463,8 @@ public class DayManager : MonoBehaviour
         _placedJacks.Add(jackData.PlacedJackID);
         JackPlacedInLoc(jackLoc, jackData.PlacedJackID);
         print("Event received:" + jackData.ToString());
+
+        ScreenShakeCamera.TryAddShake(0.3f);
     }
 
     void SetOutgoingForJackSet(int jackSet, CharacterInfo character)

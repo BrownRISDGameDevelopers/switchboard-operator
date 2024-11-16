@@ -33,6 +33,7 @@ public class Dialogue : ScriptableObject
     public CharacterInfo ToCharacter;
 
     public Tag[] requiredTags;
+    public Tag[] disallowedTags;
     public DialogueLine[] Lines;
 
     [Header("Tags")]
