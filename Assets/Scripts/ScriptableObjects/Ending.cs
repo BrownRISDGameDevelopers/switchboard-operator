@@ -16,5 +16,6 @@ public class Ending : ScriptableObject
     public Tag[] requiredTags;
     public string Text;
     public Texture2D[] portrait;
-    public bool instantEndOnRequirements = false;
+    //public bool instantEndOnRequirements = false;
+    public EndingType endingType;
 }
