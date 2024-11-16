@@ -46,8 +46,7 @@ public class Jack : MonoBehaviour
     private SpriteRenderer _placedSpriteRenderer;
     
     // Start is called before the first frame update
-    void Start()
-    {
+    void Awake(){
         _baseSpriteRenderer = transform.Find("baseJack").GetComponent<SpriteRenderer>();
         _dragSpriteRenderer = transform.Find("dragJack").GetComponent<SpriteRenderer>();
         _placedSpriteRenderer = transform.Find("placedJack").GetComponent<SpriteRenderer>();
@@ -57,15 +56,12 @@ public class Jack : MonoBehaviour
             Debug.LogError("No sprite render component in switch");
             return;
         }
-        _baseSpriteRenderer.sprite = baseSprite;
-        _dragSpriteRenderer.sprite = dragSprite;
-        _placedSpriteRenderer.sprite = placedSprite;
-        transform.Find("baseJack").gameObject.SetActive(true);
-        transform.Find("dragJack").gameObject.SetActive(false);
-        transform.Find("placedJack").gameObject.SetActive(false);
+        _baseSpriteRenderer.gameObject.SetActive(true);
+        _dragSpriteRenderer.gameObject.SetActive(false);
+        _placedSpriteRenderer.gameObject.SetActive(false);
     }
-
     //When the mouse is clicked on the collider, set isGettingDragged to true, and defines the initial clicking offset
+
     void OnMouseDown()
     {
         initialOffset = transform.position - GetMousePosition();
@@ -89,9 +85,9 @@ public class Jack : MonoBehaviour
 
     void OnMouseDrag()
     {
-        transform.Find("baseJack").gameObject.SetActive(false);
-        transform.Find("dragJack").gameObject.SetActive(true);
-        transform.Find("placedJack").gameObject.SetActive(false);
+        _baseSpriteRenderer.gameObject.SetActive(false);
+        _dragSpriteRenderer.gameObject.SetActive(true);
+        _placedSpriteRenderer.gameObject.SetActive(false);
         transform.position = GetMousePosition() + initialOffset;
     }
 
@@ -116,16 +112,9 @@ public class Jack : MonoBehaviour
             JackData data = new JackData() { PlacedJackID = jackID, SnappedSwitch = closestSwitch, IsOriginalPosition = closestSwitch.transform.position == jackSwitch.transform.position };
             onJackPlaced(data);
         }
-
-        if(closestSwitch.transform.position == jackSwitch.transform.position){
-            transform.Find("baseJack").gameObject.SetActive(true);
-            transform.Find("dragJack").gameObject.SetActive(false);
-            transform.Find("placedJack").gameObject.SetActive(false);
-        }else{
-            transform.Find("baseJack").gameObject.SetActive(false);
-            transform.Find("dragJack").gameObject.SetActive(false);
-            transform.Find("placedJack").gameObject.SetActive(true);
-        }
+        _baseSpriteRenderer.gameObject.SetActive(closestSwitch.transform.position == jackSwitch.transform.position);
+        _dragSpriteRenderer.gameObject.SetActive(false);
+        _placedSpriteRenderer.gameObject.SetActive(closestSwitch.transform.position != jackSwitch.transform.position);
     }
 
     //Gets the current mouse position as a Vector3
@@ -168,6 +157,8 @@ public class Jack : MonoBehaviour
                 placedSprite = bluePlacedSprite;
                 break;
         }
-
+        _baseSpriteRenderer.sprite = baseSprite;
+        _dragSpriteRenderer.sprite = dragSprite;
+        _placedSpriteRenderer.sprite = placedSprite;
     }
 }
