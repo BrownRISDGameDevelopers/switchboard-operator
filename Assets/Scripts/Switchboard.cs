@@ -1,4 +1,5 @@
 using System;
+using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -71,7 +72,7 @@ public class Switchboard : MonoBehaviour
                 Letter = 'j',
                 Number = i
             };
-            jacks[i].configure(jackSwitches[i], i, this);
+            jacks[i].configure(jackSwitches[i], i, this, (int) math.floor(i/2));
         }
 
         int lockInNumber = jackCount / 2;
