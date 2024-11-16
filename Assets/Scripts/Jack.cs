@@ -25,34 +25,31 @@ public class Jack : MonoBehaviour
     public float jackPlacedRange = 2.0f;
 
     //private CharacterInfo _associatedCharacter;
-    private LineRenderer _lineRenderer;
     //When the mouse is clicked on the collider, set isGettingDragged to true, and defines the initial clicking offset
     void OnMouseDown()
     {
         initialOffset = transform.position - GetMousePosition();
         Switch closestSwitch = switchboard.GetClosestSwitchPosition(this);
+        closestSwitch.isTaken = false;
 
-        if (Vector3.Distance(this.transform.position, closestSwitch.transform.position) > jackPlacedRange)
+        if (Vector3.Distance(transform.position, closestSwitch.transform.position) > jackPlacedRange)
         {
-            this.transform.position = initialPosition;
+            transform.position = initialPosition;
             return;
         }
-        this.transform.position = closestSwitch.transform.position;
+        transform.position = closestSwitch.transform.position;
+
         //Event saying that the jack has been placed somewhere & checks if there are listeners
         if (onJackTaken != null)
         {
             JackData data = new JackData() { PlacedJackID = jackID, SnappedSwitch = closestSwitch, IsOriginalPosition = closestSwitch.transform.position == jackSwitch.transform.position };
             onJackTaken(data);
         }
-        
-        _lineRenderer.positionCount = 2;
-        _lineRenderer.SetPosition(1, initialOffset);
     }
 
     void OnMouseDrag()
     {
         transform.position = GetMousePosition() + initialOffset;
-        _lineRenderer.SetPosition(1, transform.position);
     }
 
     //When mouse is released, stop dragging and lock to the nearest switch
@@ -60,27 +57,14 @@ public class Jack : MonoBehaviour
     {
         Switch closestSwitch = switchboard.GetClosestSwitchPosition(this);
 
-        if (Vector3.Distance(transform.position, closestSwitch.transform.position) > jackPlacedRange)
+        if (Vector3.Distance(transform.position, closestSwitch.transform.position) > jackPlacedRange
+            || closestSwitch.isTaken)
         {
             transform.position = initialPosition;
-            _lineRenderer.SetPosition(1, transform.position);
             return;
         }
         transform.position = closestSwitch.transform.position;
-        Vector3 delta = transform.position - initialPosition;
-
-        _lineRenderer.positionCount = Constants.LINE_SLICE_COUNT;
-
-        int endIndex = _lineRenderer.positionCount - 1;
-        float offsetFactor = 1.0f / (float) endIndex;
-
-        _lineRenderer.SetPosition(endIndex, transform.position);
-
-        for (int i = 1; i < endIndex; i++)
-        {
-            Vector3 newPos = initialPosition + (delta * (offsetFactor * i));
-            _lineRenderer.SetPosition(i, newPos);
-        }
+        closestSwitch.isTaken = true;
 
         //Event saying that the jack has been placed somewhere & checks if there are listeners
         if (onJackPlaced != null)
@@ -112,10 +96,6 @@ public class Jack : MonoBehaviour
         jackID = jackid;
         switchboard = board;
 
-        _lineRenderer = GetComponent<LineRenderer>();
-        _lineRenderer.positionCount = 2;
-        _lineRenderer.SetPosition(0, initialPosition + Constants.LINE_Z_OFFSET);
-        _lineRenderer.SetPosition(1, initialPosition);
         //this._associatedCharacter = character;
 
     }

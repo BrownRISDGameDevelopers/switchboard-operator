@@ -71,6 +71,7 @@ public class Switchboard : MonoBehaviour
                 Letter = 'j',
                 Number = i
             };
+            jackSwitches[i].isTaken = true;
             jacks[i].configure(jackSwitches[i], i, this);
         }
 
@@ -117,6 +118,7 @@ public class Switchboard : MonoBehaviour
                     Letter = (char)(65 + j),
                     Number = 1 + i
                 };
+                comp.isTaken = false;
                 switches[i, j] = comp;
             }
         }
@@ -146,11 +148,9 @@ public class Switchboard : MonoBehaviour
         // }
     }
 
-
-
     public void SetSwitchTiming(Location loc, float time)
     {
-        Debug.Log("pos: " + loc.Letter.ToString() + loc.Number.ToString() + " ind: " + loc.GetIndex(columns).ToString());
+        // Debug.Log("pos: " + loc.Letter.ToString() + loc.Number.ToString() + " ind: " + loc.GetIndex(columns).ToString());
         Switch _switch = switches[loc.GetIndex(columns) % columns, loc.GetIndex(columns) / columns];
         _switch?.blinkSwitch(time);
     }
