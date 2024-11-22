@@ -1,16 +1,12 @@
 fileFormatVersion: 2
-guid: 0b4c118fdf503b641bd9e9f6851be897
+guid: 4a3961998cdf6472190d0cbcf0930c11
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
   - buttonStart: {instanceID: 0}
   - buttonQuit: {instanceID: 0}
-  - buttonHowToPlay: {instanceID: 0}
-  - buttonSettings: {instanceID: 0}
-  - buttonCredits: {instanceID: 0}
-  - settingsMenuObject: {instanceID: 0}
-  - gameManagerObject: {instanceID: 0}
+  - gameManager: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

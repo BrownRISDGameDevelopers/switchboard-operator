@@ -12,11 +12,100 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f9321922918b4e96858f4dccd404147, type: 3}
   m_Name: D_LouisD1C2Neither
   m_EditorClassIdentifier: 
-  FromCharacter: {fileID: 0}
-  ToCharacter: {fileID: 0}
+  FromCharacter: {fileID: 11400000, guid: 1a0590f6183fb49c19a5834383c3f2b0, type: 2}
+  ToCharacter: {fileID: 11400000, guid: f651f4d6920ca4a89a94a1e4450cac13, type: 2}
   requiredTags: []
-  disallowedTags: []
-  Lines: []
+  disallowedTags:
+  - {fileID: 11400000, guid: b2a756d1f381440c89e08caf49fa9474, type: 2}
+  - {fileID: 11400000, guid: d64631fee71a1495b8d5ef19a0ea13ec, type: 2}
+  Lines:
+  - text: "Heyyyy, how\u2019s my favorite operator?"
+    portraitType: 0
+    speedScale: 1
+  - text: "That\u2019s great, me too\u2013 alright, into business."
+    portraitType: 0
+    speedScale: 1
+  - text: "Word is, Beauport\u2019s having some telephone troubles. Could hear him
+      ranting and raving from the street outside of his office. And I wasn\u2019t
+      even trying for a scoop!"
+    portraitType: 0
+    speedScale: 1
+  - text: "If you\u2019re ever in the area, Miles\u2019 has the best- well actually
+      you might want to stay away from there for awhile. It\u2019s you, right?"
+    portraitType: 0
+    speedScale: 1
+  - text: "Listen, I love sticking it to the big man more than any other muckraker
+      on these streets, but you\u2019re running on a tightrope here."
+    portraitType: 0
+    speedScale: 1
+  - text: "Beauport holds a grudge and he doesn\u2019t give warnings. You\u2019ve
+      gotta be more careful."
+    portraitType: 0
+    speedScale: 1
+  - text: "Either way\u2026 sounds like Divinity Headquarters is the place to watch.
+      I have a hunch that our local vigilante\u2019s keeping an eye on the activity
+      there."
+    portraitType: 0
+    speedScale: 1
+  - text: "Heyyyy, how\u2019s my favorite operator?"
+    portraitType: 0
+    speedScale: 1
+  - text: "That\u2019s great, me too\u2013 alright, into business."
+    portraitType: 0
+    speedScale: 1
+  - text: "Word is, Beauport\u2019s having some telephone troubles. Could hear him
+      ranting and raving from the street outside of his office. And I wasn\u2019t
+      even trying for a scoop!"
+    portraitType: 0
+    speedScale: 1
+  - text: "If you\u2019re ever in the area, Miles\u2019 has the best- well actually
+      you might want to stay away from there for awhile. It\u2019s you, right?"
+    portraitType: 0
+    speedScale: 1
+  - text: "Listen, I love sticking it to the big man more than any other muckraker
+      on these streets, but you\u2019re running on a tightrope here."
+    portraitType: 0
+    speedScale: 1
+  - text: "Beauport holds a grudge and he doesn\u2019t give warnings. You\u2019ve
+      gotta be more careful."
+    portraitType: 0
+    speedScale: 1
+  - text: "Either way\u2026 sounds like Divinity Headquarters is the place to watch.
+      I have a hunch that our local vigilante\u2019s keeping an eye on the activity
+      there."
+    portraitType: 0
+    speedScale: 1
+  - text: "Won\u2019t know for sure unless I see it myself though\u2026hmm."
+    portraitType: 0
+    speedScale: 1
+  - text: Well!
+    portraitType: 0
+    speedScale: 1
+  - text: "There\u2019s my piece\u2026now how about you?"
+    portraitType: 0
+    speedScale: 1
+  - text: ...
+    portraitType: 1
+    speedScale: 2
+  - text: "\u2026\u2026\u2026\u2026"
+    portraitType: 0
+    speedScale: 3
+  - text: "\u2026\u2026\u2026\u2026\u2026\u2026."
+    portraitType: 2
+    speedScale: 4
+  - text: "Y'know, in order to have a conversation there\u2019s gotta be some back
+      and forth, otherwise it\u2019s just a speech."
+    portraitType: 2
+    speedScale: 1
+  - text: "\u2026"
+    portraitType: 0
+    speedScale: 3
+  - text: "I\u2019ll\u2026 just call this one a freebie then."
+    portraitType: 0
+    speedScale: 1
+  - text: Same place as last time, Absent Times HQ.
+    portraitType: 0
+    speedScale: 1
   successTags: []
   failureTags: []
   ignoreTags: []

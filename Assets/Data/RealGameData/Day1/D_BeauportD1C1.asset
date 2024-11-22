@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: D_BeauportD1C1
   m_EditorClassIdentifier: 
   FromCharacter: {fileID: 11400000, guid: da0e246c989d645b9b4eae327df83a41, type: 2}
-  ToCharacter: {fileID: 0}
+  ToCharacter: {fileID: 11400000, guid: 73223a2808bbb4f5287fc17f64e0ea7b, type: 2}
   requiredTags: []
   disallowedTags: []
   Lines:
@@ -28,7 +28,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d64631fee71a1495b8d5ef19a0ea13ec, type: 2}
   failureTags: []
   ignoreTags: []
-  characterMap:
-  - character: {fileID: 11400000, guid: 1a0590f6183fb49c19a5834383c3f2b0, type: 2}
-    tags:
-    - {fileID: 11400000, guid: 61735d61cc6b746409c45f83d7b29ff9, type: 2}
+  characterMap: []

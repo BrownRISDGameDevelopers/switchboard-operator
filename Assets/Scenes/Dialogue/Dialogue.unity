@@ -324,8 +324,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textComponent: {fileID: 1434094844}
-  scriptObj: {fileID: 11400000, guid: d0aa515a56e0c3a43acc968ca3b53172, type: 2}
-  portrait: {fileID: 527200474}
+  scriptObj: {fileID: 11400000, guid: fb5b1dbc3c5ae4383bafa091efca741b, type: 2}
+  portrait: {fileID: 527200475}
 --- !u!114 &1155902420
 MonoBehaviour:
   m_ObjectHideFlags: 0

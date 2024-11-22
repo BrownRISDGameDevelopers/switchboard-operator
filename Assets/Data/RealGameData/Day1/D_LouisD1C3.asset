@@ -10,18 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f9321922918b4e96858f4dccd404147, type: 3}
-  m_Name: D_BeauportD1C2
+  m_Name: D_LouisD1C3
   m_EditorClassIdentifier: 
-  FromCharacter: {fileID: 11400000, guid: da0e246c989d645b9b4eae327df83a41, type: 2}
-  ToCharacter: {fileID: 11400000, guid: 22bca04a5b7704d9685305e565b1076a, type: 2}
+  FromCharacter: {fileID: 0}
+  ToCharacter: {fileID: 0}
   requiredTags: []
   disallowedTags: []
-  Lines:
-  - text: Hello Operator, please connect me to Divinity Lights Operations.
-    portraitType: 0
-    speedScale: 1
-  successTags:
-  - {fileID: 11400000, guid: b2a756d1f381440c89e08caf49fa9474, type: 2}
+  Lines: []
+  successTags: []
   failureTags: []
   ignoreTags: []
   characterMap: []
