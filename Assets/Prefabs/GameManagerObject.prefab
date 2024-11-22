@@ -46,7 +46,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d87d072431854028ba7a8bf8a45ed55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initInfo: []
+  initInfo:
+  - loc:
+      Valid: 1
+      Letter: 0
+      Number: 0
+    info: {fileID: 11400000, guid: da0e246c989d645b9b4eae327df83a41, type: 2}
+  - loc:
+      Valid: 1
+      Letter: 0
+      Number: 0
+    info: {fileID: 11400000, guid: 22bca04a5b7704d9685305e565b1076a, type: 2}
+  - loc:
+      Valid: 1
+      Letter: 0
+      Number: 0
+    info: {fileID: 11400000, guid: 0af9e3b373a1349f5b62683a7c7f7d43, type: 2}
+  - loc:
+      Valid: 1
+      Letter: 0
+      Number: 0
+    info: {fileID: 11400000, guid: 571bbc4d301a74a9585fe3073cb691b4, type: 2}
+  - loc:
+      Valid: 1
+      Letter: 0
+      Number: 0
+    info: {fileID: 11400000, guid: 1a0590f6183fb49c19a5834383c3f2b0, type: 2}
+  - loc:
+      Valid: 1
+      Letter: 0
+      Number: 0
+    info: {fileID: 11400000, guid: e5aa88459e7b34b7cad892dac219a00d, type: 2}
+  - loc:
+      Valid: 1
+      Letter: 0
+      Number: 0
+    info: {fileID: 11400000, guid: 27e6f1b6931194e129dedfc1d1a04803, type: 2}
+  - loc:
+      Valid: 1
+      Letter: 0
+      Number: 0
+    info: {fileID: 11400000, guid: 73223a2808bbb4f5287fc17f64e0ea7b, type: 2}
+  - loc:
+      Valid: 1
+      Letter: 0
+      Number: 0
+    info: {fileID: 11400000, guid: 9bd1286d4fdf44a559bde3c1a4f6662e, type: 2}
+  - loc:
+      Valid: 1
+      Letter: 0
+      Number: 0
+    info: {fileID: 11400000, guid: ac0ab87f61316454399a306343d956ec, type: 2}
 --- !u!114 &8594353600111642255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,7 +110,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   days:
-  - {fileID: 11400000, guid: 3f8574cc72c0a4fb5a86d6b58e78fcba, type: 2}
+  - {fileID: 11400000, guid: 84836cadc3e2f4cea8b473f4b16a70ed, type: 2}
+  - {fileID: 11400000, guid: a1e8f84dca49c47a5b5b403e8d9617d9, type: 2}
+  - {fileID: 11400000, guid: 1cf133554e9cc453abf30e25474dddb3, type: 2}
   endings: []
 --- !u!1 &3899575946088649653
 GameObject:

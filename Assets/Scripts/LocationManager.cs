@@ -8,7 +8,7 @@ public struct Location
 {
     public bool Valid;
 
-    [HideInInspector]
+    //[HideInInspector]
     //public int Index;
     // A - Z
     public char Letter;
@@ -58,6 +58,8 @@ public class LocationManager : MonoBehaviour
         {
             positionToCharacter.Add(infoStruct.loc, infoStruct.info);
         }
+
+        //RandomizeLocations();
     }
 
     public List<Location> GenerateLocations(Switchboard switchboard)
@@ -82,6 +84,8 @@ public class LocationManager : MonoBehaviour
 
         // Locations should be completely randomized if random
         List<Location> locList = GetLocationList();
+
+
 
         foreach (CharacterInfo c in charList)
         {

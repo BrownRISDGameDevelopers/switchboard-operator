@@ -73,7 +73,7 @@ public class Switchboard : MonoBehaviour
                 Number = i
             };
             jackSwitches[i].isTaken = true;
-            jacks[i].configure(jackSwitches[i], i, this, (int) math.floor(i/2));
+            jacks[i].configure(jackSwitches[i], i, this, (int)math.floor(i / 2));
         }
 
         int lockInNumber = jackCount / 2;
@@ -164,7 +164,7 @@ public class Switchboard : MonoBehaviour
 
         foreach (Switch c_switch in switches)
         {
-            float distance = UnityEngine.Vector3.Distance(jack.transform.position + Vector3.up*0.6f, c_switch.transform.position);
+            float distance = UnityEngine.Vector3.Distance(jack.transform.position + Vector3.up * 0.6f, c_switch.transform.position);
             if (distance < shortestDistance)
             {
                 shortestDistance = distance;
