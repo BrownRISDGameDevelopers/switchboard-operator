@@ -11,7 +11,6 @@ public class Bezier : MonoBehaviour
     private int layerOrder = 0;
     private int SEGMENT_COUNT = 50;
     
-        
     void Start()
     {
         if (!lineRenderer)
@@ -36,7 +35,8 @@ public class Bezier : MonoBehaviour
                 float t = i / (float)SEGMENT_COUNT;
                 int nodeIndex = j * 3;
                 Vector3 middlePosition = new Vector3(controlPoints [nodeIndex].position.x, (controlPoints [nodeIndex].position.y + controlPoints [nodeIndex + 1].position.y) / 2, controlPoints [nodeIndex].position.z);
-                Vector3 pixel = CalculateCubicBezierPoint(t, controlPoints [nodeIndex].position, middlePosition, controlPoints [nodeIndex + 1].position, controlPoints [nodeIndex + 1].position);
+                Vector3 secondController = new Vector3(controlPoints [nodeIndex + 1].position.x, (controlPoints [nodeIndex].position.y + controlPoints [nodeIndex + 1].position.y) / 2, controlPoints [nodeIndex].position.z);
+                Vector3 pixel = CalculateCubicBezierPoint(t, controlPoints [nodeIndex].position, middlePosition, secondController, controlPoints [nodeIndex + 1].position);
                 lineRenderer.SetVertexCount((j * SEGMENT_COUNT) + i);
                 lineRenderer.SetPosition((j * SEGMENT_COUNT) + (i - 1), pixel);
             }
