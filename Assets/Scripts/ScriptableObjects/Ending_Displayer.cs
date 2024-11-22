@@ -4,10 +4,8 @@ using TMPro;
 
 public class Ending_Displayer : MonoBehaviour
 {
-
     [SerializeField]
     private Ending displayEndingTest;
-
 
     private string endingText;
     private Sprite[] endingPortraits;

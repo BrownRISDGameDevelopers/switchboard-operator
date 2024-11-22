@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfd9d2cef8bf44b57a5d1f486d2ba1c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayEndingTest: {fileID: 11400000, guid: 8f4e11921344844548cc46347e743515, type: 2}
+  displayEndingTest: {fileID: 0}
   endingTextUI: {fileID: 1285293257}
   endingPortraitUI: {fileID: 314766961}
 --- !u!114 &297915797

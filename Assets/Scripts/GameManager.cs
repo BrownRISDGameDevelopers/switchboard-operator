@@ -26,7 +26,13 @@ public class TagsManager
             return;
 
         foreach (Tag tag in tags)
+        {
+            if (tag == null)
+                continue;
+
+            onAddTag?.Invoke(tag, this);
             tagsSet.Add(tag);
+        }
     }
 
     public bool HasAllTags(Tag[] tags)
@@ -104,6 +110,7 @@ public class GameManager : MonoBehaviour
 
         tags = new TagsManager();
 
+        tags.onAddTag += OnTagAddedCheckEnding;
 
         DontDestroyOnLoad(this);
     }
@@ -133,16 +140,15 @@ public class GameManager : MonoBehaviour
             if (end.endingType != EndingType.InstantTagsAcquired)
                 continue;
 
-            if (tags.HasAllTags(end.requiredTags))
+            print("found instant tags acquired thing");
+            bool hasTags = tags.HasAllTags(end.requiredTags);
+            if (hasTags)
             {
+                print("tags");
                 // GO TO THIS ENDING
                 EnterEnding(end);
-
-
             }
-
         }
-
     }
 
     public void EndCurrentDay()
@@ -169,8 +175,10 @@ public class GameManager : MonoBehaviour
 
     private void EnterEnding(Ending end)
     {
-
+        print("ENTERING ENDING");
         SceneManager.LoadScene((int)Constants.SceneIndexTable.Ending);
+        Ending_Displayer disp = FindFirstObjectByType<Ending_Displayer>();
+        disp.displayEnding(end);
     }
 
     public void ReturnToMenu()

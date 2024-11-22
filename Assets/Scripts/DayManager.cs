@@ -254,7 +254,6 @@ public class DayManager : MonoBehaviour
             Strike();
             return;
         }
-
         // We've reached the success case
         tagsReference.AddTags(outGoingCall.associatedDialogue.successTags);
         RemoveCallFromData(outGoingCall);
