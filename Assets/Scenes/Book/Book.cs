@@ -12,6 +12,8 @@ public class Book : MonoBehaviour
     [SerializeField] float YPosition;
     [SerializeField] GameObject leftPage;
     [SerializeField] GameObject rightPage;
+    [SerializeField] AudioSource SFX_open_book;
+    [SerializeField] AudioSource SFX_turn_page;
     bool focused = false;
     RectTransform m_RectTransform;
     LocationManager locationManager;
@@ -81,6 +83,8 @@ public class Book : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 focused = false;
+
+                SFX_open_book.Play();
             }
         }
         else
@@ -88,6 +92,7 @@ public class Book : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject())
             {
                 focused = true;
+                SFX_turn_page.Play();
             }
         }
     }
