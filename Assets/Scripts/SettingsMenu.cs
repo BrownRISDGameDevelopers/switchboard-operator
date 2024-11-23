@@ -9,6 +9,7 @@ using UnityEngine.UIElements;
 public class SettinsMenu : MonoBehaviour
 {
     public UnityEngine.UI.Button buttonBack;
+    public GameManager gameManager;
 
     void Start()
     {

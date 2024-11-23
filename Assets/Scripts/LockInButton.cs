@@ -14,7 +14,7 @@ public class LockInButton : MonoBehaviour
     //When the mouse is clicked on the collider
     void OnMouseDown()
     {
-        Debug.Log("On mouse down");
+        // Debug.Log("On mouse down");
         SFX_button_pressed.Play();
         onJackLock(jackSet);
     }
