@@ -116,7 +116,7 @@ public class GameManager : MonoBehaviour
 
 
 
-        //LoadNewDay(days[currentDay]);
+        LoadNewDay(days[currentDay]);
     }
 
     void Start()

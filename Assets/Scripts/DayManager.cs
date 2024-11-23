@@ -409,6 +409,17 @@ public class DayManager : MonoBehaviour
 
     private bool DialogueHasValidTags(Dialogue dialogue)
     {
+
+        if (tagsReference == null)
+        {
+            print("tags reference null (dialoguehasvalidtags)");
+            return true;
+        }
+        if (dialogue == null)
+        {
+            print("dialogue null (dialoguehasvalidtags)");
+            return true;
+        }
         bool hasAllTags = tagsReference.HasAllTags(dialogue.requiredTags);
         bool hasDisallowedTags = tagsReference.HasNoTags(dialogue.disallowedTags);
         return true;//hasAllTags && !hasDisallowedTags;
