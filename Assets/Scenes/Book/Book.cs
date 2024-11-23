@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using System.Linq; // Required when using Event data.
 
-public class Book : MonoBehaviour
+public class Book : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] float deselectedXPosition;
     [SerializeField] float selectedXPosition;
@@ -40,7 +40,6 @@ public class Book : MonoBehaviour
 
     void Update()
     {
-        updateFocusState();
         updatePosition();
     }
 
@@ -72,28 +71,6 @@ public class Book : MonoBehaviour
         }
     }
 
-    // Manages clicking on and off of book in order to bring it on and offscreen
-    Ray ray;
-    void updateFocusState()
-    {
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if (focused)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                focused = false;
-            }
-        }
-        else
-        {
-            if (Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject())
-            {
-                focused = true;
-            }
-        }
-    }
-
     // Updates book position based on focus state
     void updatePosition()
     {
@@ -114,5 +91,17 @@ public class Book : MonoBehaviour
 
         // print(currentPosition);
         // print(finalPosition);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (focused)
+        {
+            focused = false;
+        }
+        else
+        {
+            focused = true;
+        } 
     }
 }

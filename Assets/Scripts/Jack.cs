@@ -116,8 +116,16 @@ public class Jack : MonoBehaviour
             ScreenShakeCamera.TryAddShake(Constants.JACK_OFF_SHAKE);
             return;
         }
+
         transform.position = closestSwitch.transform.position;
         closestSwitch.isTaken = true;
+
+        _baseSpriteRenderer.gameObject.SetActive(false);
+        _dragSpriteRenderer.gameObject.SetActive(false);
+        _placedSpriteRenderer.gameObject.SetActive(true);
+
+        SFX_plug_in.Play();
+        ScreenShakeCamera.TryAddShake(Constants.JACK_IN_SHAKE);
 
         //Event saying that the jack has been placed somewhere & checks if there are listeners
         if (onJackPlaced != null)
@@ -125,12 +133,6 @@ public class Jack : MonoBehaviour
             JackData data = new JackData() { PlacedJackID = jackID, SnappedSwitch = closestSwitch, IsOriginalPosition = closestSwitch.transform.position == jackSwitch.transform.position };
             onJackPlaced(data);
         }
-        _baseSpriteRenderer.gameObject.SetActive(false);
-        _dragSpriteRenderer.gameObject.SetActive(false);
-        _placedSpriteRenderer.gameObject.SetActive(true);
-
-        SFX_plug_in.Play();
-        ScreenShakeCamera.TryAddShake(Constants.JACK_IN_SHAKE);
     }
 
     //Gets the current mouse position as a Vector3
