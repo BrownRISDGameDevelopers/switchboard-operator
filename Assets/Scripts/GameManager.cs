@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.Audio;
+using Unity.VisualScripting;
 
 public class TagsManager
 {
-
     private HashSet<Tag> tagsSet;
 
     public delegate void OnTagAdded(Tag tag, TagsManager manager);
@@ -89,6 +90,11 @@ public class GameManager : MonoBehaviour
     private int money = 0;
 
     private static GameManager _existingGameManager = null;
+
+    [SerializeField]
+    private AudioMixer sfxMixer;
+    [SerializeField]
+    private AudioMixer musicMixer;
     private static int currentDay = 0;
 
     void Awake()
@@ -113,16 +119,13 @@ public class GameManager : MonoBehaviour
         tags.onAddTag += OnTagAddedCheckEnding;
 
         DontDestroyOnLoad(this);
-
-
-
-        LoadNewDay(days[currentDay]);
     }
 
     void Start()
     {
         // AsyncOperation load_op = SceneManager.LoadSceneAsync((int)Constants.SceneIndexTable.Game);
         // load_op.completed += (_) => LoadNewDay(days[currentDay]);
+        LoadNewDay(days[currentDay]);
     }
 
     public void LoadNewDay(Day day)
@@ -189,8 +192,12 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene((int)Constants.SceneIndexTable.Menu);
     }
 
-    public void PayPlayer(int amount)
+    public void SetMusicVolume(float value)
     {
-        money += amount;
+        this.musicMixer.SetFloat("Volume", Mathf.Log10(value) * 20);
+    }
+    public void SetSFXVolume(float value)
+    {
+        this.sfxMixer.SetFloat("Volume", Mathf.Log10(value) * 20);
     }
 }
