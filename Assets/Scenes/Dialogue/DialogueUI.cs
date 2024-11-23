@@ -8,13 +8,24 @@ public class DialogueUI : MonoBehaviour
     public TextMeshProUGUI textComponent;
     public Dialogue scriptObj;
     public Image portrait;
+
+
+    private GameObject visuals;
     float textSpeed = 0.06f;
+
+
+    public delegate void DialogueDoneDelegate();
+    public event DialogueDoneDelegate OnDialogueDone;
 
     void Start()
     {
+        visuals = transform.GetChild(0).gameObject;
+        SetVisualsVisible(false);
         // won't work in vaccum
         if (scriptObj)
             StartDialogue();
+
+
     }
 
     public void StartDialogueWithData(Dialogue newDialogue)
@@ -25,6 +36,7 @@ public class DialogueUI : MonoBehaviour
 
     void StartDialogue()
     {
+        SetVisualsVisible(true);
         StartCoroutine(TypeLine());
     }
 
@@ -64,5 +76,15 @@ public class DialogueUI : MonoBehaviour
 
             yield return new WaitForSeconds(1);
         }
+        SetVisualsVisible(false);
+        OnDialogueDone?.Invoke();
+    }
+
+
+    void SetVisualsVisible(bool visible)
+    {
+        if (visuals == null)
+            return;
+        visuals.SetActive(visible);
     }
 }

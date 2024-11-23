@@ -28,6 +28,13 @@ public class Switch : MonoBehaviour
 
     public void blinkSwitch(float secondsLeft)
     {
+
+        if (secondsLeft <= 0)
+        {
+            _spriteRenderComponent.sprite = blinkOffSprite;
+            return;
+        }
+
         if (_spriteRenderComponent == null)
             return;
 
