@@ -12,7 +12,7 @@ public struct JackData
 
 public class Jack : MonoBehaviour
 {
-    
+
     [SerializeField] AudioSource SFX_plug_in;
     [SerializeField] AudioSource SFX_plug_out;
     private Vector3 initialOffset;
@@ -72,7 +72,7 @@ public class Jack : MonoBehaviour
 
         // THIS COULD CAUSE AN ERROR IF THE NEAREST SWITCH IS ALSO CLOSE TO THE SAME SWITCH THAT ANOTHER THING IS IN 
         initialOffset = transform.position - GetMousePosition();
-        Switch closestSwitch = switchboard.GetClosestSwitchPosition(this);
+        Switch closestSwitch = switchboard.GetClosestSwitchPosition(this, 0.6f);
         closestSwitch.isTaken = false;
 
         if (Vector3.Distance(GetMousePosition(), closestSwitch.transform.position) > jackPlacedRange)
@@ -104,7 +104,7 @@ public class Jack : MonoBehaviour
     {
         Cursor.visible = true;
 
-        Switch closestSwitch = switchboard.GetClosestSwitchPosition(this);
+        Switch closestSwitch = switchboard.GetClosestSwitchPosition(this, 0.6f);
 
         if (Vector3.Distance(transform.position, closestSwitch.transform.position) > jackPlacedRange
             || closestSwitch.isTaken)
