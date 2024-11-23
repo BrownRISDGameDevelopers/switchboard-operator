@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6157374418a394afd8a577b9445f6168, type: 3}
-  m_Name: C_North
+  m_Script: {fileID: 11500000, guid: 80f0ccfbcbbc4471fb9b1bb31c14d90c, type: 3}
+  m_Name: T_D2_WorriedMomIgnore
   m_EditorClassIdentifier: 
-  CharName: 
-  Portrait: {fileID: 0}
-  ExtraPortrait1: {fileID: 0}
-  ExtraPortrait2: {fileID: 0}
+  TagName: 
