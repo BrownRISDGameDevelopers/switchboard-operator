@@ -14,6 +14,7 @@ public class MusicManager : MonoBehaviour
     public AudioSource NPCMusic;
     public AudioSource[] CharAudioSources;
     public CharacterInfo[] charNames;
+    private bool paused = false;
 
     public void SetDayManager(DayManager _dayManager){
         dayManager = _dayManager;
@@ -22,8 +23,11 @@ public class MusicManager : MonoBehaviour
     void Update()
     {
         talkingTo = dayManager.GetCurrentlyInDialogue();
+        // if unpaused
         print(talkingTo);
         setSong(talkingTo);
+        // otherwise
+        // setSong(NPCMusic);
     }
 
     void setSong(CharacterInfo _talkingTo){
