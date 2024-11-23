@@ -12,6 +12,9 @@ public struct JackData
 
 public class Jack : MonoBehaviour
 {
+    
+    [SerializeField] AudioSource SFX_plug_in;
+    [SerializeField] AudioSource SFX_plug_out;
     private Vector3 initialOffset;
     private Vector3 initialPosition;
 
@@ -73,9 +76,11 @@ public class Jack : MonoBehaviour
         if (Vector3.Distance(GetMousePosition(), closestSwitch.transform.position) > jackPlacedRange)
         {
             transform.position = initialPosition;
+            
             return;
         }
         transform.position = closestSwitch.transform.position;
+        SFX_plug_out.Play();
 
         //Event saying that the jack has been placed somewhere & checks if there are listeners
         if (onJackTaken != null)
@@ -122,6 +127,7 @@ public class Jack : MonoBehaviour
         _dragSpriteRenderer.gameObject.SetActive(false);
         _placedSpriteRenderer.gameObject.SetActive(true);
 
+        SFX_plug_in.Play();
         ScreenShakeCamera.TryAddShake(Constants.JACK_IN_SHAKE);
     }
 
