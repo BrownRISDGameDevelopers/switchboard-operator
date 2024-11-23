@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6157374418a394afd8a577b9445f6168, type: 3}
   m_Name: C_Hospital
   m_EditorClassIdentifier: 
-  CharName: C_Hospital
+  CharName: Hospital
   Portrait: {fileID: 0}
   ExtraPortrait1: {fileID: 0}
   ExtraPortrait2: {fileID: 0}
