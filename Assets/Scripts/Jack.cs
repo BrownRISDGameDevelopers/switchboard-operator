@@ -179,19 +179,19 @@ public class Jack : MonoBehaviour
         switch (color)
         {
             case 0:
+                baseSprite = blueBaseSprite;
+                dragSprite = blueDragSprite;
+                placedSprite = bluePlacedSprite;
+                break;
+            case 1:
                 baseSprite = greenBaseSprite;
                 dragSprite = greenDragSprite;
                 placedSprite = greenPlacedSprite;
                 break;
-            case 1:
+            default:
                 baseSprite = redBaseSprite;
                 dragSprite = redDragSprite;
                 placedSprite = redPlacedSprite;
-                break;
-            default:
-                baseSprite = blueBaseSprite;
-                dragSprite = blueDragSprite;
-                placedSprite = bluePlacedSprite;
                 break;
         }
         _baseSpriteRenderer.sprite = baseSprite;
