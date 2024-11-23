@@ -47,6 +47,7 @@ public class Jack : MonoBehaviour
     private SpriteRenderer _baseSpriteRenderer;
     private SpriteRenderer _dragSpriteRenderer;
     private SpriteRenderer _placedSpriteRenderer;
+    private float wireOffset = 0.5f;
 
     // Start is called before the first frame update
     void Awake()
@@ -68,6 +69,7 @@ public class Jack : MonoBehaviour
 
     void OnMouseDown()
     {
+        transform.Find("jackWirePointer").position += Vector3.down*wireOffset;
         Cursor.visible = false;
 
         // THIS COULD CAUSE AN ERROR IF THE NEAREST SWITCH IS ALSO CLOSE TO THE SAME SWITCH THAT ANOTHER THING IS IN 
@@ -93,11 +95,13 @@ public class Jack : MonoBehaviour
         _dragSpriteRenderer.gameObject.SetActive(true);
         _placedSpriteRenderer.gameObject.SetActive(false);
         transform.position = GetMousePosition() + initialOffset;
+    
     }
 
     //When mouse is released, stop dragging and lock to the nearest switch
     void OnMouseUp()
     {
+        transform.Find("jackWirePointer").position += Vector3.up*wireOffset;
         Cursor.visible = true;
 
         Switch closestSwitch = switchboard.GetClosestSwitchPosition(this, 0.6f);

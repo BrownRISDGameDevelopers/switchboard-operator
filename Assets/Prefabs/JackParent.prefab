@@ -116,6 +116,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7105213096475976670}
   - {fileID: 6523496721879911355}
   - {fileID: 1950153814701610700}
   - {fileID: 8518865596707486124}
@@ -778,6 +779,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &9023524093231339856
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7105213096475976670}
+  m_Layer: 0
+  m_Name: jackWirePointer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7105213096475976670
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9023524093231339856}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 124698094678419183}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &7037782310429788262
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -853,7 +885,7 @@ PrefabInstance:
     - target: {fileID: 5893838760518195880, guid: 7274e81721506844eaf4e074d2dfdc9d, type: 3}
       propertyPath: controlPoints.Array.data[1]
       value: 
-      objectReference: {fileID: 124698094678419183}
+      objectReference: {fileID: 7105213096475976670}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
