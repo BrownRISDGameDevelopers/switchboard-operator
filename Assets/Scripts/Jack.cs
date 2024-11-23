@@ -94,7 +94,6 @@ public class Jack : MonoBehaviour
     //When mouse is released, stop dragging and lock to the nearest switch
     void OnMouseUp()
     {
-        
         Switch closestSwitch = switchboard.GetClosestSwitchPosition(this);
 
         if (Vector3.Distance(transform.position, closestSwitch.transform.position) > jackPlacedRange
@@ -104,6 +103,7 @@ public class Jack : MonoBehaviour
             _baseSpriteRenderer.gameObject.SetActive(true);
             _dragSpriteRenderer.gameObject.SetActive(false);
             _placedSpriteRenderer.gameObject.SetActive(false);
+            ScreenShakeCamera.TryAddShake(Constants.JACK_OFF_SHAKE);
             return;
         }
         transform.position = closestSwitch.transform.position;
@@ -118,7 +118,7 @@ public class Jack : MonoBehaviour
         _baseSpriteRenderer.gameObject.SetActive(false);
         _dragSpriteRenderer.gameObject.SetActive(false);
         _placedSpriteRenderer.gameObject.SetActive(true);
-        
+        ScreenShakeCamera.TryAddShake(Constants.JACK_IN_SHAKE);
     }
 
     //Gets the current mouse position as a Vector3
