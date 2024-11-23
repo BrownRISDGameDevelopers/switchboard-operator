@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 public class PauseButton : MonoBehaviour
 {
     public UnityEngine.UI.Button buttonPause;
-    public GameObject pauseMenuObject;
+    public GameObject pauseMenuObject, emptyObject;
     void Start()
     {
         // Connect buttons to relevant functions
@@ -18,6 +18,9 @@ public class PauseButton : MonoBehaviour
 
     void onClick()
     {
-        Instantiate(pauseMenuObject);
+        GameObject eo = Instantiate(emptyObject);
+        GameObject pmo = Instantiate(pauseMenuObject);
+
+        pmo.GetComponent<PauseMenu>().emptyObject = eo;
     }
 }

@@ -919,22 +919,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca2de84bd886f4e28ab4b4f92869e2a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pool:
-  - {fileID: 676943968}
-  - {fileID: 56097736}
-  - {fileID: 1460093670}
-  - {fileID: 1127507093}
-  - {fileID: 437659253}
-  - {fileID: 754917238}
-  - {fileID: 1810888991}
-  - {fileID: 111929865}
-  - {fileID: 302291822}
-  - {fileID: 1958112299}
-  _initialSize: 10
-  loopingSounds: []
-  _masterVolume: 1
-  _musicVolume: 1
-  _sfxVolume: 1
 --- !u!4 &985326187
 Transform:
   m_ObjectHideFlags: 0
@@ -1245,6 +1229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68effdbaed88c4530b53662c6b7e5f82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volumeManagerObject: {fileID: 726574991186162907, guid: c46f9e675049d4b4dbc2b27d2547edce, type: 3}
 --- !u!4 &1663289652
 Transform:
   m_ObjectHideFlags: 0

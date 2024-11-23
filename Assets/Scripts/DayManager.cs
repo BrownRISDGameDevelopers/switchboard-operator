@@ -113,6 +113,12 @@ public class DayManager : MonoBehaviour
     // Locked in, successful, how long to wait until giving the player the W
     private float _postLockInSuccessTime = 5.0f;
 
+
+    [SerializeField]
+    private float _mintuesPerDay = 5.0f;
+
+    private float _secondsLeftInDay;
+
     public delegate void OnStrike(int strikesLeft, bool recharge);
     public static event OnStrike onStrike;
 
@@ -141,6 +147,8 @@ public class DayManager : MonoBehaviour
         Jack.onJackPlaced += OnJackPlaced;
         Jack.onJackTaken += OnJackRemoved;
         LockInButton.onJackLock += LockIn;
+
+        _secondsLeftInDay = _mintuesPerDay * 60.0f;
 
         if (dialogueUI != null)
             dialogueUI.OnDialogueDone += OnDialogueUIDone;
@@ -497,7 +505,7 @@ public class DayManager : MonoBehaviour
         }
         bool hasAllTags = tagsReference.HasAllTags(dialogue.requiredTags);
         bool hasDisallowedTags = tagsReference.HasNoTags(dialogue.disallowedTags);
-        return true;//hasAllTags && !hasDisallowedTags;
+        return hasAllTags && !hasDisallowedTags;
     }
 
     private List<DialogueHolder> GetRandomizedAvailableDialogue(SingleDayDialogueList dayDiag)
@@ -510,6 +518,16 @@ public class DayManager : MonoBehaviour
         }
 
         return returnList;
+    }
+
+
+    private void CheckDayEnd()
+    {
+        _secondsLeftInDay -= Time.deltaTime;
+        if (_secondsLeftInDay > 0)
+            return;
+
+
     }
 
     private void CheckCalls()
