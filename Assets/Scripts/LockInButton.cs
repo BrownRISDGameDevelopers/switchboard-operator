@@ -9,10 +9,13 @@ public class LockInButton : MonoBehaviour
     public delegate void OnJackLock(int jackSetId);
     public static event OnJackLock onJackLock;
 
+    [SerializeField] AudioSource SFX_button_pressed;
+
     //When the mouse is clicked on the collider
     void OnMouseDown()
     {
         Debug.Log("On mouse down");
+        SFX_button_pressed.Play();
         onJackLock(jackSet);
     }
 

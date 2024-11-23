@@ -78,7 +78,7 @@ public class Book : MonoBehaviour
 
         if (focused)
         {
-            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+            if (Input.GetMouseButtonDown(0))
             {
                 focused = false;
             }

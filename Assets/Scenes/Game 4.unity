@@ -399,10 +399,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 338980251587690406, guid: 617abe01470ad904caacb44e4246158d, type: 3}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 726574991186162907, guid: 617abe01470ad904caacb44e4246158d, type: 3}
       propertyPath: m_Name
       value: GameManagerObject
       objectReference: {fileID: 0}
+<<<<<<< HEAD
+=======
+    - target: {fileID: 1682895828397423339, guid: 617abe01470ad904caacb44e4246158d, type: 3}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268687723894735972, guid: 617abe01470ad904caacb44e4246158d, type: 3}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8594353600111642255, guid: 617abe01470ad904caacb44e4246158d, type: 3}
+      propertyPath: days.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8594353600111642255, guid: 617abe01470ad904caacb44e4246158d, type: 3}
+      propertyPath: days.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 84836cadc3e2f4cea8b473f4b16a70ed, type: 2}
+    - target: {fileID: 8594353600111642255, guid: 617abe01470ad904caacb44e4246158d, type: 3}
+      propertyPath: days.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: a1e8f84dca49c47a5b5b403e8d9617d9, type: 2}
+    - target: {fileID: 8594353600111642255, guid: 617abe01470ad904caacb44e4246158d, type: 3}
+      propertyPath: days.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1cf133554e9cc453abf30e25474dddb3, type: 2}
+>>>>>>> 008d8a210610d3eb4fd175ef5690cbe3a822891d
     - target: {fileID: 8816353949644369328, guid: 617abe01470ad904caacb44e4246158d, type: 3}
       propertyPath: initInfo.Array.size
       value: 11
@@ -608,6 +639,7 @@ GameObject:
   - component: {fileID: 968839328}
   - component: {fileID: 968839327}
   - component: {fileID: 968839326}
+  - component: {fileID: 968839329}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -689,6 +721,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &968839329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968839325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d30e242b05ee04d79aa5eafb7551150b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxShakeAngle: 10
+  maxShakeOffsetX: 0.75
+  maxShakeOffsetY: 1
+  traumaReductionPerSecond: 2
 --- !u!1 &997383945
 GameObject:
   m_ObjectHideFlags: 0
