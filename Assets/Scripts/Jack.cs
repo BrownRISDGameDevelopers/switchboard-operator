@@ -72,15 +72,11 @@ public class Jack : MonoBehaviour
 
         // THIS COULD CAUSE AN ERROR IF THE NEAREST SWITCH IS ALSO CLOSE TO THE SAME SWITCH THAT ANOTHER THING IS IN 
         initialOffset = transform.position - GetMousePosition();
-        Switch closestSwitch = switchboard.GetClosestSwitchPosition(this, 0.6f);
+        Switch closestSwitch = switchboard.GetClosestSwitchPosition(this, 0f);
+
+        transform.position = closestSwitch.transform.position;
         closestSwitch.isTaken = false;
 
-        if (Vector3.Distance(GetMousePosition(), closestSwitch.transform.position) > jackPlacedRange)
-        {
-            transform.position = initialPosition;
-            return;
-        }
-        transform.position = closestSwitch.transform.position;
         SFX_plug_out.Play();
 
         //Event saying that the jack has been placed somewhere & checks if there are listeners
@@ -113,11 +109,20 @@ public class Jack : MonoBehaviour
             _baseSpriteRenderer.gameObject.SetActive(true);
             _dragSpriteRenderer.gameObject.SetActive(false);
             _placedSpriteRenderer.gameObject.SetActive(false);
+
             ScreenShakeCamera.TryAddShake(Constants.JACK_OFF_SHAKE);
             return;
         }
+
         transform.position = closestSwitch.transform.position;
         closestSwitch.isTaken = true;
+
+        _baseSpriteRenderer.gameObject.SetActive(false);
+        _dragSpriteRenderer.gameObject.SetActive(false);
+        _placedSpriteRenderer.gameObject.SetActive(true);
+
+        SFX_plug_in.Play();
+        ScreenShakeCamera.TryAddShake(Constants.JACK_IN_SHAKE);
 
         //Event saying that the jack has been placed somewhere & checks if there are listeners
         if (onJackPlaced != null)
@@ -125,12 +130,6 @@ public class Jack : MonoBehaviour
             JackData data = new JackData() { PlacedJackID = jackID, SnappedSwitch = closestSwitch, IsOriginalPosition = closestSwitch.transform.position == jackSwitch.transform.position };
             onJackPlaced(data);
         }
-        _baseSpriteRenderer.gameObject.SetActive(false);
-        _dragSpriteRenderer.gameObject.SetActive(false);
-        _placedSpriteRenderer.gameObject.SetActive(true);
-
-        SFX_plug_in.Play();
-        ScreenShakeCamera.TryAddShake(Constants.JACK_IN_SHAKE);
     }
 
     //Gets the current mouse position as a Vector3

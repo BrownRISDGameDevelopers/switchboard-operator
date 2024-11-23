@@ -17,6 +17,8 @@ public class PauseMenu : MonoBehaviour
         buttonResume.onClick.AddListener(onResume);
         buttonQuit.onClick.AddListener(onQuit);
         buttonSettings.onClick.AddListener(onSettings);
+
+        Time.timeScale = 0f;
     }
 
     void onSettings()
@@ -27,6 +29,7 @@ public class PauseMenu : MonoBehaviour
     // Start button pressed
     void onResume()
     {
+        Time.timeScale = 1f;
         Destroy(this.gameObject);
     }
 
