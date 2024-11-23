@@ -9,9 +9,11 @@ public class DialogueUI : MonoBehaviour
     public Dialogue scriptObj;
     public Image portrait;
 
+    public float waitBeforeEnd = 10.0f;
+
 
     private GameObject visuals;
-    float textSpeed = 0.06f;
+    float textSpeed = 0.02f;
 
 
     public delegate void DialogueDoneDelegate();
@@ -71,11 +73,12 @@ public class DialogueUI : MonoBehaviour
             foreach (char c in scriptObj.Lines[i].text.ToCharArray())
             {
                 textComponent.text += c;
-                yield return new WaitForSeconds(textSpeed * scriptObj.Lines[i].speedScale);
+                yield return new WaitForSeconds(textSpeed / scriptObj.Lines[i].speedScale);
             }
 
             yield return new WaitForSeconds(1);
         }
+        yield return new WaitForSeconds(waitBeforeEnd);
         SetVisualsVisible(false);
         OnDialogueDone?.Invoke();
     }
