@@ -15,6 +15,8 @@ public class DialogueUI : MonoBehaviour
     private GameObject visuals;
     float textSpeed = 0.02f;
 
+    private bool _endEarly = false;
+
 
     public delegate void DialogueDoneDelegate();
     public event DialogueDoneDelegate OnDialogueDone;
@@ -36,8 +38,15 @@ public class DialogueUI : MonoBehaviour
         StartDialogue();
     }
 
+    public void EndEarly()
+    {
+        SetVisualsVisible(false);
+        StopCoroutine(TypeLine());
+    }
+
     void StartDialogue()
     {
+        _endEarly = false;
         SetVisualsVisible(true);
         StartCoroutine(TypeLine());
     }

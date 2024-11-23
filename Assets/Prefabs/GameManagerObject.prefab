@@ -225,6 +225,11 @@ MonoBehaviour:
       Letter: 67
       Number: 1
     info: {fileID: 11400000, guid: ac0ab87f61316454399a306343d956ec, type: 2}
+  - loc:
+      Valid: 1
+      Letter: 68
+      Number: 3
+    info: {fileID: 11400000, guid: f651f4d6920ca4a89a94a1e4450cac13, type: 2}
 --- !u!114 &8594353600111642255
 MonoBehaviour:
   m_ObjectHideFlags: 0
