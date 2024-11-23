@@ -13,7 +13,7 @@ public class DialogueUI : MonoBehaviour
 
 
     private GameObject visuals;
-    float textSpeed = 0.02f;
+    float textSpeed = 0.06f;
 
     private bool _endEarly = false;
 
