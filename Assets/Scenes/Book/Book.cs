@@ -12,6 +12,9 @@ public class Book : MonoBehaviour, IPointerClickHandler
     [SerializeField] float YPosition;
     [SerializeField] GameObject leftPage;
     [SerializeField] GameObject rightPage;
+    [SerializeField] AudioSource SFX_open_book;
+    [SerializeField] AudioSource SFX_turn_page;
+
     bool focused = false;
     RectTransform m_RectTransform;
     LocationManager locationManager;
@@ -98,10 +101,12 @@ public class Book : MonoBehaviour, IPointerClickHandler
         if (focused)
         {
             focused = false;
+            SFX_turn_page.Play();
         }
         else
         {
             focused = true;
+            SFX_open_book.Play();
         } 
     }
 }
