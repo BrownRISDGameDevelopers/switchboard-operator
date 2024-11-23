@@ -68,6 +68,8 @@ public class Jack : MonoBehaviour
 
     void OnMouseDown()
     {
+        Cursor.visible = false;
+
         // THIS COULD CAUSE AN ERROR IF THE NEAREST SWITCH IS ALSO CLOSE TO THE SAME SWITCH THAT ANOTHER THING IS IN 
         initialOffset = transform.position - GetMousePosition();
         Switch closestSwitch = switchboard.GetClosestSwitchPosition(this);
@@ -100,6 +102,7 @@ public class Jack : MonoBehaviour
     //When mouse is released, stop dragging and lock to the nearest switch
     void OnMouseUp()
     {
+        Cursor.visible = true;
 
         Switch closestSwitch = switchboard.GetClosestSwitchPosition(this);
 
