@@ -18,7 +18,7 @@ public class StrikeManager : MonoBehaviour
 
    private void OnStrike(int strikesLeft, bool recharge)
    {
-	  for (int i = 0; i < maxStrikes - strikesLeft; i++)
+	  for (int i = 0; i < Mathf.Max(0, maxStrikes - strikesLeft); i++)
 	  {
 		 strikeLights[i].SetActive(true);
 	  }
