@@ -1,5 +1,3 @@
-using System.Collections.Specialized;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public struct JackData
@@ -12,7 +10,6 @@ public struct JackData
 
 public class Jack : MonoBehaviour
 {
-
     [SerializeField] AudioSource SFX_plug_in;
     [SerializeField] AudioSource SFX_plug_out;
     private Vector3 initialOffset;
@@ -94,8 +91,9 @@ public class Jack : MonoBehaviour
         _baseSpriteRenderer.gameObject.SetActive(false);
         _dragSpriteRenderer.gameObject.SetActive(true);
         _placedSpriteRenderer.gameObject.SetActive(false);
-        transform.position = GetMousePosition() + initialOffset;
-    
+
+        Vector3 mousePos = GetMousePosition();
+        transform.position = mousePos + initialOffset;
     }
 
     //When mouse is released, stop dragging and lock to the nearest switch
