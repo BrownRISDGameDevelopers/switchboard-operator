@@ -5,6 +5,7 @@ using UnityEngine;
 public class PauseMenu : MonoBehaviour
 {
     public UnityEngine.UI.Button buttonResume, buttonSettings, buttonQuit;
+    public GameObject settingsMenuObject;
     private GameManager gameManager;
     
     // Start is called before the first frame update
@@ -14,21 +15,19 @@ public class PauseMenu : MonoBehaviour
 
         // Connect buttons to relevant functions
         buttonResume.onClick.AddListener(onResume);
-        buttonSettings.onClick.AddListener(onSettings);
         buttonQuit.onClick.AddListener(onQuit);
+        buttonSettings.onClick.AddListener(onSettings);
     }
 
-    // Resume button pressed
+    void onSettings()
+    {
+        Instantiate(settingsMenuObject);
+    }
+
+    // Start button pressed
     void onResume()
     {
         Destroy(this.gameObject);
-    }
-
-    // Settings button pressed
-    void onSettings()
-    {
-        // Will not work in engine, but should close application on separate builds
-        Application.Quit();
     }
 
     // Quit button pressed

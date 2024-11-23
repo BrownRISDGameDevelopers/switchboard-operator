@@ -12,8 +12,6 @@ public class Book : MonoBehaviour
     [SerializeField] float YPosition;
     [SerializeField] GameObject leftPage;
     [SerializeField] GameObject rightPage;
-    [SerializeField] AudioSource SFX_open_book;
-    [SerializeField] AudioSource SFX_turn_page;
     bool focused = false;
     RectTransform m_RectTransform;
     LocationManager locationManager;
@@ -48,13 +46,6 @@ public class Book : MonoBehaviour
 
     void updateNamesInBook()
     {
-        for (int i = 0; i < nametagList.Count(); i++)
-        {
-            Nametag nametag = nametagList[i];
-            nametag.nameText.text = "";
-            nametag.locationText.text = "";
-        }
-
         for (int i = 0; i < characterList.Count(); i++)
         {
             Nametag currentTag = nametagList[i];
@@ -62,7 +53,7 @@ public class Book : MonoBehaviour
             Location currentLoc = locationManager.GetLocationFromCharacter(currentChar);
 
             currentTag.nameText.text = currentChar.CharName;
-            currentTag.locationText.text = currentLoc.Letter + "" + currentLoc.Number;
+            currentTag.locationText.text = currentLoc.Number + "" + currentLoc.Letter;
         }
     }
 
@@ -73,7 +64,9 @@ public class Book : MonoBehaviour
         {
             Nametag nametag = child.GetComponent<Nametag>();
             if (nametag == null)
+            {
                 continue;
+            }
 
             nametagList.Add(nametag);
         }
@@ -90,8 +83,6 @@ public class Book : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 focused = false;
-
-                SFX_open_book.Play();
             }
         }
         else
@@ -99,7 +90,6 @@ public class Book : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject())
             {
                 focused = true;
-                SFX_turn_page.Play();
             }
         }
     }

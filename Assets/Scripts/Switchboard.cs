@@ -64,6 +64,8 @@ public class Switchboard : MonoBehaviour
             GameObject go_jack = Instantiate(jackPrefab, pos, UnityEngine.Quaternion.identity);
 
             jackSwitches[i] = go_switch.GetComponent<Switch>();
+            jackSwitches[i].gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+            
             jacks[i] = go_jack.GetComponentInChildren<Jack>();
 
             jackSwitches[i].locationData = new Location()
