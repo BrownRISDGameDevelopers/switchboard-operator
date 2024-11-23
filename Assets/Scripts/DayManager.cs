@@ -110,6 +110,8 @@ public class DayManager : MonoBehaviour
     private float _incomingCallReceivedWaitTime = 10.0f;
     // Once answered, heres how long you have to lock it in with the right thang
     private float _postCallReceivedWaitTime = 10.0f;
+    // Locked in, successful, how long to wait until giving the player the W
+    private float _postLockInSuccessTime = 5.0f;
 
     public delegate void OnStrike(int strikesLeft, bool recharge);
     public static event OnStrike onStrike;
@@ -205,8 +207,11 @@ public class DayManager : MonoBehaviour
         CallData outgoingDat = CharacterHasOutgoingCall(characterRemoved);
         if (outgoingDat != null)
         {
-            outgoingDat.fromCharacter = null;
+            // End dialogue if going
+            //outgoingDat.fromCharacter = null;
             SetOutgoingForJackSet(jackSet, null);
+            EndIfCurrentlyInDialogue();
+            OnCallIgnore(outgoingDat);
         }
 
         CallData incomingDat = CharacterHasIncomingCall(characterRemoved);
@@ -270,6 +275,7 @@ public class DayManager : MonoBehaviour
         // TODO: how to wait n such?
         //
         outGoingCall.state = CallState.LOCKED_IN;
+        outGoingCall.curTimer = _postLockInSuccessTime;
         Debug.Log("Success!");
     }
 
@@ -309,6 +315,13 @@ public class DayManager : MonoBehaviour
     }
 
 
+    private void EndIfCurrentlyInDialogue()
+    {
+        if (_currentlyInDialogue != null && dialogueUI != null)
+        {
+            dialogueUI.EndEarly();
+        }
+    }
     public CharacterInfo GetCurrentlyInDialogue()
     {
         return _currentlyInDialogue;
@@ -519,11 +532,18 @@ public class DayManager : MonoBehaviour
                 _switchboard.SetSwitchTiming(loc, 0);
 
 
-            if (dat.curTimer <= 0 && canIgnore)
+            if (dat.curTimer <= 0)
             {
-                Debug.Log("Call ignored!");
-                _switchboard.SetSwitchTiming(loc, 0); // TODO, may want another sprite or other indicator of ignoring
-                OnCallIgnore(dat);
+                if (canIgnore)
+                {
+                    Debug.Log("Call ignored!");
+                    _switchboard.SetSwitchTiming(loc, 0); // TODO, may want another sprite or other indicator of ignoring
+                    OnCallIgnore(dat);
+                }
+                else if ((dat.state & (CallState.LOCKED_IN)) != 0)
+                {
+                    OnCallCompleteSuccess(dat);
+                }
             }
         }
     }
