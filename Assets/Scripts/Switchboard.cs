@@ -129,7 +129,7 @@ public class Switchboard : MonoBehaviour
             Transform initTrans = GetColLocationFromIndex(i * 2);
             Vector3 pos = new Vector3(initTrans.position.x + ((xSpacing / 2) * transform.localScale.x), initTrans.position.y - ((rows + 1) * ySpacing * transform.localScale.y), 0);
 
-            GameObject button = Instantiate(lockInPrefab, pos, UnityEngine.Quaternion.identity);
+            GameObject button = Instantiate(lockInPrefab, pos, Quaternion.identity);
             lockInButtons[i] = button.GetComponent<LockInButton>();
             lockInButtons[i].jackSet = i;
         }
@@ -141,7 +141,6 @@ public class Switchboard : MonoBehaviour
         // switchPositions = new UnityEngine.Vector3[columns, rows];
         for (int j = 0; j < rows; j++)
         {
-            float a = 0f; //Additional increment for stepping
             for (int i = 0; i < columns; i++)
             {
                 Transform initTrans = GetColLocationFromIndex(i);

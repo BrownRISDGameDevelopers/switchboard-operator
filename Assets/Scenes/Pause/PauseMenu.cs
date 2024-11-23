@@ -11,7 +11,7 @@ public class PauseMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.gameManager = FindObjectOfType<GameManager>();
+        gameManager = FindObjectOfType<GameManager>();
 
         // Connect buttons to relevant functions
         buttonResume.onClick.AddListener(onResume);
@@ -30,7 +30,7 @@ public class PauseMenu : MonoBehaviour
     void onResume()
     {
         Time.timeScale = 1f;
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 
     // Quit button pressed

@@ -24,10 +24,12 @@ MonoBehaviour:
     portraitType: 0
     speedScale: 1
   - text: "New operator, huh? Welcome to the city. Name\u2019s Louis. Louis the luminary,
-      casting light in the darkest crevices of the city. In plain english: I\u2019m
-      a journalist.  You\u2019ve probably seen my work on the papers round town.
-      Absent Times."
+      casting light in the darkest crevices of the city."
     portraitType: 1
+    speedScale: 1
+  - text: "In plain english: I\u2019m a journalist.  You\u2019ve probably seen my
+      work on the papers round town. Absent Times."
+    portraitType: 0
     speedScale: 1
   - text: ...
     portraitType: 0

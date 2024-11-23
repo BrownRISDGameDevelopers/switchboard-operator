@@ -84,17 +84,9 @@ public class GameManager : MonoBehaviour
     private DayManager dayManager;
     private LocationManager locationManager;
     private TagsManager tags;
-    private int callsMissed = 0;
-    private int callsRouted = 0;
-    private int callsMessedUp = 0;
-    private int money = 0;
 
     private static GameManager _existingGameManager = null;
 
-    [SerializeField]
-    private AudioMixer sfxMixer;
-    [SerializeField]
-    private AudioMixer musicMixer;
     private static int currentDay = 0;
 
     private const int DAY_OFFSET = 2;
@@ -194,14 +186,5 @@ public class GameManager : MonoBehaviour
     public void ReturnToMenu()
     {
         SceneManager.LoadScene((int)Constants.SceneIndexTable.Menu);
-    }
-
-    public void SetMusicVolume(float value)
-    {
-        this.musicMixer.SetFloat("Volume", Mathf.Log10(value) * 20);
-    }
-    public void SetSFXVolume(float value)
-    {
-        this.sfxMixer.SetFloat("Volume", Mathf.Log10(value) * 20);
     }
 }
