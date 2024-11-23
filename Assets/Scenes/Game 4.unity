@@ -1753,6 +1753,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2123090567675216684, guid: cc189298ed59348b6a58843bdc42739c, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2123090567675216684, guid: cc189298ed59348b6a58843bdc42739c, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 2123090567675216684, guid: cc189298ed59348b6a58843bdc42739c, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
     - target: {fileID: 5959754455538326013, guid: cc189298ed59348b6a58843bdc42739c, type: 3}
       propertyPath: m_Name
       value: PauseButton
