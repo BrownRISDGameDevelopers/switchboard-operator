@@ -97,6 +97,8 @@ public class GameManager : MonoBehaviour
     private AudioMixer musicMixer;
     private static int currentDay = 0;
 
+    private const int DAY_OFFSET = 2;
+
     void Awake()
     {
         /*if (_existingGameManager != null && _existingGameManager != this)
@@ -136,6 +138,8 @@ public class GameManager : MonoBehaviour
             dayManager.SetTagsReference(tags);
             dayManager.SetLocationReference(locationManager);
         }
+
+        SceneManager.LoadScene(currentDay + DAY_OFFSET);
     }
 
 
