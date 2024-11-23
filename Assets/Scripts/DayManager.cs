@@ -292,10 +292,12 @@ public class DayManager : MonoBehaviour
             }
         }*/
 
-
         print("time");
         if (newCall == null)
+        {
+            _callNextTimer = Random.Range(_callAddTimeMin, _callAddTimeMax);
             return;
+        }
 
         print(_orderedCalls.Count.ToString() + " diag " + newCall.ToCharacter.CharName);
         // ADD RELEVANT INFO
@@ -398,6 +400,12 @@ public class DayManager : MonoBehaviour
         while (_curOrderedCall < _orderedCalls.Count)
         {
             currentOrderedCall = _orderedCalls[_curOrderedCall].dialogue;
+
+            // If the next ordered call has a character, just have to return nothing so nothing gets messed up
+            if (CharacterInCall(currentOrderedCall.FromCharacter) || CharacterInCall(currentOrderedCall.ToCharacter))
+            {
+                return null;
+            }
 
             if (currentOrderedCall != null && DialogueHasValidTags(currentOrderedCall))
                 return currentOrderedCall;
