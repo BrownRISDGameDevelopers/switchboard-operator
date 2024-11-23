@@ -152,6 +152,7 @@ MonoBehaviour:
   redBaseSprite: {fileID: 21300000, guid: 1db4bac4e095249f4ad3d29d39402217, type: 3}
   redDragSprite: {fileID: 21300000, guid: 65fba552111e44bb4aef3e0d4166a9db, type: 3}
   redPlacedSprite: {fileID: 21300000, guid: 061339d0a410b46a483b3b84ca237634, type: 3}
+  wireLineRenderer: {fileID: 3081024100614494723}
 --- !u!120 &9074056215783736214
 LineRenderer:
   serializedVersion: 2
@@ -827,6 +828,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5434374296480338533, guid: 7274e81721506844eaf4e074d2dfdc9d, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434374296480338533, guid: 7274e81721506844eaf4e074d2dfdc9d, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434374296480338533, guid: 7274e81721506844eaf4e074d2dfdc9d, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1174313033
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434374296480338533, guid: 7274e81721506844eaf4e074d2dfdc9d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0ac9029a393d9fc4c946638bbc20d719, type: 2}
     - target: {fileID: 5830068248288807922, guid: 7274e81721506844eaf4e074d2dfdc9d, type: 3}
       propertyPath: m_Name
       value: Wire
@@ -840,6 +857,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7274e81721506844eaf4e074d2dfdc9d, type: 3}
+--- !u!120 &3081024100614494723 stripped
+LineRenderer:
+  m_CorrespondingSourceObject: {fileID: 5434374296480338533, guid: 7274e81721506844eaf4e074d2dfdc9d, type: 3}
+  m_PrefabInstance: {fileID: 7037782310429788262}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6471611722781514987 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4063637934523765901, guid: 7274e81721506844eaf4e074d2dfdc9d, type: 3}

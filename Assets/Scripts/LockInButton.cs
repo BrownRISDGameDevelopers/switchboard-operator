@@ -9,7 +9,16 @@ public class LockInButton : MonoBehaviour
     public delegate void OnJackLock(int jackSetId);
     public static event OnJackLock onJackLock;
 
+    public SpriteRenderer unpressed;
+    public SpriteRenderer pressed;
+
     [SerializeField] AudioSource SFX_button_pressed;
+
+    void Start()
+    {
+        unpressed.color = Color.white;
+        pressed.color = Color.clear;
+    }
 
     //When the mouse is clicked on the collider
     void OnMouseDown()
@@ -17,6 +26,8 @@ public class LockInButton : MonoBehaviour
         // Debug.Log("On mouse down");
         SFX_button_pressed.Play();
         onJackLock(jackSet);
+        unpressed.color = Color.clear;
+        pressed.color = Color.white;
     }
 
     //Gets the current mouse position as a Vector3

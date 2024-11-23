@@ -27,7 +27,7 @@ enum CallState
     DIALOGUE_COMPLETE_NO_LOCKIN = 1 << 2,
     LOCKED_IN = 1 << 3,
     ENDED = 1 << 4,
-    CANT_IGNORE = ENDED | SHOWING_DIALOGUE | LOCKED_IN,
+    CANT_IGNORE = ENDED | SHOWING_DIALOGUE,
 }
 
 class CallData
@@ -68,6 +68,13 @@ class JackCallersHeldData
 // TODO: Potential edge case, what if a jack is locked into a character/location that doesn't have a call, then a dialogue comes in with a call for that character?
 public class DayManager : MonoBehaviour
 {
+
+    public delegate void OnStrike(int strikesLeft, bool recharge);
+    public static event OnStrike onStrike;
+
+    public delegate void OnDayEndDelegate();
+    public static event OnDayEndDelegate OnDayEnd;
+
 
     [SerializeField]
     private Day currentDay;
@@ -110,10 +117,14 @@ public class DayManager : MonoBehaviour
     private float _incomingCallReceivedWaitTime = 10.0f;
     // Once answered, heres how long you have to lock it in with the right thang
     private float _postCallReceivedWaitTime = 10.0f;
+    // Locked in, successful, how long to wait until giving the player the W
+    private float _postLockInSuccessTime = 5.0f;
 
-    public delegate void OnStrike(int strikesLeft, bool recharge);
-    public static event OnStrike onStrike;
 
+    [SerializeField]
+    private float _mintuesPerDay = 5.0f;
+
+    private float _secondsLeftInDay;
     // Jackin it 
     private Dictionary<int, Jack> _idToJack = new Dictionary<int, Jack>();
     private HashSet<int> _placedJacks = new HashSet<int>();
@@ -126,10 +137,13 @@ public class DayManager : MonoBehaviour
 
     private CharacterInfo _currentlyInDialogue = null;
 
+    private ClockHand _clockHand = null;
+
     void Start()
     {
         locationManager = FindFirstObjectByType<LocationManager>();
         dialogueUI = FindFirstObjectByType<DialogueUI>();
+        _clockHand = FindFirstObjectByType<ClockHand>();
 
         // Of note, this is only called once, so if you get a necessary tag later and then the random thing comes in, may cause an issue
         _randomizedCalls = GetRandomizedAvailableDialogue(currentDay.RandomizedCallPool);
@@ -140,6 +154,8 @@ public class DayManager : MonoBehaviour
         Jack.onJackTaken += OnJackRemoved;
         LockInButton.onJackLock += LockIn;
 
+        _secondsLeftInDay = _mintuesPerDay * 60.0f;
+
         if (dialogueUI != null)
             dialogueUI.OnDialogueDone += OnDialogueUIDone;
 
@@ -149,6 +165,7 @@ public class DayManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckDayEnd();
         CheckForIncomingCalls();
         CheckCalls();
     }
@@ -205,8 +222,11 @@ public class DayManager : MonoBehaviour
         CallData outgoingDat = CharacterHasOutgoingCall(characterRemoved);
         if (outgoingDat != null)
         {
-            outgoingDat.fromCharacter = null;
+            // End dialogue if going
+            //outgoingDat.fromCharacter = null;
             SetOutgoingForJackSet(jackSet, null);
+            EndIfCurrentlyInDialogue();
+            OnCallIgnore(outgoingDat);
         }
 
         CallData incomingDat = CharacterHasIncomingCall(characterRemoved);
@@ -270,6 +290,7 @@ public class DayManager : MonoBehaviour
         // TODO: how to wait n such?
         //
         outGoingCall.state = CallState.LOCKED_IN;
+        outGoingCall.curTimer = _postLockInSuccessTime;
         Debug.Log("Success!");
     }
 
@@ -309,6 +330,13 @@ public class DayManager : MonoBehaviour
     }
 
 
+    private void EndIfCurrentlyInDialogue()
+    {
+        if (_currentlyInDialogue != null && dialogueUI != null)
+        {
+            dialogueUI.EndEarly();
+        }
+    }
     public CharacterInfo GetCurrentlyInDialogue()
     {
         return _currentlyInDialogue;
@@ -379,7 +407,9 @@ public class DayManager : MonoBehaviour
 
     public void SetupDayManager(TagsManager newTags, LocationManager locManager, Day day)
     {
-        currentDay = day;
+        if (day != null)
+            currentDay = day;
+
         tagsReference = newTags;
         locationManager = locManager;
     }
@@ -406,10 +436,6 @@ public class DayManager : MonoBehaviour
             _idToJack.Add(jack.jackID, jack);
         }
     }
-
-
-
-
 
     private void AddCalltoData(CallData toAdd)
     {
@@ -484,7 +510,7 @@ public class DayManager : MonoBehaviour
         }
         bool hasAllTags = tagsReference.HasAllTags(dialogue.requiredTags);
         bool hasDisallowedTags = tagsReference.HasNoTags(dialogue.disallowedTags);
-        return true;//hasAllTags && !hasDisallowedTags;
+        return hasAllTags && !hasDisallowedTags;
     }
 
     private List<DialogueHolder> GetRandomizedAvailableDialogue(SingleDayDialogueList dayDiag)
@@ -497,6 +523,20 @@ public class DayManager : MonoBehaviour
         }
 
         return returnList;
+    }
+
+
+    private void CheckDayEnd()
+    {
+        _secondsLeftInDay -= Time.deltaTime;
+
+        if (_clockHand != null)
+            _clockHand.rotateClock(_secondsLeftInDay / (_mintuesPerDay * 60.0f));
+
+        if (_secondsLeftInDay > 0)
+            return;
+
+        OnDayEnd?.Invoke();
     }
 
     private void CheckCalls()
@@ -519,11 +559,18 @@ public class DayManager : MonoBehaviour
                 _switchboard.SetSwitchTiming(loc, 0);
 
 
-            if (dat.curTimer <= 0 && canIgnore)
+            if (dat.curTimer <= 0)
             {
-                Debug.Log("Call ignored!");
-                _switchboard.SetSwitchTiming(loc, 0); // TODO, may want another sprite or other indicator of ignoring
-                OnCallIgnore(dat);
+                if (canIgnore)
+                {
+                    Debug.Log("Call ignored!");
+                    _switchboard.SetSwitchTiming(loc, 0); // TODO, may want another sprite or other indicator of ignoring
+                    OnCallIgnore(dat);
+                }
+                else if ((dat.state & (CallState.LOCKED_IN)) != 0)
+                {
+                    OnCallCompleteSuccess(dat);
+                }
             }
         }
     }

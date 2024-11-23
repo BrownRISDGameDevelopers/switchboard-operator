@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
@@ -21,7 +22,8 @@ public class MusicManager : MonoBehaviour
     void Update()
     {
         talkingTo = dayManager.GetCurrentlyInDialogue();
-        setSong(talkingTo);     
+        print(talkingTo);
+        setSong(talkingTo);
     }
 
     void setSong(CharacterInfo _talkingTo){
@@ -47,18 +49,17 @@ public class MusicManager : MonoBehaviour
     }
 
     void soloCurrentSong(AudioSource currentSong){
-    //    m_RectTransform.anchoredPosition = Vector2.Lerp(currentPosition, finalPosition, 5F * Time.deltaTime);
 
-        currentSong.volume = 1;
+        currentSong.volume = Mathf.Lerp(currentSong.volume, 1, Time.deltaTime);
 
         foreach (AudioSource aud in CharAudioSources){
             if (aud != currentSong){
-                aud.volume = 0;
+                aud.volume = Mathf.Lerp(aud.volume, 0, Time.deltaTime);
             }
         }
 
         if (NPCMusic != currentSong){
-            NPCMusic.volume = 0;
+            NPCMusic.volume = Mathf.Lerp(NPCMusic.volume, 0, Time.deltaTime);
         }
 
     }
