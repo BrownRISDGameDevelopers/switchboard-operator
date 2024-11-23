@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bezier : MonoBehaviour
 {
     public Transform[] controlPoints;
+    public Transform basePoint;
     public LineRenderer lineRenderer;
     
     private int curveCount = 0;    
@@ -18,6 +19,7 @@ public class Bezier : MonoBehaviour
             lineRenderer = GetComponent<LineRenderer>();
         }
         lineRenderer.sortingLayerID = layerOrder;
+        print(lineRenderer.sortingLayerName);
         curveCount = (int)controlPoints.Length / 3;
     }
 
@@ -30,17 +32,19 @@ public class Bezier : MonoBehaviour
     {
         for (int j = 0; j <curveCount; j++)
         {
-            for (int i = 1; i <= SEGMENT_COUNT; i++)
+            lineRenderer.SetPosition(0, basePoint.position);
+            lineRenderer.SetPosition(1, controlPoints[0].position);
+
+            for (int i = 3; i <= SEGMENT_COUNT; i++)
             {
                 float t = i / (float)SEGMENT_COUNT;
                 int nodeIndex = j * 3;
                 Vector3 middlePosition = new Vector3(controlPoints [nodeIndex].position.x, (controlPoints [nodeIndex].position.y + controlPoints [nodeIndex + 1].position.y) / 2, controlPoints [nodeIndex].position.z);
                 Vector3 secondController = new Vector3(controlPoints [nodeIndex + 1].position.x, (controlPoints [nodeIndex].position.y + controlPoints [nodeIndex + 1].position.y) / 2, controlPoints [nodeIndex].position.z);
                 Vector3 pixel = CalculateCubicBezierPoint(t, controlPoints [nodeIndex].position, middlePosition, secondController, controlPoints [nodeIndex + 1].position);
-                lineRenderer.SetVertexCount((j * SEGMENT_COUNT) + i);
+                lineRenderer.positionCount = ((j * SEGMENT_COUNT) + i);
                 lineRenderer.SetPosition((j * SEGMENT_COUNT) + (i - 1), pixel);
             }
-            
         }
     }
 

@@ -27,7 +27,7 @@ enum CallState
     DIALOGUE_COMPLETE_NO_LOCKIN = 1 << 2,
     LOCKED_IN = 1 << 3,
     ENDED = 1 << 4,
-    CANT_IGNORE = ENDED | SHOWING_DIALOGUE | LOCKED_IN,
+    CANT_IGNORE = ENDED | SHOWING_DIALOGUE,
 }
 
 class CallData
@@ -68,6 +68,13 @@ class JackCallersHeldData
 // TODO: Potential edge case, what if a jack is locked into a character/location that doesn't have a call, then a dialogue comes in with a call for that character?
 public class DayManager : MonoBehaviour
 {
+
+    public delegate void OnStrike(int strikesLeft, bool recharge);
+    public static event OnStrike onStrike;
+
+    public delegate void OnDayEndDelegate();
+    public static event OnDayEndDelegate OnDayEnd;
+
 
     [SerializeField]
     private Day currentDay;
@@ -118,10 +125,6 @@ public class DayManager : MonoBehaviour
     private float _mintuesPerDay = 5.0f;
 
     private float _secondsLeftInDay;
-
-    public delegate void OnStrike(int strikesLeft, bool recharge);
-    public static event OnStrike onStrike;
-
     // Jackin it 
     private Dictionary<int, Jack> _idToJack = new Dictionary<int, Jack>();
     private HashSet<int> _placedJacks = new HashSet<int>();
@@ -134,10 +137,13 @@ public class DayManager : MonoBehaviour
 
     private CharacterInfo _currentlyInDialogue = null;
 
+    private ClockHand _clockHand = null;
+
     void Start()
     {
         locationManager = FindFirstObjectByType<LocationManager>();
         dialogueUI = FindFirstObjectByType<DialogueUI>();
+        _clockHand = FindFirstObjectByType<ClockHand>();
 
         // Of note, this is only called once, so if you get a necessary tag later and then the random thing comes in, may cause an issue
         _randomizedCalls = GetRandomizedAvailableDialogue(currentDay.RandomizedCallPool);
@@ -159,6 +165,7 @@ public class DayManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckDayEnd();
         CheckForIncomingCalls();
         CheckCalls();
     }
@@ -400,7 +407,9 @@ public class DayManager : MonoBehaviour
 
     public void SetupDayManager(TagsManager newTags, LocationManager locManager, Day day)
     {
-        currentDay = day;
+        if (day != null)
+            currentDay = day;
+
         tagsReference = newTags;
         locationManager = locManager;
     }
@@ -427,10 +436,6 @@ public class DayManager : MonoBehaviour
             _idToJack.Add(jack.jackID, jack);
         }
     }
-
-
-
-
 
     private void AddCalltoData(CallData toAdd)
     {
@@ -524,10 +529,14 @@ public class DayManager : MonoBehaviour
     private void CheckDayEnd()
     {
         _secondsLeftInDay -= Time.deltaTime;
+
+        if (_clockHand != null)
+            _clockHand.rotateClock(_secondsLeftInDay / (_mintuesPerDay * 60.0f));
+
         if (_secondsLeftInDay > 0)
             return;
 
-
+        OnDayEnd?.Invoke();
     }
 
     private void CheckCalls()
