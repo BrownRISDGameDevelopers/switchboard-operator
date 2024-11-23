@@ -47,7 +47,11 @@ public class Jack : MonoBehaviour
     private SpriteRenderer _baseSpriteRenderer;
     private SpriteRenderer _dragSpriteRenderer;
     private SpriteRenderer _placedSpriteRenderer;
+    private float holeOffset = 0.15f;
     private float wireOffset = 0.5f;
+
+
+    public LineRenderer wireLineRenderer;
 
     // Start is called before the first frame update
     void Awake()
@@ -64,11 +68,20 @@ public class Jack : MonoBehaviour
         _baseSpriteRenderer.gameObject.SetActive(true);
         _dragSpriteRenderer.gameObject.SetActive(false);
         _placedSpriteRenderer.gameObject.SetActive(false);
+
+        wireOffset += holeOffset;
+        transform.Find("jackWirePointer").position += Vector3.up*holeOffset;
+
+        wireLineRenderer.endColor = Color.clear;
+        wireLineRenderer.startColor = Color.clear;
     }
     //When the mouse is clicked on the collider, set isGettingDragged to true, and defines the initial clicking offset
 
     void OnMouseDown()
     {
+
+        wireLineRenderer.endColor = Color.white;
+        wireLineRenderer.startColor = Color.white;
         transform.Find("jackWirePointer").position += Vector3.down*wireOffset;
         Cursor.visible = false;
 
@@ -109,6 +122,10 @@ public class Jack : MonoBehaviour
         if (Vector3.Distance(transform.position, closestSwitch.transform.position) > jackPlacedRange
             || closestSwitch.isTaken)
         {
+
+            wireLineRenderer.endColor = Color.clear;
+            wireLineRenderer.startColor = Color.clear;
+
             transform.position = initialPosition;
             _baseSpriteRenderer.gameObject.SetActive(true);
             _dragSpriteRenderer.gameObject.SetActive(false);
