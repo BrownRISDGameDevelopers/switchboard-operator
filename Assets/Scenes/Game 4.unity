@@ -910,7 +910,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2696680687054156916, guid: da9978dfb6e8c3847ae26ec7ba539e90, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 36
+      value: 74
       objectReference: {fileID: 0}
     - target: {fileID: 3260168490466615031, guid: da9978dfb6e8c3847ae26ec7ba539e90, type: 3}
       propertyPath: m_Name
@@ -1756,6 +1756,26 @@ PrefabInstance:
     - target: {fileID: 5959754455538326013, guid: cc189298ed59348b6a58843bdc42739c, type: 3}
       propertyPath: m_Name
       value: PauseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 8138310255868437647, guid: cc189298ed59348b6a58843bdc42739c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5947
+      objectReference: {fileID: 0}
+    - target: {fileID: 8138310255868437647, guid: cc189298ed59348b6a58843bdc42739c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.3788
+      objectReference: {fileID: 0}
+    - target: {fileID: 8138310255868437647, guid: cc189298ed59348b6a58843bdc42739c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.3788
+      objectReference: {fileID: 0}
+    - target: {fileID: 8138310255868437647, guid: cc189298ed59348b6a58843bdc42739c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -880
+      objectReference: {fileID: 0}
+    - target: {fileID: 8138310255868437647, guid: cc189298ed59348b6a58843bdc42739c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 459
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
