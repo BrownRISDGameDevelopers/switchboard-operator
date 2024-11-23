@@ -23,6 +23,8 @@ public class Switchboard : MonoBehaviour
     public UnityEngine.Vector3 centerOfJackRow = new UnityEngine.Vector3(0, -4, 0);
     private UnityEngine.Vector3[,] switchPositions;
     private Switch[,] switches;
+
+    public GameObject[] jackParents;
     private Jack[] jacks;
     private Switch[] jackSwitches;
     private LockInButton[] lockInButtons;
@@ -51,23 +53,67 @@ public class Switchboard : MonoBehaviour
         return ret;
     }
 
+    // public void ProduceJacks()
+    // {
+    //     for (int i = 0; i < jackCount; i++)
+    //     {
+    //         Transform initTrans = GetColLocationFromIndex(i);
+    //         Vector3 pos = new Vector3(initTrans.position.x + (i % 2 * xSpacing * transform.localScale.x), initTrans.position.y - ((rows) * ySpacing * transform.localScale.y), 0);
+
+    //         //UnityEngine.Vector3 position = centerOfJackRow + new UnityEngine.Vector3(
+    //         //transform.localScale.x * (i * xSpacing - xSpacing * (jackCount - 1) / 2), 3.0f, 0);
+    //         GameObject go_switch = Instantiate(switchPrefab, pos, UnityEngine.Quaternion.identity);
+    //         GameObject go_jack = Instantiate(jackPrefab, pos, UnityEngine.Quaternion.identity);
+
+    //         jackSwitches[i] = go_switch.GetComponent<Switch>();
+    //         jackSwitches[i].gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+            
+    //         jacks[i] = go_jack.GetComponentInChildren<Jack>();
+
+    //         jackSwitches[i].locationData = new Location()
+    //         {
+    //             Valid = true,
+    //             Letter = 'j',
+    //             Number = i
+    //         };
+    //         jackSwitches[i].isTaken = true;
+    //         jacks[i].configure(jackSwitches[i], i, this, (int)math.floor(i / 2));
+    //     }
+
+    //     int lockInNumber = jackCount / 2;
+    //     for (int i = 0; i < lockInNumber; i++)
+    //     {
+    //         Transform initTrans = GetColLocationFromIndex(i * 2);
+    //         Vector3 pos = new Vector3(initTrans.position.x + ((xSpacing / 2) * transform.localScale.x), initTrans.position.y - ((rows + 1) * ySpacing * transform.localScale.y), 0);
+
+    //         GameObject button = Instantiate(lockInPrefab, pos, UnityEngine.Quaternion.identity);
+    //         lockInButtons[i] = button.GetComponent<LockInButton>();
+    //         lockInButtons[i].jackSet = i;
+    //     }
+    // }
+
     public void ProduceJacks()
     {
-        for (int i = 0; i < jackCount; i++)
+        /*Jack positions from right to left
+        4.01, -2.75
+        3.27, -2.75
+        1.21, -2.75
+        0.51, -2.75
+        -1.42, -2.75
+        -2.17, -2.75
+        */
+        for (int i = 0; i < jackParents.Length; i++)
         {
             Transform initTrans = GetColLocationFromIndex(i);
-            Vector3 pos = new Vector3(initTrans.position.x + (i % 2 * xSpacing * transform.localScale.x), initTrans.position.y - ((rows) * ySpacing * transform.localScale.y), 0);
+            Vector3 pos = jackParents[i].transform.position;
 
-            //UnityEngine.Vector3 position = centerOfJackRow + new UnityEngine.Vector3(
-            //transform.localScale.x * (i * xSpacing - xSpacing * (jackCount - 1) / 2), 3.0f, 0);
             GameObject go_switch = Instantiate(switchPrefab, pos, UnityEngine.Quaternion.identity);
-            GameObject go_jack = Instantiate(jackPrefab, pos, UnityEngine.Quaternion.identity);
 
             jackSwitches[i] = go_switch.GetComponent<Switch>();
             jackSwitches[i].gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
-            
-            jacks[i] = go_jack.GetComponentInChildren<Jack>();
 
+            jacks[i] = jackParents[i].GetComponentInChildren<Jack>();
+            
             jackSwitches[i].locationData = new Location()
             {
                 Valid = true,
