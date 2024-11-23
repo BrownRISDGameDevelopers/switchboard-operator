@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f9321922918b4e96858f4dccd404147, type: 3}
+  m_Name: D_Worried Mom C2 1
+  m_EditorClassIdentifier: 
+  FromCharacter: {fileID: 11400000, guid: ac0ab87f61316454399a306343d956ec, type: 2}
+  ToCharacter: {fileID: 11400000, guid: 75c76310b381ca649a0b9629488f7201, type: 2}
+  requiredTags:
+  - {fileID: 11400000, guid: 5bdd6bf6d00e648579a9d46e5886f751, type: 2}
+  - {fileID: 11400000, guid: d64631fee71a1495b8d5ef19a0ea13ec, type: 2}
+  disallowedTags: []
+  Lines:
+  - text: "Hello? It\u2019s me again, you connected me to the police yesterday. Thank
+      you. They\u2019re looking for my daughter now."
+    portraitType: 0
+    speedScale: 0
+  - text: "While I was at the station there was such a commotion though\u2026"
+    portraitType: 0
+    speedScale: 0
+  - text: they were trying to drag in a young man when out of nowhere a dark form
+      swept in from outside and knocked the policemen flat!
+    portraitType: 0
+    speedScale: 0
+  - text: "...Oh! Excuse me. I\u2019m prattling again. Could you please connect me
+      to Northrift Railways?"
+    portraitType: 0
+    speedScale: 0
+  successTags:
+  - {fileID: 11400000, guid: 4e35cd765a0ccb24b976f87cdebb831d, type: 2}
+  failureTags:
+  - {fileID: 11400000, guid: 405396dcd3a46ad40a37a35c5f5d27d7, type: 2}
+  ignoreTags:
+  - {fileID: 11400000, guid: d24d1d6bb01e2694c896119bc21d6f01, type: 2}
+  characterMap: []
