@@ -27,7 +27,7 @@ public class Switchboard : MonoBehaviour
     public GameObject[] jackParents;
     private Jack[] jacks;
     private Switch[] jackSwitches;
-    private LockInButton[] lockInButtons;
+    public LockInButton[] lockInButtons;
 
     void Awake()
     {
@@ -126,11 +126,11 @@ public class Switchboard : MonoBehaviour
         int lockInNumber = jackCount / 2;
         for (int i = 0; i < lockInNumber; i++)
         {
-            Transform initTrans = GetColLocationFromIndex(i * 2);
-            Vector3 pos = new Vector3(initTrans.position.x + ((xSpacing / 2) * transform.localScale.x), initTrans.position.y - ((rows + 1) * ySpacing * transform.localScale.y), 0);
+            // Transform initTrans = GetColLocationFromIndex(i * 2);
+            // Vector3 pos = new Vector3(initTrans.position.x + ((xSpacing / 2) * transform.localScale.x), initTrans.position.y - ((rows + 1) * ySpacing * transform.localScale.y), 0);
 
-            GameObject button = Instantiate(lockInPrefab, pos, Quaternion.identity);
-            lockInButtons[i] = button.GetComponent<LockInButton>();
+            // GameObject button = Instantiate(lockInPrefab, pos, Quaternion.identity);
+            // lockInButtons[i] = button.GetComponent<LockInButton>();
             lockInButtons[i].jackSet = i;
         }
     }
