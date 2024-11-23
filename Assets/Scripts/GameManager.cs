@@ -91,9 +91,11 @@ public class GameManager : MonoBehaviour
 
     private const int DAY_OFFSET = 2;
 
+    public MusicManager musicManager;
+
     void Awake()
     {
-        /*if (_existingGameManager != null && _existingGameManager != this)
+        if (_existingGameManager != null && _existingGameManager != this)
         {
             Debug.LogError("Critical error in GameManager, multiple game managers");
             Destroy(this);
@@ -103,7 +105,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogError("Critical error in GameManager, no location manager found in GameObject");
             return;
-        }*/
+        }
         TryGetComponent<LocationManager>(out locationManager);
         _existingGameManager = this;
 
@@ -124,14 +126,24 @@ public class GameManager : MonoBehaviour
 
     public void LoadNewDay(Day day)
     {
-        dayManager = FindAnyObjectByType<DayManager>();
+        SceneManager.LoadScene(currentDay + DAY_OFFSET);
+        SceneManager.sceneLoaded += OnDayLoadFinish;
+    }
+
+    void OnDayLoadFinish(Scene scene, LoadSceneMode mode) {
+
+        dayManager = FindObjectOfType<DayManager>();
         if (dayManager != null)
         {
             dayManager.SetTagsReference(tags);
             dayManager.SetLocationReference(locationManager);
+            // TODO: Set day for day manager and make sure that works
+            // Make sure music manager has access to updated day
+            musicManager.SetDayManager(dayManager);
+            // print("musicmanager set");
+            
         }
-
-        SceneManager.LoadScene(currentDay + DAY_OFFSET);
+        SceneManager.sceneLoaded -= OnDayLoadFinish;
     }
 
 

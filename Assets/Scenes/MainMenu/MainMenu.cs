@@ -12,6 +12,7 @@ public class MainMenu : MonoBehaviour
     public GameObject settingsMenuObject;
 
     public GameObject gameManagerObject;
+    public GameObject tutorialObject;
 
     void Start()
     {
@@ -19,11 +20,17 @@ public class MainMenu : MonoBehaviour
         buttonStart.onClick.AddListener(onStart);
         buttonQuit.onClick.AddListener(onQuit);
         buttonSettings.onClick.AddListener(onSettings);
+        buttonHowToPlay.onClick.AddListener(onTutorial);
     }
 
     void onSettings()
     {
         Instantiate(settingsMenuObject);
+    }
+
+    void onTutorial()
+    {
+        Instantiate(tutorialObject);
     }
 
     // Start button pressed
