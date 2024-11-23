@@ -80,6 +80,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private Ending[] endings;
+    [SerializeField]
+    private Ending defaultEnding;
 
     private DayManager dayManager;
     private LocationManager locationManager;
@@ -92,6 +94,8 @@ public class GameManager : MonoBehaviour
     private const int DAY_OFFSET = 2;
 
     public MusicManager musicManager;
+
+    private Ending _toDisplayEnding = null;
 
     void Awake()
     {
@@ -113,6 +117,8 @@ public class GameManager : MonoBehaviour
         tags = new TagsManager();
 
         tags.onAddTag += OnTagAddedCheckEnding;
+        DayManager.OnDayEnd += OnDayEnd;
+        DayManager.onStrike += OnStrike;
 
         DontDestroyOnLoad(this);
     }
@@ -124,75 +130,110 @@ public class GameManager : MonoBehaviour
         LoadNewDay(days[currentDay]);
     }
 
-    public void LoadNewDay(Day day)
+    private void OnDayEnd()
     {
-        SceneManager.LoadScene(currentDay + DAY_OFFSET);
-        SceneManager.sceneLoaded += OnDayLoadFinish;
-    }
-
-    void OnDayLoadFinish(Scene scene, LoadSceneMode mode) {
-
-        dayManager = FindObjectOfType<DayManager>();
-        if (dayManager != null)
-        {
-            dayManager.SetTagsReference(tags);
-            dayManager.SetLocationReference(locationManager);
-            // TODO: Set day for day manager and make sure that works
-            // Make sure music manager has access to updated day
-            musicManager.SetDayManager(dayManager);
-            // print("musicmanager set");
-            
-        }
-        SceneManager.sceneLoaded -= OnDayLoadFinish;
-    }
-
-
-    private void OnTagAddedCheckEnding(Tag tag, TagsManager manager)
-    {
-        foreach (Ending end in endings)
-        {
-            if (end.endingType != EndingType.InstantTagsAcquired)
-                continue;
-
-            print("found instant tags acquired thing");
-            bool hasTags = tags.HasAllTags(end.requiredTags);
-            if (hasTags)
-            {
-                print("tags");
-                // GO TO THIS ENDING
-                EnterEnding(end);
-            }
-        }
-    }
-
-    public void EndCurrentDay()
-    {
+        // Check for endings
+        // Go to transition
+        // prepare to go to next day
+        //
         // TODO: Potential for cutscenes and/or checks for early endings 
         //
 
+        if (CheckEndingsForType(EndingType.EndOfAnyDay) != null)
+            return;
         currentDay++;
         if (currentDay >= days.Length)
         {
             // End the game
-            ReturnToMenu();
+            if (CheckEndingsForType(EndingType.EndOfDays) != null)
+                return;   //ReturnToMenu();
+            EnterEnding(defaultEnding);
             return;
         }
 
         // Logic for cutscenes + early endings
 
         SceneManager.LoadScene((int)Constants.SceneIndexTable.EndOfDay);
+
     }
 
-    public void EnterEndOfDay()
+    private void OnStrike(int strikes, bool recharge)
     {
+
+        if (strikes < 3)
+            return;
+
+        // Failure, go to failure
+
+    }
+
+    IEnumerator WaitToGoToGameOver()
+    {
+        yield return new WaitForSeconds(5.0f);
+        SceneManager.LoadScene((int)Constants.SceneIndexTable.Ending);
+
+
+    }
+
+    public void LoadNewDay(Day day)
+    {
+        SceneManager.LoadScene(currentDay + DAY_OFFSET);
+        SceneManager.sceneLoaded += OnDayLoadFinish;
+    }
+
+    void OnDayLoadFinish(Scene scene, LoadSceneMode mode)
+    {
+
+        dayManager = FindObjectOfType<DayManager>();
+        if (dayManager != null)
+        {
+            dayManager.SetupDayManager(tags, locationManager, currentDay < days.Length ? days[currentDay] : null);
+
+            // TODO: Set day for day manager and make sure that works
+            // Make sure music manager has access to updated day
+            musicManager.SetDayManager(dayManager);
+            // print("musicmanager set");
+
+        }
+        SceneManager.sceneLoaded -= OnDayLoadFinish;
+    }
+
+    private Ending CheckEndingsForType(EndingType type)
+    {
+        foreach (Ending end in endings)
+        {
+            if (end.endingType != type)
+                continue;
+
+            bool hasTags = tags.HasAllTags(end.requiredTags);
+            if (hasTags)
+            {
+                // GO TO THIS ENDING
+                EnterEnding(end);
+                return end;
+            }
+        }
+        return null;
+    }
+
+    private void OnTagAddedCheckEnding(Tag tag, TagsManager manager)
+    {
+        CheckEndingsForType(EndingType.InstantTagsAcquired);
     }
 
     private void EnterEnding(Ending end)
     {
         print("ENTERING ENDING");
         SceneManager.LoadScene((int)Constants.SceneIndexTable.Ending);
+        _toDisplayEnding = end;
+        SceneManager.sceneLoaded += OnEnterEnding;
+    }
+
+    private void OnEnterEnding(Scene scene, LoadSceneMode mode)
+    {
         Ending_Displayer disp = FindFirstObjectByType<Ending_Displayer>();
-        disp.displayEnding(end);
+        disp?.displayEnding(_toDisplayEnding);
+        SceneManager.sceneLoaded -= OnEnterEnding;
     }
 
     public void ReturnToMenu()
