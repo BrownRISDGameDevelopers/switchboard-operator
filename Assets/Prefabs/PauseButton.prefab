@@ -237,3 +237,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonPause: {fileID: 302648619166477996}
   pauseMenuObject: {fileID: 2171877682837311542, guid: 094cab1301f9c9842b33a87d06deb1ff, type: 3}
+  emptyObject: {fileID: 5959754455538326013, guid: 09760a9f399054b64a8607d6f0cc6126, type: 3}
