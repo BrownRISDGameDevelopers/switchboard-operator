@@ -21,7 +21,8 @@ public class MusicManager : MonoBehaviour
     void Update()
     {
         talkingTo = dayManager.GetCurrentlyInDialogue();
-        setSong(talkingTo);     
+        print(talkingTo);
+        setSong(talkingTo);
     }
 
     void setSong(CharacterInfo _talkingTo){
