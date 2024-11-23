@@ -1113,6 +1113,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Clock_hand
       objectReference: {fileID: 0}
+    - target: {fileID: 6372663839815631675, guid: 1c79808250a994b59a7b2fcedb842dd8, type: 3}
+      propertyPath: pivot
+      value: 
+      objectReference: {fileID: 5964268520072272572}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

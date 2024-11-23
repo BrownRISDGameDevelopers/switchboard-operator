@@ -247,6 +247,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a1e8f84dca49c47a5b5b403e8d9617d9, type: 2}
   - {fileID: 11400000, guid: 1cf133554e9cc453abf30e25474dddb3, type: 2}
   endings: []
+  defaultEnding: {fileID: 0}
   musicManager: {fileID: 6529108587511448831}
 --- !u!1 &894511030335970986
 GameObject:
