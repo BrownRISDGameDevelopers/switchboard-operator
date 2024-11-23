@@ -10,19 +10,19 @@ public class SettingsMenu : MonoBehaviour
 {
     public UnityEngine.UI.Button buttonBack;
     public UnityEngine.UI.Slider sfxSlider, musicSlider;
-    private GameManager gameManager;
+    private VolumeManager volumeManager;
 
     void Start()
     {
-        this.gameManager = FindObjectOfType<GameManager>();
+        volumeManager = FindObjectOfType<VolumeManager>();
 
         // Connect buttons to relevant functions
         buttonBack.onClick.AddListener(onBack);
         sfxSlider.onValueChanged.AddListener(changeSFXVolume);
         musicSlider.onValueChanged.AddListener(changeMusicVolume);
         
-        changeSFXVolume(sfxSlider.value);
-        changeMusicVolume(musicSlider.value);
+        changeMusicVolume(volumeManager.currentMusicSliderValue);
+        changeSFXVolume(volumeManager.currentSFXSliderValue);
     }
 
     void onBack()
@@ -32,10 +32,12 @@ public class SettingsMenu : MonoBehaviour
 
     void changeMusicVolume(float value)
     {
-        gameManager.SetMusicVolume(value);
+        musicSlider.value = value;
+        volumeManager.SetMusicVolume(value);
     }
     void changeSFXVolume(float value)
     {
-        gameManager.SetSFXVolume(value);
+        sfxSlider.value = value;
+        volumeManager.SetSFXVolume(value);
     }
 }

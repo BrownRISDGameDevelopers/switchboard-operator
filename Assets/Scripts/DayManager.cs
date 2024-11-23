@@ -19,13 +19,15 @@ using UnityEngine;
  */
 
 
+[System.Flags]
 enum CallState
 {
-    INCOMING = 0,
-    ENDED = 1,
-
-    LOCKED_IN = 2,
-
+    INCOMING = 1 << 0,
+    SHOWING_DIALOGUE = 1 << 1,
+    DIALOGUE_COMPLETE_NO_LOCKIN = 1 << 2,
+    LOCKED_IN = 1 << 3,
+    ENDED = 1 << 4,
+    CANT_IGNORE = ENDED | SHOWING_DIALOGUE | LOCKED_IN,
 }
 
 class CallData
@@ -38,12 +40,15 @@ class CallData
     public CharacterInfo fromCharacter;
     public CharacterInfo toCharacter;
 
-    public CallData(CharacterInfo fromChar, CharacterInfo toChar, float timer, Dialogue dialogue)
+    public CallState state;
+
+    public CallData(CharacterInfo fromChar, CharacterInfo toChar, float timer, Dialogue dialogue, CallState newState)
     {
         curTimer = timer;
         fromCharacter = fromChar;
         toCharacter = toChar;
         associatedDialogue = dialogue;
+        state = newState;
     }
 }
 
@@ -118,6 +123,9 @@ public class DayManager : MonoBehaviour
     // held callers data is nullable 
     private Dictionary<int, JackCallersHeldData> _jackSetToHeldCallers = new Dictionary<int, JackCallersHeldData>();
 
+
+    private CharacterInfo _currentlyInDialogue = null;
+
     void Start()
     {
         locationManager = FindFirstObjectByType<LocationManager>();
@@ -131,6 +139,10 @@ public class DayManager : MonoBehaviour
         Jack.onJackPlaced += OnJackPlaced;
         Jack.onJackTaken += OnJackRemoved;
         LockInButton.onJackLock += LockIn;
+
+        if (dialogueUI != null)
+            dialogueUI.OnDialogueDone += OnDialogueUIDone;
+
         SetSwitchboard();
     }
 
@@ -167,6 +179,8 @@ public class DayManager : MonoBehaviour
 
                 if (dialogueUI)
                 {
+                    _currentlyInDialogue = outgoingDat.fromCharacter;
+                    outgoingDat.state = CallState.SHOWING_DIALOGUE;
                     dialogueUI.StartDialogueWithData(outgoingDat.associatedDialogue);
                 }
                 outgoingDat.dialogueRevealed = true;
@@ -207,8 +221,9 @@ public class DayManager : MonoBehaviour
     {
         JackCallersHeldData jackHeldData = _jackSetToHeldCallers.GetValueOrDefault(JackSetNumber);
 
-        Debug.Log("LOCK IN: " + JackSetNumber.ToString() + " " + jackHeldData.ToString());
         // Is a valid Jackset
+
+        //Debug.Log("LOCK IN: " + JackSetNumber + " " + jackHeldData != null ? jackHeldData.ToString() : "NULL JACK DATA");
 
         if (jackHeldData == null)
             return;
@@ -236,9 +251,8 @@ public class DayManager : MonoBehaviour
 
         if (jackHeldData.to == null)
         {
-            tagsReference.AddTags(outGoingCall.associatedDialogue.failureTags);
-            RemoveCallFromData(outGoingCall);
-            Strike();
+
+            OnCallFail(outGoingCall);
             Debug.Log("Null Fail!");
             // failure
             return;
@@ -248,16 +262,56 @@ public class DayManager : MonoBehaviour
         {
             Debug.Log("Wrong Character Fail!");
             // Also failgure, but also potential specific character to character tags
-            tagsReference.AddTags(outGoingCall.associatedDialogue.failureTags);
             tagsReference.AddTags(outGoingCall.associatedDialogue.GetTagsFromCharacter(jackHeldData.to));
-            RemoveCallFromData(outGoingCall);
-            Strike();
+            OnCallFail(outGoingCall);
             return;
         }
         // We've reached the success case
-        tagsReference.AddTags(outGoingCall.associatedDialogue.successTags);
-        RemoveCallFromData(outGoingCall);
+        // TODO: how to wait n such?
+        //
+        outGoingCall.state = CallState.LOCKED_IN;
         Debug.Log("Success!");
+    }
+
+    void OnCallCompleteSuccess(CallData toComplete)
+    {
+        tagsReference.AddTags(toComplete.associatedDialogue.successTags);
+        RemoveCallFromData(toComplete);
+    }
+
+    void OnCallFail(CallData toComplete)
+    {
+        tagsReference.AddTags(toComplete.associatedDialogue.failureTags);
+        RemoveCallFromData(toComplete);
+        Strike();
+    }
+
+    void OnCallIgnore(CallData toComplete)
+    {
+        tagsReference.AddTags(toComplete.associatedDialogue.ignoreTags);
+        RemoveCallFromData(toComplete);
+        Strike();
+    }
+
+    void OnDialogueUIDone()
+    {
+        CallData dat = CharacterHasOutgoingCall(_currentlyInDialogue);
+        if (dat != null)
+        {
+            if ((dat.state & CallState.SHOWING_DIALOGUE) != 0)
+            {
+                dat.state = CallState.DIALOGUE_COMPLETE_NO_LOCKIN;
+                dat.curTimer = _postCallReceivedWaitTime;
+            }
+
+        }
+        _currentlyInDialogue = null;
+    }
+
+
+    public CharacterInfo GetCurrentlyInDialogue()
+    {
+        return _currentlyInDialogue;
     }
 
 
@@ -301,7 +355,7 @@ public class DayManager : MonoBehaviour
 
         print(_orderedCalls.Count.ToString() + " diag " + newCall.ToCharacter.CharName);
         // ADD RELEVANT INFO
-        CallData newCallDat = new CallData(newCall.FromCharacter, newCall.ToCharacter, _incomingCallReceivedWaitTime, newCall);
+        CallData newCallDat = new CallData(newCall.FromCharacter, newCall.ToCharacter, _incomingCallReceivedWaitTime, newCall, CallState.INCOMING);
         AddCalltoData(newCallDat);
 
         Debug.Log(" NEW DIALOGUE " + newCallDat.fromCharacter.CharName + " TO: " + newCallDat.toCharacter.CharName);
@@ -456,15 +510,20 @@ public class DayManager : MonoBehaviour
             dat.curTimer -= Time.deltaTime;
 
             Location loc = locationManager.GetLocationFromCharacter(dat.fromCharacter);
-            _switchboard.SetSwitchTiming(loc, dat.curTimer);
-            if (dat.curTimer <= 0)
+
+            bool canIgnore = (dat.state & (CallState.CANT_IGNORE)) == 0;
+
+            if (!canIgnore)
+                _switchboard.SetSwitchTiming(loc, dat.curTimer);
+            else
+                _switchboard.SetSwitchTiming(loc, 0);
+
+
+            if (dat.curTimer <= 0 && canIgnore)
             {
                 Debug.Log("Call ignored!");
                 _switchboard.SetSwitchTiming(loc, 0); // TODO, may want another sprite or other indicator of ignoring
-                // Call ignored
-                tagsReference.AddTags(dat.associatedDialogue.ignoreTags);
-                Strike();
-                RemoveCallFromData(dat);
+                OnCallIgnore(dat);
             }
         }
     }

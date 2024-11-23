@@ -29,7 +29,7 @@ public class MainMenu : MonoBehaviour
     // Start button pressed
     void onStart()
     {
-        this.gameManagerObject = Instantiate(gameManagerObject);
+        gameManagerObject = Instantiate(gameManagerObject);
     }
 
     // Quit button pressed
