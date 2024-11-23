@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6157374418a394afd8a577b9445f6168, type: 3}
   m_Name: C_WorriedMom
   m_EditorClassIdentifier: 
-  CharName: Worried Mother
+  CharName: Mary
   Portrait: {fileID: 21300000, guid: 483ab0cdeebbe244686e35e9eb2f2d7c, type: 3}
   ExtraPortrait1: {fileID: 21300000, guid: fbf7115d9ee837943a5e8700e2a63300, type: 3}
   ExtraPortrait2: {fileID: 21300000, guid: 438e5a8e43d6f484884610f54790ee8e, type: 3}

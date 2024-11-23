@@ -324,8 +324,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textComponent: {fileID: 1434094844}
-  scriptObj: {fileID: 11400000, guid: fb5b1dbc3c5ae4383bafa091efca741b, type: 2}
+  scriptObj: {fileID: 11400000, guid: 4e7cfdbcfcf584b4e80c391cfc3a6850, type: 2}
   portrait: {fileID: 527200475}
+  waitBeforeEnd: 10
 --- !u!114 &1155902420
 MonoBehaviour:
   m_ObjectHideFlags: 0
