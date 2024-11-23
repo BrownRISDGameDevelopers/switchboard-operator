@@ -76,7 +76,6 @@ public class Jack : MonoBehaviour
         if (Vector3.Distance(GetMousePosition(), closestSwitch.transform.position) > jackPlacedRange)
         {
             transform.position = initialPosition;
-            
             return;
         }
         transform.position = closestSwitch.transform.position;
