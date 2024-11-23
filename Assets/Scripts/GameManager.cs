@@ -113,13 +113,16 @@ public class GameManager : MonoBehaviour
         tags.onAddTag += OnTagAddedCheckEnding;
 
         DontDestroyOnLoad(this);
+
+
+
+        //LoadNewDay(days[currentDay]);
     }
 
     void Start()
     {
         // AsyncOperation load_op = SceneManager.LoadSceneAsync((int)Constants.SceneIndexTable.Game);
         // load_op.completed += (_) => LoadNewDay(days[currentDay]);
-        LoadNewDay(days[currentDay]);
     }
 
     public void LoadNewDay(Day day)

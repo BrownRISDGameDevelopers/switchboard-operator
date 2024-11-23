@@ -164,7 +164,9 @@ public class Switchboard : MonoBehaviour
 
         foreach (Switch c_switch in switches)
         {
-            float distance = UnityEngine.Vector3.Distance(jack.transform.position + Vector3.up * 0.6f, c_switch.transform.position);
+
+            // + Vector3.up * 0.6f, for position
+            float distance = UnityEngine.Vector3.Distance(jack.transform.position, c_switch.transform.position);
             if (distance < shortestDistance)
             {
                 shortestDistance = distance;
