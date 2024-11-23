@@ -20,7 +20,8 @@ MonoBehaviour:
   - text: Hello Operator, please connect me to Saint Surtsey Hospital. Front Desk.
     portraitType: 0
     speedScale: 1
-  successTags: []
+  successTags:
+  - {fileID: 11400000, guid: 52d1b6399e7b247b3969f617c7a46e01, type: 2}
   failureTags: []
   ignoreTags: []
   characterMap: []

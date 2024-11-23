@@ -20,7 +20,8 @@ MonoBehaviour:
   - text: Hello Operator, please connect me to the Northrift Railway offices.
     portraitType: 0
     speedScale: 1
-  successTags: []
+  successTags:
+  - {fileID: 11400000, guid: f107bbd4eda564fbca9b4d7a70da6cd1, type: 2}
   failureTags: []
   ignoreTags: []
   characterMap: []
