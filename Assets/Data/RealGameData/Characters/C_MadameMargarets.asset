@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6157374418a394afd8a577b9445f6168, type: 3}
   m_Name: C_MadameMargarets
   m_EditorClassIdentifier: 
-  CharName: "Madame Margarets Miraculous Miracles \u201CWe also do Elixirs!\u201D"
+  CharName: Madame Margarets Miraculous Miracles
   Portrait: {fileID: 0}
   ExtraPortrait1: {fileID: 0}
   ExtraPortrait2: {fileID: 0}

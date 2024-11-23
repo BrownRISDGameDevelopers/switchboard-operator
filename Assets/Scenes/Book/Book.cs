@@ -48,6 +48,13 @@ public class Book : MonoBehaviour
 
     void updateNamesInBook()
     {
+        for (int i = 0; i < nametagList.Count(); i++)
+        {
+            Nametag nametag = nametagList[i];
+            nametag.nameText.text = "";
+            nametag.locationText.text = "";
+        }
+
         for (int i = 0; i < characterList.Count(); i++)
         {
             Nametag currentTag = nametagList[i];
@@ -55,7 +62,7 @@ public class Book : MonoBehaviour
             Location currentLoc = locationManager.GetLocationFromCharacter(currentChar);
 
             currentTag.nameText.text = currentChar.CharName;
-            currentTag.locationText.text = currentLoc.Number + "" + currentLoc.Letter;
+            currentTag.locationText.text = currentLoc.Letter + "" + currentLoc.Number;
         }
     }
 

@@ -1,3 +1,23 @@
+
+Polish game flow
+- make sure ordered dialogue works
+- make sure strikes can't happen while you're in dialogue
+   - have ending dialogue be dependent on character not talking
+   - new ones can only be added if they don't have current characters
+   - have some way of setting to make dialogue exclusive, like first one
+      - first dialogue sent 
+- full game flow, from main menu to game
+- make sure required tags works (rn just returning true) 
+- make sure dialogue only gets activated once, and is ignored if jack is taken out 
+
+
+
+
+
+
+
+
+
 Make sure switch positioning in "switchboard space" and not world space
 
 Lock in button 
