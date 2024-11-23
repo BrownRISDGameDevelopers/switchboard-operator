@@ -401,7 +401,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 338980251587690406, guid: 617abe01470ad904caacb44e4246158d, type: 3}
       propertyPath: m_Volume
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 726574991186162907, guid: 617abe01470ad904caacb44e4246158d, type: 3}
       propertyPath: m_Name
@@ -409,11 +409,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1682895828397423339, guid: 617abe01470ad904caacb44e4246158d, type: 3}
       propertyPath: m_Volume
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8268687723894735972, guid: 617abe01470ad904caacb44e4246158d, type: 3}
       propertyPath: m_Volume
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8594353600111642255, guid: 617abe01470ad904caacb44e4246158d, type: 3}
       propertyPath: days.Array.size
