@@ -44,9 +44,10 @@ public class Jack : MonoBehaviour
     private SpriteRenderer _baseSpriteRenderer;
     private SpriteRenderer _dragSpriteRenderer;
     private SpriteRenderer _placedSpriteRenderer;
-    
+
     // Start is called before the first frame update
-    void Awake(){
+    void Awake()
+    {
         _baseSpriteRenderer = transform.Find("baseJack").GetComponent<SpriteRenderer>();
         _dragSpriteRenderer = transform.Find("dragJack").GetComponent<SpriteRenderer>();
         _placedSpriteRenderer = transform.Find("placedJack").GetComponent<SpriteRenderer>();
@@ -64,11 +65,12 @@ public class Jack : MonoBehaviour
 
     void OnMouseDown()
     {
+        // THIS COULD CAUSE AN ERROR IF THE NEAREST SWITCH IS ALSO CLOSE TO THE SAME SWITCH THAT ANOTHER THING IS IN 
         initialOffset = transform.position - GetMousePosition();
         Switch closestSwitch = switchboard.GetClosestSwitchPosition(this);
         closestSwitch.isTaken = false;
 
-        if (Vector3.Distance(transform.position, closestSwitch.transform.position) > jackPlacedRange)
+        if (Vector3.Distance(GetMousePosition(), closestSwitch.transform.position) > jackPlacedRange)
         {
             transform.position = initialPosition;
             return;
@@ -94,7 +96,7 @@ public class Jack : MonoBehaviour
     //When mouse is released, stop dragging and lock to the nearest switch
     void OnMouseUp()
     {
-        
+
         Switch closestSwitch = switchboard.GetClosestSwitchPosition(this);
 
         if (Vector3.Distance(transform.position, closestSwitch.transform.position) > jackPlacedRange
@@ -104,6 +106,7 @@ public class Jack : MonoBehaviour
             _baseSpriteRenderer.gameObject.SetActive(true);
             _dragSpriteRenderer.gameObject.SetActive(false);
             _placedSpriteRenderer.gameObject.SetActive(false);
+            ScreenShakeCamera.TryAddShake(Constants.JACK_OFF_SHAKE);
             return;
         }
         transform.position = closestSwitch.transform.position;
@@ -118,7 +121,8 @@ public class Jack : MonoBehaviour
         _baseSpriteRenderer.gameObject.SetActive(false);
         _dragSpriteRenderer.gameObject.SetActive(false);
         _placedSpriteRenderer.gameObject.SetActive(true);
-        
+
+        ScreenShakeCamera.TryAddShake(Constants.JACK_IN_SHAKE);
     }
 
     //Gets the current mouse position as a Vector3
@@ -144,7 +148,8 @@ public class Jack : MonoBehaviour
         switchboard = board;
 
         //this._associatedCharacter = character;
-        switch (color){
+        switch (color)
+        {
             case 0:
                 baseSprite = greenBaseSprite;
                 dragSprite = greenDragSprite;

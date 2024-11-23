@@ -49,53 +49,53 @@ MonoBehaviour:
   initInfo:
   - loc:
       Valid: 1
-      Letter: 0
+      Letter: 65
       Number: 0
     info: {fileID: 11400000, guid: da0e246c989d645b9b4eae327df83a41, type: 2}
   - loc:
       Valid: 1
-      Letter: 0
-      Number: 0
+      Letter: 66
+      Number: 4
     info: {fileID: 11400000, guid: 22bca04a5b7704d9685305e565b1076a, type: 2}
   - loc:
       Valid: 1
-      Letter: 0
-      Number: 0
+      Letter: 67
+      Number: 6
     info: {fileID: 11400000, guid: 0af9e3b373a1349f5b62683a7c7f7d43, type: 2}
   - loc:
       Valid: 1
-      Letter: 0
-      Number: 0
+      Letter: 65
+      Number: 3
     info: {fileID: 11400000, guid: 571bbc4d301a74a9585fe3073cb691b4, type: 2}
   - loc:
       Valid: 1
-      Letter: 0
-      Number: 0
+      Letter: 68
+      Number: 4
     info: {fileID: 11400000, guid: 1a0590f6183fb49c19a5834383c3f2b0, type: 2}
   - loc:
       Valid: 1
-      Letter: 0
-      Number: 0
+      Letter: 69
+      Number: 2
     info: {fileID: 11400000, guid: e5aa88459e7b34b7cad892dac219a00d, type: 2}
   - loc:
       Valid: 1
-      Letter: 0
-      Number: 0
+      Letter: 68
+      Number: 6
     info: {fileID: 11400000, guid: 27e6f1b6931194e129dedfc1d1a04803, type: 2}
   - loc:
       Valid: 1
-      Letter: 0
-      Number: 0
+      Letter: 66
+      Number: 2
     info: {fileID: 11400000, guid: 73223a2808bbb4f5287fc17f64e0ea7b, type: 2}
   - loc:
       Valid: 1
-      Letter: 0
-      Number: 0
+      Letter: 69
+      Number: 3
     info: {fileID: 11400000, guid: 9bd1286d4fdf44a559bde3c1a4f6662e, type: 2}
   - loc:
       Valid: 1
-      Letter: 0
-      Number: 0
+      Letter: 67
+      Number: 1
     info: {fileID: 11400000, guid: ac0ab87f61316454399a306343d956ec, type: 2}
 --- !u!114 &8594353600111642255
 MonoBehaviour:

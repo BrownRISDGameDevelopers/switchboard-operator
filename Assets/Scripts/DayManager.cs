@@ -125,7 +125,7 @@ public class DayManager : MonoBehaviour
 
         // Of note, this is only called once, so if you get a necessary tag later and then the random thing comes in, may cause an issue
         _randomizedCalls = GetRandomizedAvailableDialogue(currentDay.RandomizedCallPool);
-        _orderedCalls = GetOrderedAvailableDialogue(currentDay.RandomizedCallPool);
+        _orderedCalls = GetOrderedAvailableDialogue(currentDay.OrderedCallPool);
         // Call upon switch board
         // connect events
         Jack.onJackPlaced += OnJackPlaced;
@@ -276,25 +276,28 @@ public class DayManager : MonoBehaviour
         }
         Dialogue newCall = null;
 
+
+        newCall = TryGetNextOrderedDialogue();
         // TODO: How do we want to do this?
         // rn randomly get random or ordered calls, if ordered call is null, get random call
-        if (Random.Range(0, 100) < 50.0f)
+        /*if (Random.Range(0, 100) < 50.0f && _randomizedCalls.Count > 0)
         {
             newCall = PopRandomizedCall();
         }
         else
         {
-            newCall = TryGetNextOrderedDialogue();
             if (newCall == null)
             {
                 newCall = PopRandomizedCall();
             }
-        }
+        }*/
 
 
+        print("time");
         if (newCall == null)
             return;
 
+        print(_orderedCalls.Count.ToString() + " diag " + newCall.ToCharacter.CharName);
         // ADD RELEVANT INFO
         CallData newCallDat = new CallData(newCall.FromCharacter, newCall.ToCharacter, _incomingCallReceivedWaitTime, newCall);
         AddCalltoData(newCallDat);
@@ -392,13 +395,12 @@ public class DayManager : MonoBehaviour
     private Dialogue TryGetNextOrderedDialogue()
     {
         Dialogue currentOrderedCall = null;
-        while (_orderedCalls.Count <= _curOrderedCall && currentOrderedCall == null)
+        while (_curOrderedCall < _orderedCalls.Count)
         {
             currentOrderedCall = _orderedCalls[_curOrderedCall].dialogue;
 
-            if (DialogueHasValidTags(currentOrderedCall))
+            if (currentOrderedCall != null && DialogueHasValidTags(currentOrderedCall))
                 return currentOrderedCall;
-
             _curOrderedCall++;
         }
         return null;
@@ -407,9 +409,20 @@ public class DayManager : MonoBehaviour
 
     private bool DialogueHasValidTags(Dialogue dialogue)
     {
+
+        if (tagsReference == null)
+        {
+            print("tags reference null (dialoguehasvalidtags)");
+            return true;
+        }
+        if (dialogue == null)
+        {
+            print("dialogue null (dialoguehasvalidtags)");
+            return true;
+        }
         bool hasAllTags = tagsReference.HasAllTags(dialogue.requiredTags);
         bool hasDisallowedTags = tagsReference.HasNoTags(dialogue.disallowedTags);
-        return hasAllTags && !hasDisallowedTags;
+        return true;//hasAllTags && !hasDisallowedTags;
     }
 
     private List<DialogueHolder> GetRandomizedAvailableDialogue(SingleDayDialogueList dayDiag)
@@ -474,8 +487,6 @@ public class DayManager : MonoBehaviour
         _placedJacks.Add(jackData.PlacedJackID);
         JackPlacedInLoc(jackLoc, jackData.PlacedJackID);
         print("Event received:" + jackData.ToString());
-
-        ScreenShakeCamera.TryAddShake(Constants.JACK_SHAKE);
     }
 
     void SetOutgoingForJackSet(int jackSet, CharacterInfo character)
