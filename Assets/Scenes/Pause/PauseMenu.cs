@@ -5,7 +5,7 @@ using UnityEngine;
 public class PauseMenu : MonoBehaviour
 {
     public UnityEngine.UI.Button buttonResume, buttonSettings, buttonQuit;
-    public GameObject settingsMenuObject;
+    public GameObject settingsMenuObject, emptyObject;
     private GameManager gameManager;
     
     // Start is called before the first frame update
@@ -30,6 +30,7 @@ public class PauseMenu : MonoBehaviour
     void onResume()
     {
         Time.timeScale = 1f;
+        Destroy(emptyObject);
         Destroy(gameObject);
     }
 
