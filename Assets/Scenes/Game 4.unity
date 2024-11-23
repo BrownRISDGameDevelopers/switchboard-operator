@@ -407,8 +407,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManagerObject
       objectReference: {fileID: 0}
-<<<<<<< HEAD
-=======
     - target: {fileID: 1682895828397423339, guid: 617abe01470ad904caacb44e4246158d, type: 3}
       propertyPath: m_Volume
       value: 0
@@ -433,7 +431,6 @@ PrefabInstance:
       propertyPath: days.Array.data[2]
       value: 
       objectReference: {fileID: 11400000, guid: 1cf133554e9cc453abf30e25474dddb3, type: 2}
->>>>>>> 008d8a210610d3eb4fd175ef5690cbe3a822891d
     - target: {fileID: 8816353949644369328, guid: 617abe01470ad904caacb44e4246158d, type: 3}
       propertyPath: initInfo.Array.size
       value: 11
@@ -459,7 +456,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 617abe01470ad904caacb44e4246158d, type: 3}
---- !u!1001 &739003994
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
