@@ -513,7 +513,7 @@ public class DayManager : MonoBehaviour
 
             bool canIgnore = (dat.state & (CallState.CANT_IGNORE)) == 0;
 
-            if (!canIgnore)
+            if (canIgnore)
                 _switchboard.SetSwitchTiming(loc, dat.curTimer);
             else
                 _switchboard.SetSwitchTiming(loc, 0);
