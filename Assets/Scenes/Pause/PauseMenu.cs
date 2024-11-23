@@ -5,11 +5,13 @@ using UnityEngine;
 public class PauseMenu : MonoBehaviour
 {
     public UnityEngine.UI.Button buttonResume, buttonSettings, buttonQuit;
-    public GameManager gameManager;
+    private GameManager gameManager;
     
     // Start is called before the first frame update
     void Start()
     {
+        this.gameManager = FindObjectOfType<GameManager>();
+
         // Connect buttons to relevant functions
         buttonResume.onClick.AddListener(onResume);
         buttonSettings.onClick.AddListener(onSettings);
