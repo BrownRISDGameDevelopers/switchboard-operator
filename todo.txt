@@ -9,6 +9,7 @@ Polish game flow
 - full game flow, from main menu to game
 - make sure required tags works (rn just returning true) 
 - make sure dialogue only gets activated once, and is ignored if jack is taken out 
+- day end stuff
 
 
 
