@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f9321922918b4e96858f4dccd404147, type: 3}
+  m_Name: D2_WorriedMother
+  m_EditorClassIdentifier: 
+  FromCharacter: {fileID: 0}
+  ToCharacter: {fileID: 0}
+  requiredTags: []
+  disallowedTags: []
+  Lines:
+  - text: Oh hey, Operator, come here often?
+    portraitType: 0
+    speedScale: 0
+  - text: "Yeah, yeah, sorry to cut you off but I got plenty to say now that I\u2019ve
+      got all I need to make the front page."
+    portraitType: 0
+    speedScale: 0
+  - text: Well. Almost.
+    portraitType: 0
+    speedScale: 0
+  - text: "After you so\u2026 efficiently sent me to get chewed out by the big man
+      in the top office I decided to hit the streets and get some direct reporting
+      in. "
+    portraitType: 0
+    speedScale: 0
+  - text: Cops call it trespassing, I call it investigative journalism.
+    portraitType: 0
+    speedScale: 0
+  - text: "What else am I supposed to do when I see The Lamplighter herself vaulting
+      over a fence into Divinity HQ? Obviously I\u2019m going to follow!"
+    portraitType: 0
+    speedScale: 0
+  - text: "Anyways, that\u2019s how I found myself dragged to the station, a cop
+      on each arm."
+    portraitType: 0
+    speedScale: 0
+  - text: "I nearly gave up hope, thinking: \u2018This is it, Louis, this is how
+      you make it to the front page: LOCAL MUCKRAKER ARRESTED FOR TRESPASSING ON
+      CULT GROUNDS.\u2019"
+    portraitType: 0
+    speedScale: 0
+  - text: "No, not even. I\u2019d be lucky to make it to third.  Fourth, more like
+      it."
+    portraitType: 0
+    speedScale: 0
+  - text: Where was I? Oh right, just as they were about to drag me in, who but the
+      Lamplighter herself sweeps in and BAM! Sweeps the feet right from under one
+      officer and plants her fist in the gut of the second!
+    portraitType: 0
+    speedScale: 0
+  - text: "Then she turns to me and says, Ahem. \u201CIf you keep chasing after me
+      I\u2019m going to throw you in the bottomless pit you two-bit carnie."
+    portraitType: 0
+    speedScale: 0
+  - text: "So\u2026 She\u2019s heard of me!"
+    portraitType: 0
+    speedScale: 0
+  - text: "Given, our first conversation wasn\u2019t the most enlightening, but I
+      think this could be the start of a great partnership!"
+    portraitType: 0
+    speedScale: 0
+  - text: "Hmm\u2026. where to next\u2026"
+    portraitType: 0
+    speedScale: 0
+  - text: "Might bum around outside Beauport\u2019s offices again, there\u2019s this
+      crack in the neighboring building where you can- oop. Better not say."
+    portraitType: 0
+    speedScale: 0
+  - text: Trade secrets.
+    portraitType: 0
+    speedScale: 0
+  - text: ...
+    portraitType: 0
+    speedScale: 0
+  - text: "Oh yeah! You\u2019re still here! Sorry, you\u2019re such a great listener
+      that I forget you\u2019re here sometimes. Er. I appreciate it."
+    portraitType: 0
+    speedScale: 0
+  - text: "Now send me to my doom. Absent Times, Director\u2019s Office."
+    portraitType: 0
+    speedScale: 0
+  successTags: []
+  failureTags: []
+  ignoreTags: []
+  characterMap: []
