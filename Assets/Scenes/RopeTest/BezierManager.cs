@@ -42,7 +42,7 @@ public class Bezier : MonoBehaviour
                 Vector3 middlePosition = new Vector3(controlPoints [nodeIndex].position.x, (controlPoints [nodeIndex].position.y + controlPoints [nodeIndex + 1].position.y) / 2, controlPoints [nodeIndex].position.z);
                 Vector3 secondController = new Vector3(controlPoints [nodeIndex + 1].position.x, (controlPoints [nodeIndex].position.y + controlPoints [nodeIndex + 1].position.y) / 2, controlPoints [nodeIndex].position.z);
                 Vector3 pixel = CalculateCubicBezierPoint(t, controlPoints [nodeIndex].position, middlePosition, secondController, controlPoints [nodeIndex + 1].position);
-                lineRenderer.SetVertexCount((j * SEGMENT_COUNT) + i);
+                lineRenderer.positionCount = ((j * SEGMENT_COUNT) + i);
                 lineRenderer.SetPosition((j * SEGMENT_COUNT) + (i - 1), pixel);
             }
         }
