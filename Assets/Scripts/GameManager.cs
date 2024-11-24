@@ -1,10 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine.SceneManagement;
 using UnityEngine;
-using UnityEngine.Audio;
-using Unity.VisualScripting;
 
 public class TagsManager
 {

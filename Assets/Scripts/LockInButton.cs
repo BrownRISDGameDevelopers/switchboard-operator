@@ -28,6 +28,7 @@ public class LockInButton : MonoBehaviour
         onJackLock(jackSet);
         unpressed.color = Color.clear;
         pressed.color = Color.white;
+        print("Bum");
         StartCoroutine(undoClick());
     }
 

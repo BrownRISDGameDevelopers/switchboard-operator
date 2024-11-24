@@ -22,12 +22,12 @@ using UnityEngine;
 [System.Flags]
 enum CallState
 {
-    INCOMING = 1 << 0,
-    SHOWING_DIALOGUE = 1 << 1,
-    DIALOGUE_COMPLETE_NO_LOCKIN = 1 << 2,
-    LOCKED_IN = 1 << 3,
-    ENDED = 1 << 4,
-    CANT_IGNORE = ENDED | SHOWING_DIALOGUE,
+    INCOMING = 1,
+    SHOWING_DIALOGUE = 2,
+    DIALOGUE_COMPLETE_NO_LOCKIN = 3,
+    LOCKED_IN = 4,
+    ENDED = 5,
+    CANT_IGNORE = 6,
 }
 
 class CallData
@@ -122,7 +122,7 @@ public class DayManager : MonoBehaviour
 
 
     [SerializeField]
-    private float _mintuesPerDay = 5.0f;
+    private float _minutesPerDay = 2.0f;
 
     private float _secondsLeftInDay;
     // Jackin it 
@@ -154,7 +154,7 @@ public class DayManager : MonoBehaviour
         Jack.onJackTaken += OnJackRemoved;
         LockInButton.onJackLock += LockIn;
 
-        _secondsLeftInDay = _mintuesPerDay * 60.0f;
+        _secondsLeftInDay = _minutesPerDay * 60.0f;
 
         if (dialogueUI != null)
             dialogueUI.OnDialogueDone += OnDialogueUIDone;
@@ -240,6 +240,7 @@ public class DayManager : MonoBehaviour
     public void LockIn(int JackSetNumber)
     {
         JackCallersHeldData jackHeldData = _jackSetToHeldCallers.GetValueOrDefault(JackSetNumber);
+        print("");
 
         // Is a valid Jackset
 
@@ -291,7 +292,7 @@ public class DayManager : MonoBehaviour
         //
         outGoingCall.state = CallState.LOCKED_IN;
         outGoingCall.curTimer = _postLockInSuccessTime;
-        Debug.Log("Success!");
+        print("CALLSTATE::Success!");
     }
 
     void OnCallCompleteSuccess(CallData toComplete)
@@ -319,7 +320,7 @@ public class DayManager : MonoBehaviour
         CallData dat = CharacterHasOutgoingCall(_currentlyInDialogue);
         if (dat != null)
         {
-            if ((dat.state & CallState.SHOWING_DIALOGUE) != 0)
+            if (dat.state == CallState.SHOWING_DIALOGUE)
             {
                 dat.state = CallState.DIALOGUE_COMPLETE_NO_LOCKIN;
                 dat.curTimer = _postCallReceivedWaitTime;
@@ -358,7 +359,6 @@ public class DayManager : MonoBehaviour
         }
         Dialogue newCall = null;
 
-
         newCall = TryGetNextOrderedDialogue();
         // TODO: How do we want to do this?
         // rn randomly get random or ordered calls, if ordered call is null, get random call
@@ -374,7 +374,6 @@ public class DayManager : MonoBehaviour
             }
         }*/
 
-        print("time");
         if (newCall == null)
         {
             _callNextTimer = Random.Range(_callAddTimeMin, _callAddTimeMax);
@@ -469,6 +468,7 @@ public class DayManager : MonoBehaviour
         List<DialogueHolder> returnList = new List<DialogueHolder>();
         foreach (DialogueHolder holder in dayDiag.dialogue)
         {
+            print(holder);
             returnList.Add(holder);
         }
         return returnList;
@@ -477,7 +477,8 @@ public class DayManager : MonoBehaviour
     private Dialogue TryGetNextOrderedDialogue()
     {
         Dialogue currentOrderedCall = null;
-        while (_curOrderedCall < _orderedCalls.Count)
+        print(_orderedCalls.Count + " ON GOD NO CAP :: " + _curOrderedCall);
+        if (_curOrderedCall < _orderedCalls.Count)
         {
             currentOrderedCall = _orderedCalls[_curOrderedCall].dialogue;
 
@@ -488,12 +489,14 @@ public class DayManager : MonoBehaviour
             }
 
             if (currentOrderedCall != null && DialogueHasValidTags(currentOrderedCall))
+            {
+                _curOrderedCall++;   
                 return currentOrderedCall;
+            }
             _curOrderedCall++;
         }
         return null;
     }
-
 
     private bool DialogueHasValidTags(Dialogue dialogue)
     {
@@ -525,13 +528,12 @@ public class DayManager : MonoBehaviour
         return returnList;
     }
 
-
     private void CheckDayEnd()
     {
         _secondsLeftInDay -= Time.deltaTime;
 
         if (_clockHand != null)
-            _clockHand.rotateClock(_secondsLeftInDay / (_mintuesPerDay * 60.0f));
+            _clockHand.rotateClock(_secondsLeftInDay / (_minutesPerDay * 60.0f));
 
         if (_secondsLeftInDay > 0)
             return;
@@ -547,29 +549,36 @@ public class DayManager : MonoBehaviour
         for (int i = len - 1; i > -1; i--)
         {
             CallData dat = _callList[i];
+
             dat.curTimer -= Time.deltaTime;
 
             Location loc = locationManager.GetLocationFromCharacter(dat.fromCharacter);
 
-            bool canIgnore = (dat.state & (CallState.CANT_IGNORE)) == 0;
+            bool canIgnore = !(dat.state == CallState.ENDED || dat.state == CallState.SHOWING_DIALOGUE);
 
             if (canIgnore)
+            {
                 _switchboard.SetSwitchTiming(loc, dat.curTimer);
+            }    
             else
+            {
                 _switchboard.SetSwitchTiming(loc, 0);
-
+            }
 
             if (dat.curTimer <= 0)
             {
+                print(dat.curTimer);
+                if (dat.state == CallState.LOCKED_IN)
+                {
+                    OnCallCompleteSuccess(dat);
+                    return;
+                }
+
                 if (canIgnore)
                 {
                     Debug.Log("Call ignored!");
                     _switchboard.SetSwitchTiming(loc, 0); // TODO, may want another sprite or other indicator of ignoring
                     OnCallIgnore(dat);
-                }
-                else if ((dat.state & (CallState.LOCKED_IN)) != 0)
-                {
-                    OnCallCompleteSuccess(dat);
                 }
             }
         }
@@ -605,7 +614,6 @@ public class DayManager : MonoBehaviour
 
     void SetOutgoingForJackSet(int jackSet, CharacterInfo character)
     {
-        Debug.Log("OUT GOING JACK SET " + jackSet + " " + character.CharName);
         if (!_jackSetToHeldCallers.ContainsKey(jackSet))
         {
             _jackSetToHeldCallers.Add(jackSet, new JackCallersHeldData());

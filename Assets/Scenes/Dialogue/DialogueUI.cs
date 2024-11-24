@@ -13,7 +13,7 @@ public class DialogueUI : MonoBehaviour
 
 
     private GameObject visuals;
-    float textSpeed = 0.06f;
+    float textSpeed = Constants.TEXT_SPEED;
 
     private bool _endEarly = false;
 
@@ -76,7 +76,6 @@ public class DialogueUI : MonoBehaviour
     {
         for (int i = 0; i < scriptObj.Lines.Length; i++)
         {
-
             textComponent.text = string.Empty;
             SetPortrait(scriptObj.FromCharacter, scriptObj.Lines[i]);
             foreach (char c in scriptObj.Lines[i].text.ToCharArray())
