@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6157374418a394afd8a577b9445f6168, type: 3}
   m_Name: NPC_Absence Medical Ring
   m_EditorClassIdentifier: 
-  CharName: NPC
+  CharName: Absence Medical
   Portrait: {fileID: 21300000, guid: 2b03941a00a8b864eb0a56b82d485d55, type: 3}
   ExtraPortrait1: {fileID: 0}
   ExtraPortrait2: {fileID: 0}

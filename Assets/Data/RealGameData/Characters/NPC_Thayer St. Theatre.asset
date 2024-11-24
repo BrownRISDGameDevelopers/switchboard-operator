@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6157374418a394afd8a577b9445f6168, type: 3}
   m_Name: NPC_Thayer St. Theatre
   m_EditorClassIdentifier: 
-  CharName: NPC
+  CharName: Thayer Theatre
   Portrait: {fileID: 21300000, guid: 5fcf17359a4d2bb49aeb5ca181143e90, type: 3}
   ExtraPortrait1: {fileID: 0}
   ExtraPortrait2: {fileID: 0}

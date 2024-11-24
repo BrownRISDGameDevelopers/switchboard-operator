@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6157374418a394afd8a577b9445f6168, type: 3}
   m_Name: NPC_Divinity Lights
   m_EditorClassIdentifier: 
-  CharName: NPC
+  CharName: Divinity Lights
   Portrait: {fileID: 21300000, guid: c977df1f06695514891aa34697eb4b15, type: 3}
   ExtraPortrait1: {fileID: 0}
   ExtraPortrait2: {fileID: 0}

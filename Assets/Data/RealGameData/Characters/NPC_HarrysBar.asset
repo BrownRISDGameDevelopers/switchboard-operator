@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6157374418a394afd8a577b9445f6168, type: 3}
   m_Name: NPC_HarrysBar
   m_EditorClassIdentifier: 
-  CharName: NPC
+  CharName: Harry's Bar
   Portrait: {fileID: 21300000, guid: 463c5bfb7ad74ef43a6550f01d2c359b, type: 3}
   ExtraPortrait1: {fileID: 0}
   ExtraPortrait2: {fileID: 0}
