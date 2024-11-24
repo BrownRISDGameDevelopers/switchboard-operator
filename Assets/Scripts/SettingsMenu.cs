@@ -1,10 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class SettingsMenu : MonoBehaviour
 {
@@ -20,14 +14,15 @@ public class SettingsMenu : MonoBehaviour
         buttonBack.onClick.AddListener(onBack);
         sfxSlider.onValueChanged.AddListener(changeSFXVolume);
         musicSlider.onValueChanged.AddListener(changeMusicVolume);
-        
+
         changeMusicVolume(volumeManager.currentMusicSliderValue);
         changeSFXVolume(volumeManager.currentSFXSliderValue);
     }
 
     void onBack()
     {
-        Destroy(this.gameObject);
+        FindObjectOfType<VolumeManager>().GetComponent<AudioSource>().Play();
+        Destroy(gameObject);
     }
 
     void changeMusicVolume(float value)

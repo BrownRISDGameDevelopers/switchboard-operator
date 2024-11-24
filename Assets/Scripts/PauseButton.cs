@@ -18,6 +18,8 @@ public class PauseButton : MonoBehaviour
 
     void onClick()
     {
+        FindObjectOfType<VolumeManager>().GetComponent<AudioSource>().Play();
+
         GameObject eo = Instantiate(emptyObject);
         GameObject pmo = Instantiate(pauseMenuObject);
 

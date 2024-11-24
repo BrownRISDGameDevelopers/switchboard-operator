@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.Mathematics;
 using UnityEngine;
 
 [System.Serializable]
@@ -47,6 +49,11 @@ public struct CharacterInfoLocStruct
 
 public class LocationManager : MonoBehaviour
 {
+
+    public CharacterInfo[] goodCharacterList;
+
+    
+    
     [SerializeField]
     CharacterInfoLocStruct[] initInfo;
 
@@ -54,12 +61,28 @@ public class LocationManager : MonoBehaviour
 
     void Awake()
     {
-        foreach (CharacterInfoLocStruct infoStruct in initInfo)
-        {
-            positionToCharacter.Add(infoStruct.loc, infoStruct.info);
+        // foreach (CharacterInfoLocStruct infoStruct in initInfo)
+        // {
+        //     positionToCharacter.Add(infoStruct.loc, infoStruct.info);
+        // }
+
+        // RandomizeLocations();
+        generateLocations();
+    }
+
+    private void generateLocations()
+    {
+        Location[] goodLocationsList = new Location[goodCharacterList.Length];
+        for (int i = 0; i < goodCharacterList.Length; i++){
+            goodLocationsList[i] = new Location { Valid = false, Letter = (char)(math.floor(i / 5) + 65), Number = i % 5 + 1 };
         }
 
-        //RandomizeLocations();
+        goodLocationsList = goodLocationsList.OrderBy( x => UnityEngine.Random.value ).ToArray();
+
+        for (int i = 0; i < goodCharacterList.Length; i++){
+            positionToCharacter.Add(goodLocationsList[i], goodCharacterList[i]);
+            print(goodLocationsList[i]);
+        }
     }
 
     public List<Location> GenerateLocations(Switchboard switchboard)
