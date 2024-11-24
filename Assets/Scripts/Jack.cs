@@ -129,6 +129,7 @@ public class Jack : MonoBehaviour
             _dragSpriteRenderer.gameObject.SetActive(false);
             _placedSpriteRenderer.gameObject.SetActive(false);
 
+            SFX_plug_in.Play();
             ScreenShakeCamera.TryAddShake(Constants.JACK_OFF_SHAKE);
             return;
         }

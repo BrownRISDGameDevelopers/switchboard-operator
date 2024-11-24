@@ -66,7 +66,6 @@ public class DayManager : MonoBehaviour
 
     void Update()
     {
-        print(dayState);
         switch (dayState)
         {
             case DayState.WAITING:
@@ -112,6 +111,7 @@ public class DayManager : MonoBehaviour
                         currentCharacter = currentDialogue.FromCharacter;
 
                         _timeToLockIn = 5.0f;
+                        _clockHand.rotateClock(0.0f);
                         dayState = DayState.SHOW_DIALOGUE;
                     }
                 }
@@ -129,6 +129,8 @@ public class DayManager : MonoBehaviour
 
                 if (_timeToLockIn > 0)
                 {
+                    print("LOCKIN: " + _timeToLockIn);
+                    _clockHand.rotateClock(_timeToLockIn / 5.0f);
                     _timeToLockIn -= Time.deltaTime;
                 }
                 else
@@ -140,11 +142,11 @@ public class DayManager : MonoBehaviour
             case DayState.FAIL_ONCE:
                 Strike();
                 OnCallFail(currentDialogue);
-                DoSomeWaiting(3.0f);
+                finish(3.0f);
                 break;
             case DayState.SUCCESS_ONCE:
                 OnCallCompleteSuccess(currentDialogue);
-                DoSomeWaiting(3.0f);
+                finish(3.0f);
                 break;
             case DayState.DAY_OVER:
                 print("YOU WON!");
@@ -152,12 +154,18 @@ public class DayManager : MonoBehaviour
         }
     }
 
+    private void finish(float time)
+    {
+        dialogueUI.EndEarly();
+        _switchboard.SetSwitchTiming(incomingLocation, 0.0f);
+        DoSomeWaiting(time);
+    }
+
     private void DoSomeWaiting(float time)
     {
         _waitingTime = time;
-        _switchboard.SetSwitchTiming(incomingLocation, 0.0f);
-        dialogueUI.EndEarly();
         currentDialogue = null;
+        print("HOLD UP WAIT A MINUTE");
         dayState = DayState.WAITING;
     }
     private void Strike()

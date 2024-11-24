@@ -11,7 +11,7 @@ public static class Constants
     public static float KNOCKER_SHAKE = 0.4f;
     public static float JACK_OFF_SHAKE = 0.4f;
     public static float JACK_IN_SHAKE = 0.3f;
-    public static float TEXT_SPEED = 0.001f;
+    public static float TEXT_SPEED = 0.06f;
     public enum SceneIndexTable
     {
         Init = 0,
