@@ -14,8 +14,6 @@ public class MusicManager : MonoBehaviour
     public AudioSource NPCMusic;
     public AudioSource[] CharAudioSources;
     public CharacterInfo[] charNames;
-    private bool paused = false;
-
     public void SetDayManager(DayManager _dayManager){
         dayManager = _dayManager;
     }
@@ -23,11 +21,7 @@ public class MusicManager : MonoBehaviour
     void Update()
     {
         talkingTo = dayManager.GetCurrentlyInDialogue();
-        // if unpaused
-        print(talkingTo);
         setSong(talkingTo);
-        // otherwise
-        // setSong(NPCMusic);
     }
 
     void setSong(CharacterInfo _talkingTo){
@@ -43,7 +37,6 @@ public class MusicManager : MonoBehaviour
         if (targetIndex < 0)
         {
             soloCurrentSong(NPCMusic);
-            return;
         }
         else
         {
@@ -52,7 +45,8 @@ public class MusicManager : MonoBehaviour
 
     }
 
-    void soloCurrentSong(AudioSource currentSong){
+    void soloCurrentSong(AudioSource currentSong)
+    {
 
         currentSong.volume = Mathf.Lerp(currentSong.volume, 1, Time.deltaTime);
 
@@ -66,5 +60,14 @@ public class MusicManager : MonoBehaviour
             NPCMusic.volume = Mathf.Lerp(NPCMusic.volume, 0, Time.deltaTime);
         }
 
+    }
+
+    public void immediateNPCSong()
+    {
+        foreach (AudioSource aud in CharAudioSources){
+            aud.volume = 0f;
+        }
+
+        NPCMusic.volume = 1.0f;
     }
 }
