@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f9321922918b4e96858f4dccd404147, type: 3}
   m_Name: D_Beauport C5
   m_EditorClassIdentifier: 
-  FromCharacter: {fileID: 0}
-  ToCharacter: {fileID: 0}
+  FromCharacter: {fileID: 11400000, guid: e5aa88459e7b34b7cad892dac219a00d, type: 2}
+  ToCharacter: {fileID: 11400000, guid: 4ed10172d256f99439fffd8fa9df2da5, type: 2}
   requiredTags: []
   disallowedTags: []
   Lines:
-  - text: "Hello Operator, please connect me to the Absent Times director\u2019s
-      office."
+  - text: Hello Operator, please connect me to Lily's Exotics!.
     portraitType: 0
     speedScale: 1
   successTags: []

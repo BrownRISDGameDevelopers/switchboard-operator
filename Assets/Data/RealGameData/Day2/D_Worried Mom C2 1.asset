@@ -22,10 +22,10 @@ MonoBehaviour:
   - text: "Hello? It\u2019s me again, you connected me to the police yesterday. Thank
       you. They\u2019re looking for my daughter now."
     portraitType: 0
-    speedScale: 0
+    speedScale: 1
   - text: "While I was at the station there was such a commotion though\u2026"
     portraitType: 0
-    speedScale: 0
+    speedScale: 1
   - text: they were trying to drag in a young man when out of nowhere a dark form
       swept in from outside and knocked the policemen flat!
     portraitType: 0
