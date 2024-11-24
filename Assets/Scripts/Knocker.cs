@@ -23,6 +23,7 @@ public class Knocker : MonoBehaviour
         if (recharge)
             return;
 
+        transform.GetComponent<AudioSource>().Play();
         StartCoroutine(knockLogic(speed));
         /* PSEUDOCODE
         ringBellSound()

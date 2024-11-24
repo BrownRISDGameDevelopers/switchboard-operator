@@ -139,7 +139,6 @@ public class DayManager : MonoBehaviour
                 break;
             case DayState.FAIL_ONCE:
                 Strike();
-                // Bang bell
                 OnCallFail(currentDialogue);
                 DoSomeWaiting(3.0f);
                 break;
@@ -209,6 +208,7 @@ public class DayManager : MonoBehaviour
 
     void OnCallCompleteSuccess(Dialogue dialogue)
     {
+        transform.GetComponent<AudioSource>().Play();
         tagsReference.AddTags(dialogue.successTags);
     }
 
@@ -251,9 +251,8 @@ public class DayManager : MonoBehaviour
         print("ORDERED CALLS: " + _orderedCalls.Count);
         if (count > 0)
         {
-            int index = count - 1;
-            Dialogue returnDialogue = _orderedCalls[index].dialogue;
-            _orderedCalls.RemoveAt(index);
+            Dialogue returnDialogue = _orderedCalls[0].dialogue;
+            _orderedCalls.RemoveAt(0);
             return returnDialogue;
         }
         return null;

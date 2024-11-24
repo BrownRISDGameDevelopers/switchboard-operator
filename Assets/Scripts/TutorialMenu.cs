@@ -27,6 +27,7 @@ public class TutorialMenu : MonoBehaviour
 
 	void OnExit()
 	{
+		FindObjectOfType<VolumeManager>().GetComponent<AudioSource>().Play();
 		Destroy(this.gameObject);
 	}
 
@@ -38,6 +39,7 @@ public class TutorialMenu : MonoBehaviour
 			currentScreen++;
 			tutorialScreens.transform.GetChild(currentScreen).gameObject.SetActive(true);
 
+			FindObjectOfType<VolumeManager>().GetComponent<AudioSource>().Play();
 			UpdateButtonStates();
 		}
 	}
@@ -50,6 +52,7 @@ public class TutorialMenu : MonoBehaviour
 			currentScreen--;
 			tutorialScreens.transform.GetChild(currentScreen).gameObject.SetActive(true);
 
+			FindObjectOfType<VolumeManager>().GetComponent<AudioSource>().Play();
 			UpdateButtonStates();
 		}
 	}
