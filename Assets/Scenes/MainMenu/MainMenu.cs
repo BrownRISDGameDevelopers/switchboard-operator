@@ -39,11 +39,19 @@ public class MainMenu : MonoBehaviour
         Instantiate(tutorialObject);
     }
 
+    IEnumerator Spawn()
+    {
+        yield return new WaitForSeconds(1.0f);
+        gameManagerObject = Instantiate(gameManagerObject);
+    }
+
     // Start button pressed
     void onStart()
     {
         FindObjectOfType<VolumeManager>().GetComponent<AudioSource>().Play();
-        gameManagerObject = Instantiate(gameManagerObject);
+        transform.GetComponent<AudioSource>().Play();
+
+        StartCoroutine(Spawn());
     }
 
     // Quit button pressed
