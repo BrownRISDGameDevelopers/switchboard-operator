@@ -177,19 +177,19 @@ MonoBehaviour:
   initInfo:
   - loc:
       Valid: 1
-      Letter: 65
-      Number: 0
-    info: {fileID: 11400000, guid: da0e246c989d645b9b4eae327df83a41, type: 2}
-  - loc:
-      Valid: 1
-      Letter: 66
-      Number: 4
-    info: {fileID: 11400000, guid: 22bca04a5b7704d9685305e565b1076a, type: 2}
+      Letter: 68
+      Number: 3
+    info: {fileID: 11400000, guid: f651f4d6920ca4a89a94a1e4450cac13, type: 2}
   - loc:
       Valid: 1
       Letter: 67
       Number: 6
     info: {fileID: 11400000, guid: 0af9e3b373a1349f5b62683a7c7f7d43, type: 2}
+  - loc:
+      Valid: 1
+      Letter: 66
+      Number: 4
+    info: {fileID: 11400000, guid: 22bca04a5b7704d9685305e565b1076a, type: 2}
   - loc:
       Valid: 1
       Letter: 65
@@ -200,6 +200,11 @@ MonoBehaviour:
       Letter: 68
       Number: 4
     info: {fileID: 11400000, guid: 1a0590f6183fb49c19a5834383c3f2b0, type: 2}
+  - loc:
+      Valid: 1
+      Letter: 65
+      Number: 0
+    info: {fileID: 11400000, guid: da0e246c989d645b9b4eae327df83a41, type: 2}
   - loc:
       Valid: 1
       Letter: 69
@@ -225,11 +230,6 @@ MonoBehaviour:
       Letter: 67
       Number: 1
     info: {fileID: 11400000, guid: ac0ab87f61316454399a306343d956ec, type: 2}
-  - loc:
-      Valid: 1
-      Letter: 68
-      Number: 3
-    info: {fileID: 11400000, guid: f651f4d6920ca4a89a94a1e4450cac13, type: 2}
 --- !u!114 &8594353600111642255
 MonoBehaviour:
   m_ObjectHideFlags: 0
