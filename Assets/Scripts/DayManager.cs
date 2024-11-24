@@ -5,6 +5,7 @@ using System.Linq;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 enum DayState
 {
@@ -66,6 +67,10 @@ public class DayManager : MonoBehaviour
 
     void Update()
     {
+        if (strikesLeft == 0){
+            SceneManager.LoadScene(5);
+        }
+
         switch (dayState)
         {
             case DayState.WAITING:
@@ -150,6 +155,7 @@ public class DayManager : MonoBehaviour
                 break;
             case DayState.DAY_OVER:
                 print("YOU WON!");
+                SceneManager.LoadScene(4);
                 break;
         }
     }
