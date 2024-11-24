@@ -22,6 +22,7 @@ MonoBehaviour:
     speedScale: 1
   successTags:
   - {fileID: 11400000, guid: f107bbd4eda564fbca9b4d7a70da6cd1, type: 2}
-  failureTags: []
+  failureTags:
+  - {fileID: 11400000, guid: 048d70b2e6e2c4ba9a1ba2d077853a56, type: 2}
   ignoreTags: []
   characterMap: []
