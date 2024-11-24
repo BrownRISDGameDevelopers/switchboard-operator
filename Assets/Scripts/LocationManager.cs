@@ -148,7 +148,6 @@ public class LocationManager : MonoBehaviour
     {
         foreach (KeyValuePair<Location, CharacterInfo> pair in positionToCharacter)
         {
-            print("CHARACTERS PRESENT: " + pair.Value.name);
             if (pair.Value == location)
             {
                 return pair.Key;

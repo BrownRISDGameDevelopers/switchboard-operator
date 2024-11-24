@@ -53,6 +53,7 @@ public class DayManager : MonoBehaviour
         locationManager = FindFirstObjectByType<LocationManager>();
         dialogueUI = FindFirstObjectByType<DialogueUI>();
         _clockHand = FindFirstObjectByType<ClockHand>();
+        _switchboard = FindAnyObjectByType<Switchboard>();
 
         _orderedCalls = GetOrderedAvailableDialogue(currentDay.OrderedCallPool);
         Jack.onJackPlaced += OnJackPlaced;
@@ -160,7 +161,6 @@ public class DayManager : MonoBehaviour
         currentDialogue = null;
         dayState = DayState.WAITING;
     }
-    
     private void Strike()
     {
         strikesLeft--;
