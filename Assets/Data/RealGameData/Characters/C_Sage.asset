@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: C_Sage
   m_EditorClassIdentifier: 
   CharName: Sage
-  Portrait: {fileID: 0}
-  ExtraPortrait1: {fileID: 0}
-  ExtraPortrait2: {fileID: 0}
+  Portrait: {fileID: 21300000, guid: 90e636fd4b1d07d4db581cb9829d7f29, type: 3}
+  ExtraPortrait1: {fileID: 21300000, guid: 8b083ac963c2c234894ae2a397e852af, type: 3}
+  ExtraPortrait2: {fileID: 21300000, guid: 8fa4ad7ae6119ea49a78a44a71f5d3e6, type: 3}

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6157374418a394afd8a577b9445f6168, type: 3}
-  m_Name: C_Luminaries
+  m_Name: NPC_North River Pass
   m_EditorClassIdentifier: 
-  CharName: Luminaries
-  Portrait: {fileID: 21300000, guid: b56fa5b832ec0654ca4cb4841c3f1f42, type: 3}
-  ExtraPortrait1: {fileID: 21300000, guid: d01322d791be25f49a16f12a3427d293, type: 3}
+  CharName: NPC
+  Portrait: {fileID: 21300000, guid: b174f2fd32c0ed64ba29ffb4af456df5, type: 3}
+  ExtraPortrait1: {fileID: 0}
   ExtraPortrait2: {fileID: 0}

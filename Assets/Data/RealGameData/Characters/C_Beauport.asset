@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: C_Beauport
   m_EditorClassIdentifier: 
   CharName: Pierre de Beauport
-  Portrait: {fileID: 21300000, guid: 6045b86abf973014c856507712f14c76, type: 3}
-  ExtraPortrait1: {fileID: 0}
-  ExtraPortrait2: {fileID: 0}
+  Portrait: {fileID: 21300000, guid: 49a149400ec90fe45b94983fa75540cc, type: 3}
+  ExtraPortrait1: {fileID: 21300000, guid: 3f15a861097b2eb46a3d36b239e8e4f9, type: 3}
+  ExtraPortrait2: {fileID: 21300000, guid: cb4eb8e0bd1f8dc40a0647a0b1f9f369, type: 3}
