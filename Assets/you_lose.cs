@@ -14,6 +14,8 @@ public class you_lose : MonoBehaviour
         // Connect buttons to relevant functions
         buttonPlayAgain.onClick.AddListener(onPlayAgain);
         buttonHome.onClick.AddListener(onHome);
+        gameManagerObject = FindAnyObjectByType<GameManager>().gameObject;
+
         Destroy(gameManagerObject);
     }
 
