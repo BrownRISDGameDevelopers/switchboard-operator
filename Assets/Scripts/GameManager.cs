@@ -113,6 +113,7 @@ public class GameManager : MonoBehaviour
         tags = new TagsManager();
 
         tags.onAddTag += OnTagAddedCheckEnding;
+        DayManager.onStrike += OnStrike;
 
         DontDestroyOnLoad(this);
     }
@@ -153,12 +154,8 @@ public class GameManager : MonoBehaviour
 
     private void OnStrike(int strikes, bool recharge)
     {
-
         if (strikes < 3)
             return;
-
-        // Failure, go to failure
-
     }
 
     IEnumerator WaitToGoToGameOver()

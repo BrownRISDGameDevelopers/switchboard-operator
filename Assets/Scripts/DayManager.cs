@@ -144,7 +144,6 @@ public class DayManager : MonoBehaviour
                 DoSomeWaiting(3.0f);
                 break;
             case DayState.SUCCESS_ONCE:
-                dialogueUI.EndEarly();
                 OnCallCompleteSuccess(currentDialogue);
                 DoSomeWaiting(3.0f);
                 break;
@@ -158,6 +157,7 @@ public class DayManager : MonoBehaviour
     {
         _waitingTime = time;
         _switchboard.SetSwitchTiming(incomingLocation, 0.0f);
+        dialogueUI.EndEarly();
         currentDialogue = null;
         dayState = DayState.WAITING;
     }

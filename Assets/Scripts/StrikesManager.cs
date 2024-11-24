@@ -10,6 +10,7 @@ public class StrikeManager : MonoBehaviour
    void Start()
    {
 	  ResetStrikes();
+	  DayManager.onStrike += OnStrike;
 	  // print("Starting");
 	  // StartCoroutine(ResetStrikesAfterDelay());
 	  // print("YAY");

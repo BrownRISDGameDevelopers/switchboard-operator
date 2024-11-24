@@ -13,6 +13,7 @@ public class Knocker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        DayManager.onStrike += knock;
         this.rotationPivot = new UnityEngine.Vector3(-4.566f, -2.382f, 0f);
     }
 
