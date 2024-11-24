@@ -119,10 +119,13 @@ public class DayManager : MonoBehaviour
                         _clockHand.rotateClock(0.0f);
                         dayState = DayState.SHOW_DIALOGUE;
                     }
+
+                    _switchboard.transform.GetComponent<AudioSource>().volume = 1.0f;
                 }
 
                 break;
             case DayState.SHOW_DIALOGUE:
+                _switchboard.transform.GetComponent<AudioSource>().volume = 0.0f;
                 if (!JackIDToLocation.ContainsValue(incomingLocation))
                 {
                     dayState = DayState.FAIL_ONCE;
@@ -135,6 +138,7 @@ public class DayManager : MonoBehaviour
                 if (_timeToLockIn > 0)
                 {
                     print("LOCKIN: " + _timeToLockIn);
+                    _clockHand.transform.GetComponent<AudioSource>().volume = 1.0f;
                     _clockHand.rotateClock(_timeToLockIn / 5.0f);
                     _timeToLockIn -= Time.deltaTime;
                 }
@@ -163,6 +167,7 @@ public class DayManager : MonoBehaviour
     private void finish(float time)
     {
         dialogueUI.EndEarly();
+        _clockHand.transform.GetComponent<AudioSource>().volume = 0.0f;
         _switchboard.SetSwitchTiming(incomingLocation, 0.0f);
         DoSomeWaiting(time);
     }
@@ -291,6 +296,7 @@ public class DayManager : MonoBehaviour
 
     void OnDialogueDone()
     {
+        _switchboard.SetSwitchTiming(incomingLocation, 0.0f);
         currentCharacter = null;
     }
 }

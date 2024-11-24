@@ -9,7 +9,7 @@ public class DialogueUI : MonoBehaviour
     public Dialogue scriptObj;
     public Image portrait;
 
-    public float waitBeforeEnd = 5.0f;
+    public float waitBeforeEnd = 2.0f;
 
     private GameObject visuals;
     float textSpeed = Constants.TEXT_SPEED;
