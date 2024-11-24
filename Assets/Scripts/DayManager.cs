@@ -228,12 +228,11 @@ public class DayManager : MonoBehaviour
     void OnCallCompleteSuccess(Dialogue dialogue)
     {
         transform.GetComponent<AudioSource>().Play();
-        tagsReference.AddTags(dialogue.successTags);
     }
 
     void OnCallFail(Dialogue dialogue)
     {
-        tagsReference.AddTags(dialogue.failureTags);
+        print("FAIL");
     }
 
     public void SetupDayManager(TagsManager newTags, LocationManager locManager, Day day)
