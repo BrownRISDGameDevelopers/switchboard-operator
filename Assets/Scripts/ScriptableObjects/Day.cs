@@ -18,7 +18,7 @@ public struct DialogueHolder
 [System.Serializable]
 public struct SingleDayDialogueList
 {
-    public DialogueHolder[] dialogue;
+    public DialogueHolder[] dialogues;
 }
 
 // Day thing
