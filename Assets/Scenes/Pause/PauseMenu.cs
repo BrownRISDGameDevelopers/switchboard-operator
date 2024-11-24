@@ -27,6 +27,7 @@ public class PauseMenu : MonoBehaviour
 
     void onSettings()
     {
+        FindObjectOfType<VolumeManager>().GetComponent<AudioSource>().Play();
         Instantiate(settingsMenuObject);
     }
 
@@ -35,6 +36,7 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
 
+        FindObjectOfType<VolumeManager>().GetComponent<AudioSource>().Play();
         Destroy(emptyObject);
         Destroy(gameObject);
     }
@@ -43,6 +45,7 @@ public class PauseMenu : MonoBehaviour
     void onQuit()
     {
         // Will not work in engine, but should close application on separate builds
+        FindObjectOfType<VolumeManager>().GetComponent<AudioSource>().Play();
         Application.Quit();
     }
 }

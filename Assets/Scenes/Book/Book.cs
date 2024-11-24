@@ -102,10 +102,12 @@ public class Book : MonoBehaviour, IPointerClickHandler
         {
             focused = false;
             SFX_turn_page.Play();
+            SFX_open_book.Play();
         }
         else
         {
             focused = true;
+            SFX_turn_page.Play();
             SFX_open_book.Play();
         } 
     }

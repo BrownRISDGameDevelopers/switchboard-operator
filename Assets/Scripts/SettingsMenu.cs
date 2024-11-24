@@ -14,14 +14,15 @@ public class SettingsMenu : MonoBehaviour
         buttonBack.onClick.AddListener(onBack);
         sfxSlider.onValueChanged.AddListener(changeSFXVolume);
         musicSlider.onValueChanged.AddListener(changeMusicVolume);
-        
+
         changeMusicVolume(volumeManager.currentMusicSliderValue);
         changeSFXVolume(volumeManager.currentSFXSliderValue);
     }
 
     void onBack()
     {
-        Destroy(this.gameObject);
+        FindObjectOfType<VolumeManager>().GetComponent<AudioSource>().Play();
+        Destroy(gameObject);
     }
 
     void changeMusicVolume(float value)

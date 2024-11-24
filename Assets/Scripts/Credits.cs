@@ -12,6 +12,7 @@ public class Credits : MonoBehaviour
 
     void onBack()
     {
+        FindObjectOfType<VolumeManager>().GetComponent<AudioSource>().Play();
         Destroy(this.gameObject);
     }
 }

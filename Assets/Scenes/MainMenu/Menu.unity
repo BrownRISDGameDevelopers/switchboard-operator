@@ -779,7 +779,7 @@ MonoBehaviour:
   tutorialObject: {fileID: 3345738782605463310, guid: 704aa1e38498547cbacb66b3000e6992, type: 3}
   gameManagerObject: {fileID: 726574991186162907, guid: 617abe01470ad904caacb44e4246158d, type: 3}
   settingsMenuObject: {fileID: 6401978320371174299, guid: 5ee3dba221d1e437081e153e1e0928d1, type: 3}
-  creditsObject: {fileID: 1437801385}
+  creditsObject: {fileID: 6401978320371174299, guid: a86f77ac935ea48b78a311222a983bc1, type: 3}
 --- !u!1 &1208300502
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,22 +23,26 @@ public class MainMenu : MonoBehaviour
 
     void onCredits()
     {
+        FindObjectOfType<VolumeManager>().GetComponent<AudioSource>().Play();
         Instantiate(creditsObject);
     }
 
     void onSettings()
     {
+        FindObjectOfType<VolumeManager>().GetComponent<AudioSource>().Play();
         Instantiate(settingsMenuObject);
     }
 
     void onTutorial()
     {
+        FindObjectOfType<VolumeManager>().GetComponent<AudioSource>().Play();
         Instantiate(tutorialObject);
     }
 
     // Start button pressed
     void onStart()
     {
+        FindObjectOfType<VolumeManager>().GetComponent<AudioSource>().Play();
         gameManagerObject = Instantiate(gameManagerObject);
     }
 
@@ -46,6 +50,7 @@ public class MainMenu : MonoBehaviour
     void onQuit()
     {
         // Will not work in engine, but should close application on separate builds
+        FindObjectOfType<VolumeManager>().GetComponent<AudioSource>().Play();
         Application.Quit();
     }
 }

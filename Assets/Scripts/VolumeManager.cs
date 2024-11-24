@@ -25,6 +25,8 @@ public class VolumeManager : MonoBehaviour
 
     void Start()
     {
+        SetMusicVolume(currentMusicSliderValue);
+        SetSFXVolume(currentSFXSliderValue);
         return;
     }
 }
