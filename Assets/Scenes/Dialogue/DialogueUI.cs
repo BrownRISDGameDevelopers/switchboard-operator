@@ -17,6 +17,8 @@ public class DialogueUI : MonoBehaviour
 
     private bool _endEarly = false;
 
+    private IEnumerator _currentDialogue;
+
 
     public delegate void DialogueDoneDelegate();
     public event DialogueDoneDelegate OnDialogueDone;
@@ -28,8 +30,6 @@ public class DialogueUI : MonoBehaviour
         // won't work in vaccum
         if (scriptObj)
             StartDialogue();
-
-
     }
 
     public void StartDialogueWithData(Dialogue newDialogue)
@@ -41,14 +41,25 @@ public class DialogueUI : MonoBehaviour
     public void EndEarly()
     {
         SetVisualsVisible(false);
-        StopCoroutine(TypeLine());
+
+        if (_currentDialogue != null)
+            StopCoroutine(_currentDialogue);
     }
 
     void StartDialogue()
     {
+
+        if (textComponent != null)
+            textComponent.text = string.Empty;
+
+        if (_currentDialogue != null)
+            StopCoroutine(_currentDialogue);
+
         _endEarly = false;
         SetVisualsVisible(true);
-        StartCoroutine(TypeLine());
+
+        _currentDialogue = TypeLine();
+        StartCoroutine(_currentDialogue);
     }
 
     void SetPortrait(CharacterInfo character, DialogueLine line)

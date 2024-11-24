@@ -322,6 +322,10 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7946602641402173086, guid: b0ba71497e1384b6291f0905ac2ee2eb, type: 3}
+      propertyPath: jackSet
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -366,6 +370,10 @@ PrefabInstance:
     - target: {fileID: 3657222483376247176, guid: bbcb6b4f0451f4b35b5700b5f4c27a28, type: 3}
       propertyPath: m_Name
       value: JackParent (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5000136978994468490, guid: bbcb6b4f0451f4b35b5700b5f4c27a28, type: 3}
+      propertyPath: jackID
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6853243283202390650, guid: bbcb6b4f0451f4b35b5700b5f4c27a28, type: 3}
       propertyPath: m_LocalScale.x
@@ -592,6 +600,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: JackParent (0)
       objectReference: {fileID: 0}
+    - target: {fileID: 5000136978994468490, guid: bbcb6b4f0451f4b35b5700b5f4c27a28, type: 3}
+      propertyPath: jackID
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6853243283202390650, guid: bbcb6b4f0451f4b35b5700b5f4c27a28, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.77525395
@@ -691,6 +703,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: JackParent (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5000136978994468490, guid: bbcb6b4f0451f4b35b5700b5f4c27a28, type: 3}
+      propertyPath: jackID
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6853243283202390650, guid: bbcb6b4f0451f4b35b5700b5f4c27a28, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.77525395
@@ -789,6 +805,10 @@ PrefabInstance:
     - target: {fileID: 3657222483376247176, guid: bbcb6b4f0451f4b35b5700b5f4c27a28, type: 3}
       propertyPath: m_Name
       value: JackParent (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5000136978994468490, guid: bbcb6b4f0451f4b35b5700b5f4c27a28, type: 3}
+      propertyPath: jackID
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6853243283202390650, guid: bbcb6b4f0451f4b35b5700b5f4c27a28, type: 3}
       propertyPath: m_LocalScale.x
@@ -937,6 +957,10 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7946602641402173086, guid: b0ba71497e1384b6291f0905ac2ee2eb, type: 3}
+      propertyPath: jackSet
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -981,6 +1005,10 @@ PrefabInstance:
     - target: {fileID: 3657222483376247176, guid: bbcb6b4f0451f4b35b5700b5f4c27a28, type: 3}
       propertyPath: m_Name
       value: JackParent (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5000136978994468490, guid: bbcb6b4f0451f4b35b5700b5f4c27a28, type: 3}
+      propertyPath: jackID
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6853243283202390650, guid: bbcb6b4f0451f4b35b5700b5f4c27a28, type: 3}
       propertyPath: m_LocalScale.x
@@ -1150,6 +1178,10 @@ PrefabInstance:
     - target: {fileID: 3657222483376247176, guid: bbcb6b4f0451f4b35b5700b5f4c27a28, type: 3}
       propertyPath: m_Name
       value: JackParent (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5000136978994468490, guid: bbcb6b4f0451f4b35b5700b5f4c27a28, type: 3}
+      propertyPath: jackID
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6853243283202390650, guid: bbcb6b4f0451f4b35b5700b5f4c27a28, type: 3}
       propertyPath: m_LocalScale.x
@@ -1411,6 +1443,10 @@ PrefabInstance:
     - target: {fileID: 7809333853737949136, guid: b0ba71497e1384b6291f0905ac2ee2eb, type: 3}
       propertyPath: m_SortingLayer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7946602641402173086, guid: b0ba71497e1384b6291f0905ac2ee2eb, type: 3}
+      propertyPath: jackSet
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -27,7 +27,7 @@ enum CallState
     DIALOGUE_COMPLETE_NO_LOCKIN = 1 << 2,
     LOCKED_IN = 1 << 3,
     ENDED = 1 << 4,
-    CANT_IGNORE = ENDED | SHOWING_DIALOGUE,
+    CANT_IGNORE = ENDED | SHOWING_DIALOGUE ,
 }
 
 class CallData
@@ -179,12 +179,12 @@ public class DayManager : MonoBehaviour
         CharacterInfo characterPlaced = locationManager.GetCharacterFromLocation(loc);
         int jackSet = GetAssociatedJackSet(jackId);
 
-        Debug.Log("CHARACTER PLACED: " + ((characterPlaced != null) ? characterPlaced.CharName : "NULL"));
+        Debug.Log("CHARACTER PLACED: " + ((characterPlaced != null) ? characterPlaced.CharName : "NULL") + " " + jackSet.ToString());
         // Logic for if the placed jack hit something with a character that has an outgoing call (from character)
         CallData outgoingDat = CharacterHasOutgoingCall(characterPlaced);
         if (outgoingDat != null)
         {
-            outgoingDat.fromCharacter = characterPlaced;
+            //outgoingDat.fromCharacter = characterPlaced;
             SetOutgoingForJackSet(jackSet, characterPlaced);
 
             // If dialogue hasn't been revealed yet (this call wasn't received yet)
@@ -222,10 +222,11 @@ public class DayManager : MonoBehaviour
         CallData outgoingDat = CharacterHasOutgoingCall(characterRemoved);
         if (outgoingDat != null)
         {
+            print("JACK REMOVED OUTGOING NOT NULL");
             // End dialogue if going
             //outgoingDat.fromCharacter = null;
-            SetOutgoingForJackSet(jackSet, null);
             EndIfCurrentlyInDialogue();
+            SetOutgoingForJackSet(jackSet, null);
             OnCallIgnore(outgoingDat);
         }
 
@@ -239,17 +240,26 @@ public class DayManager : MonoBehaviour
 
     public void LockIn(int JackSetNumber)
     {
-        JackCallersHeldData jackHeldData = _jackSetToHeldCallers.GetValueOrDefault(JackSetNumber);
+        _jackSetToHeldCallers.TryGetValue(JackSetNumber, out JackCallersHeldData jackHeldData);
+        print(jackHeldData);
+        print(JackSetNumber);
+        print(_jackSetToHeldCallers);
 
         // Is a valid Jackset
 
         //Debug.Log("LOCK IN: " + JackSetNumber + " " + jackHeldData != null ? jackHeldData.ToString() : "NULL JACK DATA");
 
         if (jackHeldData == null)
+        {
+            print("null jackhelddata in game manager");
             return;
+        }
 
         if (jackHeldData.from == null)
+        {
+            print("null jack held data from in game manager");
             return;
+        }
 
         // Cases
         // Standard, jack is connected to correct incoming and outgoing caller
@@ -287,11 +297,10 @@ public class DayManager : MonoBehaviour
             return;
         }
         // We've reached the success case
-        // TODO: how to wait n such?
-        //
+
         outGoingCall.state = CallState.LOCKED_IN;
         outGoingCall.curTimer = _postLockInSuccessTime;
-        Debug.Log("Success!");
+        Debug.Log("Success start");
     }
 
     void OnCallCompleteSuccess(CallData toComplete)
@@ -335,6 +344,7 @@ public class DayManager : MonoBehaviour
         if (_currentlyInDialogue != null && dialogueUI != null)
         {
             dialogueUI.EndEarly();
+            _currentlyInDialogue = null;
         }
     }
     public CharacterInfo GetCurrentlyInDialogue()
@@ -488,7 +498,10 @@ public class DayManager : MonoBehaviour
             }
 
             if (currentOrderedCall != null && DialogueHasValidTags(currentOrderedCall))
+            {
+                _curOrderedCall++;
                 return currentOrderedCall;
+            }
             _curOrderedCall++;
         }
         return null;
@@ -561,15 +574,16 @@ public class DayManager : MonoBehaviour
 
             if (dat.curTimer <= 0)
             {
-                if (canIgnore)
+                if ((dat.state & (CallState.LOCKED_IN)) != 0)
+                {
+                    OnCallCompleteSuccess(dat);
+                    Debug.Log("Success!");
+                }
+                else if (canIgnore)
                 {
                     Debug.Log("Call ignored!");
                     _switchboard.SetSwitchTiming(loc, 0); // TODO, may want another sprite or other indicator of ignoring
                     OnCallIgnore(dat);
-                }
-                else if ((dat.state & (CallState.LOCKED_IN)) != 0)
-                {
-                    OnCallCompleteSuccess(dat);
                 }
             }
         }
@@ -605,13 +619,16 @@ public class DayManager : MonoBehaviour
 
     void SetOutgoingForJackSet(int jackSet, CharacterInfo character)
     {
-        Debug.Log("OUT GOING JACK SET " + jackSet + " " + character.CharName);
+        if (character != null)
+            Debug.Log("OUT GOING JACK SET " + jackSet + " " + character.CharName);
+
         if (!_jackSetToHeldCallers.ContainsKey(jackSet))
         {
             _jackSetToHeldCallers.Add(jackSet, new JackCallersHeldData());
         }
         _jackSetToHeldCallers.TryGetValue(jackSet, out JackCallersHeldData dat);
         dat.from = character;
+        _jackSetToHeldCallers[jackSet] = dat;
     }
 
     void SetIncomingForJackSet(int jackSet, CharacterInfo character)
@@ -622,10 +639,13 @@ public class DayManager : MonoBehaviour
         }
         _jackSetToHeldCallers.TryGetValue(jackSet, out JackCallersHeldData dat);
         dat.to = character;
+        _jackSetToHeldCallers[jackSet] = dat;
     }
 
     CallData CharacterHasIncomingCall(CharacterInfo character)
     {
+        if (character == null)
+            return null;
         foreach (CallData dat in _callList)
         {
             if (character == dat.toCharacter)
@@ -638,6 +658,8 @@ public class DayManager : MonoBehaviour
 
     CallData CharacterHasOutgoingCall(CharacterInfo character)
     {
+        if (character == null)
+            return null;
         foreach (CallData dat in _callList)
         {
             if (character == dat.fromCharacter)

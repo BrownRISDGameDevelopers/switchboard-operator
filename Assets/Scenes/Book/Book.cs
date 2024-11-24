@@ -48,6 +48,13 @@ public class Book : MonoBehaviour, IPointerClickHandler
 
     void updateNamesInBook()
     {
+        for (int i = 0; i < nametagList.Count(); i++)
+        {
+            Nametag currentTag = nametagList[i];
+            currentTag.nameText.text = "";
+            currentTag.locationText.text = "";
+        }
+
         for (int i = 0; i < characterList.Count(); i++)
         {
             Nametag currentTag = nametagList[i];
@@ -107,6 +114,6 @@ public class Book : MonoBehaviour, IPointerClickHandler
         {
             focused = true;
             SFX_open_book.Play();
-        } 
+        }
     }
 }

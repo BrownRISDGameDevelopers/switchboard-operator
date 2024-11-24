@@ -160,10 +160,11 @@ public class GameManager : MonoBehaviour
     private void OnStrike(int strikes, bool recharge)
     {
 
-        if (strikes < 3)
+        if (strikes != 3)
             return;
 
         // Failure, go to failure
+        StartCoroutine(WaitToGoToGameOver());
 
     }
 
