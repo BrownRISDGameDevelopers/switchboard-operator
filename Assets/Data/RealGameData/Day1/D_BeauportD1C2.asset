@@ -25,3 +25,4 @@ MonoBehaviour:
   failureTags: []
   ignoreTags: []
   characterMap: []
+  CallWeight: 3

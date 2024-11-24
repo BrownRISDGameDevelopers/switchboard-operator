@@ -31,3 +31,4 @@ MonoBehaviour:
   - character: {fileID: 11400000, guid: 1a0590f6183fb49c19a5834383c3f2b0, type: 2}
     tags:
     - {fileID: 11400000, guid: 61735d61cc6b746409c45f83d7b29ff9, type: 2}
+  CallWeight: 2
