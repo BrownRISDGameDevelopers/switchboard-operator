@@ -9,7 +9,7 @@ public class MusicManager : MonoBehaviour
 
 {
     DayManager dayManager;
-    CharacterInfo talkingTo;
+    CharacterInfo talkingTo = null;
     public AudioSource bassline;
     public AudioSource NPCMusic;
     public AudioSource[] CharAudioSources;
@@ -20,7 +20,10 @@ public class MusicManager : MonoBehaviour
 
     void Update()
     {
-        talkingTo = dayManager.GetCurrentlyInDialogue();
+        if (dayManager)
+        {
+            talkingTo = dayManager.GetCurrentlyInDialogue();
+        }
         setSong(talkingTo);
     }
 

@@ -110,12 +110,9 @@ public class GameManager : MonoBehaviour
         TryGetComponent<LocationManager>(out locationManager);
         _existingGameManager = this;
 
-
         tags = new TagsManager();
 
         tags.onAddTag += OnTagAddedCheckEnding;
-        DayManager.OnDayEnd += OnDayEnd;
-        DayManager.onStrike += OnStrike;
 
         DontDestroyOnLoad(this);
     }
@@ -180,17 +177,12 @@ public class GameManager : MonoBehaviour
 
     void OnDayLoadFinish(Scene scene, LoadSceneMode mode)
     {
-
         dayManager = FindObjectOfType<DayManager>();
         if (dayManager != null)
         {
             dayManager.SetupDayManager(tags, locationManager, currentDay < days.Length ? days[currentDay] : null);
 
-            // TODO: Set day for day manager and make sure that works
-            // Make sure music manager has access to updated day
             musicManager.SetDayManager(dayManager);
-            // print("musicmanager set");
-
         }
         SceneManager.sceneLoaded -= OnDayLoadFinish;
     }

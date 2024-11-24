@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LockInButton : MonoBehaviour
 {
+    [SerializeField]
     public int jackSet = 0;
 
     public delegate void OnJackLock(int jackSetId);

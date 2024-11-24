@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Day1
   m_EditorClassIdentifier: 
   RandomizedCallPool:
-    dialogue: []
+    dialogues: []
   OrderedCallPool:
-    dialogue:
+    dialogues:
+    - dialogue: {fileID: 11400000, guid: 4e7cfdbcfcf584b4e80c391cfc3a6850, type: 2}
+    - dialogue: {fileID: 11400000, guid: b41a79cf5c7534dc08ad3a78fc502e2e, type: 2}
+    - dialogue: {fileID: 11400000, guid: b32b10b54ce7d43c6b05525e610d21cf, type: 2}
     - dialogue: {fileID: 11400000, guid: c9439b4a911384e8d9dde1392b72e39c, type: 2}
-    - dialogue: {fileID: 11400000, guid: b32b10b54ce7d43c6b05525e610d21cf, type: 2}
-    - dialogue: {fileID: 11400000, guid: b32b10b54ce7d43c6b05525e610d21cf, type: 2}

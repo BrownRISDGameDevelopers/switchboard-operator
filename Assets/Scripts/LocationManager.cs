@@ -49,10 +49,7 @@ public struct CharacterInfoLocStruct
 
 public class LocationManager : MonoBehaviour
 {
-
     public CharacterInfo[] goodCharacterList;
-
-    
     
     [SerializeField]
     CharacterInfoLocStruct[] initInfo;
@@ -73,7 +70,9 @@ public class LocationManager : MonoBehaviour
     private void generateLocations()
     {
         Location[] goodLocationsList = new Location[goodCharacterList.Length];
-        for (int i = 0; i < goodCharacterList.Length; i++){
+        for (int i = 0; i < goodCharacterList.Length; i++)
+        {
+            print("CHARACTERS ADDED: " + goodCharacterList[i].name);
             goodLocationsList[i] = new Location { Valid = false, Letter = (char)(math.floor(i / 5) + 65), Number = i % 5 + 1 };
         }
 
@@ -107,8 +106,6 @@ public class LocationManager : MonoBehaviour
 
         // Locations should be completely randomized if random
         List<Location> locList = GetLocationList();
-
-
 
         foreach (CharacterInfo c in charList)
         {
@@ -151,6 +148,7 @@ public class LocationManager : MonoBehaviour
     {
         foreach (KeyValuePair<Location, CharacterInfo> pair in positionToCharacter)
         {
+            print("CHARACTERS PRESENT: " + pair.Value.name);
             if (pair.Value == location)
             {
                 return pair.Key;
