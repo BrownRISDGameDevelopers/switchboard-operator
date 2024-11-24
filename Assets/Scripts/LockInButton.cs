@@ -28,6 +28,14 @@ public class LockInButton : MonoBehaviour
         onJackLock(jackSet);
         unpressed.color = Color.clear;
         pressed.color = Color.white;
+        StartCoroutine(undoClick());
+    }
+
+    IEnumerator undoClick()
+    {
+        yield return new WaitForSeconds(0.2f);
+        unpressed.color = Color.white;
+        pressed.color = Color.clear;
     }
 
     //Gets the current mouse position as a Vector3
