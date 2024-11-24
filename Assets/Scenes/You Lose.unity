@@ -219,7 +219,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: 40, y: 9.59, z: 44.66, w: 1.15}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -433,7 +433,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: 39.02, y: 5.27, z: 39.67, w: -1.69}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -596,6 +596,7 @@ GameObject:
   - component: {fileID: 1886902819}
   - component: {fileID: 1886902818}
   - component: {fileID: 1886902817}
+  - component: {fileID: 1886902821}
   m_Layer: 5
   m_Name: YouLoseCanvas
   m_TagString: Untagged
@@ -688,6 +689,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1886902821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886902816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a295b233191e062419ad12bae386d344, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonPlayAgain: {fileID: 1147580497}
+  buttonHome: {fileID: 1028206371}
+  tutorialObject: {fileID: 0}
+  gameManagerObject: {fileID: 0}
+  settingsMenuObject: {fileID: 0}
+  creditsObject: {fileID: 0}
 --- !u!1 &1914007690
 GameObject:
   m_ObjectHideFlags: 0

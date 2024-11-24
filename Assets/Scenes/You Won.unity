@@ -362,7 +362,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: 41.21, y: 9.52, z: 41.65, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -668,7 +668,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: 37.74, y: 7, z: 38.18, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -703,6 +703,7 @@ GameObject:
   - component: {fileID: 1754967933}
   - component: {fileID: 1754967932}
   - component: {fileID: 1754967931}
+  - component: {fileID: 1754967935}
   m_Layer: 5
   m_Name: YouWonCanvas
   m_TagString: Untagged
@@ -795,6 +796,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1754967935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1754967930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a295b233191e062419ad12bae386d344, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonPlayAgain: {fileID: 1675753101}
+  buttonHome: {fileID: 1036630475}
+  tutorialObject: {fileID: 0}
+  gameManagerObject: {fileID: 0}
+  settingsMenuObject: {fileID: 0}
+  creditsObject: {fileID: 0}
 --- !u!1 &2046832994
 GameObject:
   m_ObjectHideFlags: 0
