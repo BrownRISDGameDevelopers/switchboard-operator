@@ -197,7 +197,7 @@ public class Switchboard : MonoBehaviour
 
     public void SetSwitchTiming(Location loc, float time)
     {
-        print("pos: " + loc.Letter.ToString() + loc.Number.ToString() + " ind: " + loc.GetIndex(columns).ToString());
+        // print("pos: " + loc.Letter.ToString() + loc.Number.ToString() + " ind: " + loc.GetIndex(columns).ToString());
         Switch _switch = switches[loc.GetIndex(columns) % columns, loc.GetIndex(columns) / columns];
         _switch?.blinkSwitch(time);
     }

@@ -39,7 +39,7 @@ public class DialogueUI : MonoBehaviour
         SetVisualsVisible(false);
         OnDialogueDone?.Invoke();
 
-        StopCoroutine(TypeLine());
+        StopAllCoroutines();
     }
 
     void StartDialogue()
@@ -80,7 +80,6 @@ public class DialogueUI : MonoBehaviour
                 textComponent.text += c;
                 yield return new WaitForSeconds(textSpeed / scriptObj.Lines[i].speedScale);
             }
-
             yield return new WaitForSeconds(1);
         }
         yield return new WaitForSeconds(waitBeforeEnd);

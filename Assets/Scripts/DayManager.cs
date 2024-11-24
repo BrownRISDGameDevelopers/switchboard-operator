@@ -199,7 +199,7 @@ public class DayManager : MonoBehaviour
         }
 
         bool atob = loc_a.Equals(incomingLocation) && loc_b.Equals(outgoingLocation);
-        bool btoa = loc_b.Equals(outgoingLocation) && loc_a.Equals(incomingLocation);
+        bool btoa = loc_b.Equals(incomingLocation) && loc_a.Equals(outgoingLocation);
 
         if (atob || btoa)
         {
