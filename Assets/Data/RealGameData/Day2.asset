@@ -15,4 +15,11 @@ MonoBehaviour:
   RandomizedCallPool:
     dialogue: []
   OrderedCallPool:
-    dialogue: []
+    dialogue:
+    - dialogue: {fileID: 11400000, guid: 9d546fcf464a3284bb61e14bed5ef9c2, type: 2}
+    - dialogue: {fileID: 11400000, guid: 5dac3ed1895e22942a997c43b19e16dc, type: 2}
+    - dialogue: {fileID: 11400000, guid: b899493f93a8c4df1bfbda0bda95ff0b, type: 2}
+    - dialogue: {fileID: 11400000, guid: d5b76d72d64e34cd19334609ae872fd7, type: 2}
+    - dialogue: {fileID: 11400000, guid: 8ecea1c078aaa43a0bca2e2370eb2568, type: 2}
+    - dialogue: {fileID: 11400000, guid: d7d0d918d78fd4e5eaa6e142ad7d908f, type: 2}
+    - dialogue: {fileID: 11400000, guid: 35d16bab8d7da4eec87533b16d3ec37d, type: 2}

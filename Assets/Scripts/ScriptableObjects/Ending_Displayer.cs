@@ -13,6 +13,10 @@ public class Ending_Displayer : MonoBehaviour
     private float _curSecsPerFrame = 1.0f;
     private int _currentAnimFrame = 0;
 
+    private float _timeAfterAnimDone = 5.0f;
+
+    public delegate void AnimDoneDelegate();
+    public static event AnimDoneDelegate onAnimDone;
     // Reference the UI elements in the Inspector
     [SerializeField] private TMP_Text endingTextUI; // Assign via the Inspector or code
     [SerializeField] private Image endingPortraitUI; // Assign via the Inspector or code
@@ -21,17 +25,29 @@ public class Ending_Displayer : MonoBehaviour
     void Start()
     {
         //Ensure that UI elements are cleared initially
-        if (endingTextUI != null) endingTextUI.text = "";
-        if (endingPortraitUI != null) endingPortraitUI.sprite = null;
+        //if (endingTextUI != null) endingTextUI.text = "";
+        //if (endingPortraitUI != null) endingPortraitUI.sprite = null;
 
 
-        if (displayEndingTest)
+        if (displayEndingTest != null)
             displayEnding(displayEndingTest);
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        if (endingPortraits != null && endingPortraits.Length <= _currentAnimFrame)
+        {
+            _timeAfterAnimDone -= Time.deltaTime;
+            if (_timeAfterAnimDone < 0)
+            {
+                onAnimDone?.Invoke();
+                return;
+            }
+        }
+
+
         _curSecsPerFrame += Time.deltaTime;
         if (_curSecsPerFrame > _secsPerFrame)
         {

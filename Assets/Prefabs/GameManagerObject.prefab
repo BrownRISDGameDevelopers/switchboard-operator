@@ -258,10 +258,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   days:
   - {fileID: 11400000, guid: 84836cadc3e2f4cea8b473f4b16a70ed, type: 2}
-  - {fileID: 11400000, guid: a1e8f84dca49c47a5b5b403e8d9617d9, type: 2}
-  - {fileID: 11400000, guid: 1cf133554e9cc453abf30e25474dddb3, type: 2}
   endings: []
-  defaultEnding: {fileID: 0}
+  defaultEnding: {fileID: 11400000, guid: 6dfa8f4e69aaa475cb710b77950da5f6, type: 2}
+  strikeOutEnding: {fileID: 11400000, guid: 74632dfb7340847e5b89503ca3bd5d79, type: 2}
   musicManager: {fileID: 6529108587511448831}
 --- !u!1 &894511030335970986
 GameObject:

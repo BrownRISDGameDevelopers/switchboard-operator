@@ -43,6 +43,8 @@ public class Dialogue : ScriptableObject
 
     public CharacterToTags[] characterMap;
 
+    public int CallWeight = 3;
+
 
     // nullable
     public Tag[] GetTagsFromCharacter(CharacterInfo info)

@@ -18,4 +18,9 @@ MonoBehaviour:
     dialogue:
     - dialogue: {fileID: 11400000, guid: c9439b4a911384e8d9dde1392b72e39c, type: 2}
     - dialogue: {fileID: 11400000, guid: b32b10b54ce7d43c6b05525e610d21cf, type: 2}
-    - dialogue: {fileID: 11400000, guid: b32b10b54ce7d43c6b05525e610d21cf, type: 2}
+    - dialogue: {fileID: 11400000, guid: 2100c56592dbf41b89ffc3758d985d13, type: 2}
+    - dialogue: {fileID: 11400000, guid: 17620bf9f7e6646389df49bb819f38fd, type: 2}
+    - dialogue: {fileID: 11400000, guid: 2cb97ba301f75e149abcebf03e25cd92, type: 2}
+    - dialogue: {fileID: 11400000, guid: b41a79cf5c7534dc08ad3a78fc502e2e, type: 2}
+    - dialogue: {fileID: 11400000, guid: f04ccd0bfdc8c4c9a979f3c60e3c629f, type: 2}
+    - dialogue: {fileID: 11400000, guid: 7defe6dab2339441fb90bf8be17bad76, type: 2}

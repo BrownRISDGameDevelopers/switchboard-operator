@@ -29,15 +29,11 @@ MonoBehaviour:
   - text: "Oops. Probably shouldn\u2019t have admitted that."
     portraitType: 0
     speedScale: 1
-  - text: "Well, it\u2019s not like the entire city won\u2019t know soon enough.
-      Beauport\u2019s slapping his name on every service he can find: Beauport Electricity,
-      Beauport Public Peace Offices, Beauport Rails\u2026 Now Beauport Health and
-      Wellness!"
+  - text: "Well, it\u2019s not like the entire city won\u2019t know soon enough."
     portraitType: 0
     speedScale: 1
-  - text: "Well, it\u2019s not like the entire city won\u2019t know soon enough.
-      Beauport\u2019s slapping his name on every service he can find: Beauport Public
-      Peace Offices, Beauport Rails\u2026 Now Beauport Health and Wellness!"
+  - text: "Beauport\u2019s slapping his name on every service he can find: Beauport
+      Public Peace Offices, Beauport Rails\u2026 Now Beauport Health and Wellness!"
     portraitType: 0
     speedScale: 1
   - text: "It\u2019s almost like he\u2019s trying to take ove-"
@@ -56,3 +52,4 @@ MonoBehaviour:
   failureTags: []
   ignoreTags: []
   characterMap: []
+  CallWeight: 3

@@ -27,7 +27,7 @@ enum CallState
     DIALOGUE_COMPLETE_NO_LOCKIN = 1 << 2,
     LOCKED_IN = 1 << 3,
     ENDED = 1 << 4,
-    CANT_IGNORE = ENDED | SHOWING_DIALOGUE ,
+    CANT_IGNORE = ENDED | SHOWING_DIALOGUE,
 }
 
 class CallData
@@ -138,6 +138,9 @@ public class DayManager : MonoBehaviour
     private CharacterInfo _currentlyInDialogue = null;
 
     private ClockHand _clockHand = null;
+
+    private int _curCallWeight = 0;
+    private int _maxCallWeight = 3;
 
     void Start()
     {
@@ -366,23 +369,30 @@ public class DayManager : MonoBehaviour
         {
             return;
         }
+
+        if (_curCallWeight >= _maxCallWeight)
+        {
+            _callNextTimer = 3.0f;
+            return;
+        }
         Dialogue newCall = null;
 
 
-        newCall = TryGetNextOrderedDialogue();
+
         // TODO: How do we want to do this?
         // rn randomly get random or ordered calls, if ordered call is null, get random call
-        /*if (Random.Range(0, 100) < 50.0f && _randomizedCalls.Count > 0)
+        if (_orderedCalls.Count == 0 || (_curOrderedCall > 0 && Random.Range(0, 100) < 50.0f && _randomizedCalls.Count > 0))
         {
             newCall = PopRandomizedCall();
         }
         else
         {
+            newCall = TryGetNextOrderedDialogue();
             if (newCall == null)
             {
                 newCall = PopRandomizedCall();
             }
-        }*/
+        }
 
         print("time");
         if (newCall == null)
@@ -452,6 +462,7 @@ public class DayManager : MonoBehaviour
         _callList.Add(toAdd);
         _callingCharacters.Add(toAdd.fromCharacter);
         _callingCharacters.Add(toAdd.toCharacter);
+        _curCallWeight += toAdd.associatedDialogue.CallWeight;
     }
 
     private void RemoveCallFromData(CallData toRemove)
@@ -459,6 +470,7 @@ public class DayManager : MonoBehaviour
         _callList.Remove(toRemove);
         _callingCharacters.Remove(toRemove.fromCharacter);
         _callingCharacters.Remove(toRemove.toCharacter);
+        _curCallWeight -= toRemove.associatedDialogue.CallWeight;
     }
 
     // STATEFUL, removes from randomized calls
@@ -546,7 +558,8 @@ public class DayManager : MonoBehaviour
         if (_clockHand != null)
             _clockHand.rotateClock(_secondsLeftInDay / (_mintuesPerDay * 60.0f));
 
-        if (_secondsLeftInDay > 0)
+        if (_secondsLeftInDay > 0 &&
+             (_curOrderedCall < _orderedCalls.Count || _randomizedCalls.Count > 0 || _callList.Count > 0))
             return;
 
         OnDayEnd?.Invoke();

@@ -82,6 +82,8 @@ public class GameManager : MonoBehaviour
     private Ending[] endings;
     [SerializeField]
     private Ending defaultEnding;
+    [SerializeField]
+    private Ending strikeOutEnding;
 
     private DayManager dayManager;
     private LocationManager locationManager;
@@ -119,6 +121,8 @@ public class GameManager : MonoBehaviour
         tags.onAddTag += OnTagAddedCheckEnding;
         DayManager.OnDayEnd += OnDayEnd;
         DayManager.onStrike += OnStrike;
+
+        Ending_Displayer.onAnimDone += ReturnToMenu;
 
         DontDestroyOnLoad(this);
     }
@@ -159,8 +163,9 @@ public class GameManager : MonoBehaviour
 
     private void OnStrike(int strikes, bool recharge)
     {
+        print("ON STRIKE CALLED " + strikes.ToString());
 
-        if (strikes != 3)
+        if (strikes != 0)
             return;
 
         // Failure, go to failure
@@ -171,9 +176,8 @@ public class GameManager : MonoBehaviour
     IEnumerator WaitToGoToGameOver()
     {
         yield return new WaitForSeconds(5.0f);
-        SceneManager.LoadScene((int)Constants.SceneIndexTable.Ending);
-
-
+        EnterEnding(strikeOutEnding);
+        //SceneManager.LoadScene((int)Constants.SceneIndexTable.Ending);
     }
 
     public void LoadNewDay(Day day)
@@ -232,7 +236,9 @@ public class GameManager : MonoBehaviour
 
     private void OnEnterEnding(Scene scene, LoadSceneMode mode)
     {
+        print("On enter ending called!");
         Ending_Displayer disp = FindFirstObjectByType<Ending_Displayer>();
+        print(disp == null ? "DISP NULL" : "DISP NOT NULL");
         disp?.displayEnding(_toDisplayEnding);
         SceneManager.sceneLoaded -= OnEnterEnding;
     }
@@ -240,5 +246,6 @@ public class GameManager : MonoBehaviour
     public void ReturnToMenu()
     {
         SceneManager.LoadScene((int)Constants.SceneIndexTable.Menu);
+        Destroy(gameObject);
     }
 }
